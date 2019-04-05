@@ -1,4 +1,4 @@
-# shy3
+# Schoolhouse Yoga
 
 ## Project setup
 ```
