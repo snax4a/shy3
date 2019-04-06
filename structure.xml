@@ -1,0 +1,41 @@
+<app>
+  <header>
+    <navbar/>
+    <banner/>
+  </header>
+  <router-page-content/>
+  <footer/>
+</app>
+
+<router-pages>
+  <home/>
+  <classes/>
+  <workshops/>
+  <cart/>
+  <teacher-training/>
+  <locations/>
+  <login/>
+  <signup/>
+  <profile/>
+  <privacy/>
+  <terms/>
+  <admin>
+    <dashboard/>
+    <users/>
+    <announcements/>
+    <class-schedule/>
+    <orders/>
+    <products/>
+    <classes/>
+    <workshops/>
+    <locations/>
+  </admin>
+  <shynet>
+    <users/>
+  </shynet>
+</router-pages>
+
+<state-vuex>
+  <shopping-cart/>
+  <current-user/>
+</state-vuex>
