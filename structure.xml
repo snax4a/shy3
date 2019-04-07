@@ -3,7 +3,7 @@
     <navbar/>
     <banner/>
   </header>
-  <router-page-content/>
+  <router-view/>
   <footer/>
 </app>
 
@@ -21,7 +21,8 @@
   <terms/>
   <admin>
     <dashboard/>
-    <users/>
+    <user-manager>
+      <users-component/>
     <announcements/>
     <class-schedule/>
     <orders/>
@@ -31,9 +32,13 @@
     <locations/>
   </admin>
   <shynet>
-    <users/>
+    <users-component/>
   </shynet>
 </router-pages>
+
+<components>
+  <users-component/>
+</components>
 
 <state-vuex>
   <shopping-cart/>
