@@ -1,28 +1,22 @@
 <template lang='pug'>
 #app
-  #nav
-    router-link(to='/') Home
-    |  | 
-    router-link(to='/about') About
+  AppHeader
   router-view
+  AppFooter
 </template>
 
+<script lang="ts">
+import { Component, Vue } from 'vue-property-decorator';
+import AppHeader from '@/components/AppHeader.vue'; // @ is an alias to /src
+import AppFooter from '@/components/AppFooter.vue';
+
+@Component({
+  components: {
+    AppHeader, AppFooter,
+  },
+})
+export default class Home extends Vue {}
+</script>
+
 <style lang="scss">
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-#nav {
-  padding: 30px;
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
-}
 </style>

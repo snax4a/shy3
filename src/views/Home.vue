@@ -1,6 +1,6 @@
 <template lang='pug'>
 .home
-  img(alt='Vue logo' src='../assets/logo.png')
+  img(alt='Vue logo' src='/img/logo-192x192.png')
   HelloWorld(msg='Welcome to Your Vue.js + TypeScript App')
 </template>
 

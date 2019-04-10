@@ -1,20 +1,24 @@
 {
   "name": "Schoolhouse Yoga",
   "short_name": "SHY",
+  "description": "Discover the best yoga classes and teacher training in Pittsburgh. Squirrel Hill, East Liberty, and Ross Park schools offering Ashtanga, Flow, Prenatal, Mommy and Me, Kundalini, and Gentle Yoga.",
+  "dir": "auto",
+  "lang": "en-US",
+  "display": "standalone",
+  "orientation": "any",
+  "start_url": "/",
+  "background_color": "#fff",
+  "theme_color": "#fff",
   "icons": [
     {
-      "src": "./img/icons/android-chrome-192x192.png",
+      "src": "/img/logo-192x192.png",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "./img/icons/android-chrome-512x512.png",
+      "src": "/img/logo-512x512.png",
       "sizes": "512x512",
       "type": "image/png"
     }
-  ],
-  "start_url": "./index.html",
-  "display": "standalone",
-  "background_color": "#000000",
-  "theme_color": "#4DBA87"
+  ]
 }
