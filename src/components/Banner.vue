@@ -1,5 +1,6 @@
 <template lang='pug'>
-h1 Banner
+.container
+  h1 Banner
 </template>
 
 <script lang="ts">
@@ -10,6 +11,4 @@ export default class Banner extends Vue {}
 </script>
 
 <style scoped lang="scss">
-@import "../scss/variables.scss";
-
 </style>

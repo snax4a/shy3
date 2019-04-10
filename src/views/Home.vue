@@ -1,5 +1,5 @@
 <template lang='pug'>
-.home
+.home.container
   img(alt='Vue logo' src='/img/logo-192x192.png')
   HelloWorld(msg='Welcome to Your Vue.js + TypeScript App')
 </template>

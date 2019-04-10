@@ -38,8 +38,6 @@ export default class AppFooter extends Vue {}
 </script>
 
 <style scoped lang="scss">
-@import "../scss/variables.scss";
-
 footer {
 	margin-top: 30px;
 	margin-bottom: 0;
