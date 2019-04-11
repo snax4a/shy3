@@ -10,11 +10,11 @@
     "test:unit": "vue-cli-service test:unit"
   },
   "dependencies": {
-    "@fortawesome/fontawesome-free": "^5.8.1",
+    "@types/vue": "^2.0.0",
     "axios": "^0.18.0",
     "bootstrap": "^4.3.1",
     "bootstrap-vue": "^2.0.0-rc.18",
-    "braintree-web": "^3.44.1",
+    "braintree-web": "^3.44.2",
     "chart.js": "^2.8.0",
     "register-service-worker": "^1.6.2",
     "vue": "^2.6.10",
@@ -24,6 +24,11 @@
     "vuex": "^3.1.0"
   },
   "devDependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.17",
+    "@fortawesome/free-solid-svg-icons": "^5.8.1",
+    "@fortawesome/free-regular-svg-icons": "^5.8.1",
+    "@fortawesome/free-brands-svg-icons": "^5.8.1",
+    "@fortawesome/vue-fontawesome": "^0.1.6",
     "@types/jest": "^24.0.11",
     "@vue/cli-plugin-e2e-cypress": "^3.5.1",
     "@vue/cli-plugin-pwa": "^3.5.1",
