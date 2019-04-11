@@ -16,6 +16,10 @@ body, td, th, input, textarea, select {
   -webkit-font-smoothing: antialiased;
 }
 
+a {
+  color: $brand-base;
+}
+
 a:hover {
   color: orange;
 }

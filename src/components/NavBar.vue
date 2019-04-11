@@ -1,5 +1,5 @@
 <template lang='pug'>
-b-navbar(toggleable='md', type='light')
+b-navbar(toggleable='md', type='primary')
   .container
     b-navbar-brand(to='/')
       img.brand(src='/img/logo-512x512.png', srcset='/img/logo.svg', alt='Schoolhouse Yoga Pittsburgh seal')
@@ -94,6 +94,21 @@ export default class NavBar extends Vue {}
 </script>
 
 <style scoped lang="scss">
+.dropdown-item {
+  color: $brand-base!important;
+}
+
+.dropdown-item:hover {
+  color: orange!important;
+}
+
+li>.router-link-exact-active {
+  background-image: linear-gradient(180deg,#dbdbdb 0,#e2e2e2);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#FFDBDBDB",endColorstr="#FFE2E2E2",GradientType=0);
+  background-repeat: repeat-x;
+  box-shadow: inset 0 3px 9px rgba(0,0,0,.075);
+}
+
 img.brand {
   height:170px;
   width: 170px;

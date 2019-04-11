@@ -7,6 +7,8 @@ $fa-font-path: '~@fortawesome/fontawesome-free/webfonts';
 $brand-light: lighten($brand-base, 33.5%);
 $shy-orange: #f0ad4e;
 $shy-errors: #a94442;
+$link-color: $brand-base;
+$link-hover-color: $shy-orange;
 $link-hover-decoration: none;
 $input-border-focus: $brand-base;
 $enable-gradients: true;
