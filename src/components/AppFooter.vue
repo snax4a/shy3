@@ -2,30 +2,30 @@
 footer
   .container
     .row
-      .col-xs-12.col-sm-6.col-md-7.col-lg-6.left
+      .col-sm-5.col-md-7.col-lg-8.text-center.text-sm-left
         a.btn.social(href='/classes', alt='Schedule for Yoga Classes in Squirrel Hill, East Liberty, and North Hills')
-          span.far.fa-calendar-alt.fa-2x
-        a.hidden-xs(href='/classes', alt='Class Schedule', style='margin-right: 20px;') Class Schedule
+          fa.fa-2x(icon='calendar-alt')
+        a.d-none.d-md-inline.schedule(href='/classes', alt='Class Schedule') Class Schedule
         a.btn.social(href='/locations', alt='Directions to our Pittsburgh yoga schools')
-          span.fas.fa-map-marker-alt.fa-2x
-        span.hidden-sm.hidden-xs
+          fa.fa-2x(icon='map-marker-alt')
+        span.d-none.d-lg-inline
           a(href='/locations#squirrelhill', alt='Directions to Squirrel Hill school') Squirrel Hill
           a(href='/locations#eastliberty', alt='Directions to East Liberty school') East Liberty
           a(href='/locations#northhills', alt='Directions to North Hills school') North Hills
-        div.xs-visible(style='margin-top:10px;')
-      .col-xs-12.col-sm-6.col-md-5.col-lg-offset-1.right
+        .spacer.d-block
+      .col-sm-7.col-md-5.col-lg-4.text-center.text-sm-right
         a.btn.social(href='https://twitter.com/schoolhouseyoga', alt='Twitter', target='_blank') 
-          span.fab.fa-twitter.fa-2x
+          fa.fa-2x(:icon='["fab", "twitter"]')
         a.btn.social(href='https://facebook.com/schoolhouseyoga', alt='Facebook', target='_blank') 
-          span.fab.fa-facebook-f.fa-2x
+          fa.fa-2x(:icon='["fab", "facebook-f"]')
         a.btn.social(href='https://instagram.com/schoolhouseyoga', alt='Instagram', target='_blank') 
-          span.fab.fa-instagram.fa-2x
+          fa.fa-2x(:icon='["fab", "instagram"]')
         a.btn.social(href='https://www.youtube.com/watch?v=fxuAnP2GF0I&feature=youtu.be', alt='YouTube', target='_blank') 
-          span.fab.fa-youtube.fa-2x
+          fa.fa-2x(:icon='["fab", "youtube"]')
     .row &nbsp;
     .row
-      .col-xs-12.col-sm-6.left &copy; 2019 Schoolhouse Yoga, Inc. - All Rights Reserved
-      .col-xs-12.col-sm-6.right
+      .col-md-6.text-center.text-md-left &copy; 2019 Schoolhouse Yoga, Inc. - All Rights Reserved
+      .col-md-6.text-center.text-md-right
         a(href='/privacy', alt='Privacy Policy') Privacy Policy
         a(href='/terms', alt='Terms of use') Terms of Use
 </template>
@@ -60,11 +60,19 @@ footer a:hover {
 	color: #fff;
 }
 
+.schedule {
+  margin-right: 20px;
+}
+
+.spacer {
+  margin-top:10px;
+}
+
 a.social {
 	padding: 10px 0 0 0;
 	// margin-bottom: 10px;
-	width: 50px;
-	height: 50px;
+	width: 54px;
+	height: 54px;
 	border-radius: 50%;
 	border-width: 1px;
 	background-color: $shy-lavender;
@@ -76,11 +84,5 @@ a.social:hover {
 	color: $brand-primary;
 	background-color: #fff;
 	border-color: #fff;
-}
-
-@media (max-width: 768px) {
-	.col-xs-12.right, .col-xs-12.left {
-			text-align: center;
-	 } 
 }
 </style>
