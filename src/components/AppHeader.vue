@@ -1,6 +1,6 @@
 <template lang='pug'>
 header
-  NavBar
+  NavBar(count='0', v-bind:user='{ firstName: "John", lastName: "Doe", loggedIn: true, role: "student" }')
   Banner
 </template>
 
