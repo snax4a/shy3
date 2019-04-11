@@ -5,8 +5,98 @@
 @import 'node_modules/bootstrap/scss/bootstrap';
 @import 'node_modules/bootstrap-vue/src/index.scss';
 
-// Load FontAwesome
-@import '~@fortawesome/fontawesome-free/scss/fontawesome';
-@import '~@fortawesome/fontawesome-free/scss/regular';
-@import '~@fortawesome/fontawesome-free/scss/solid';
-@import '~@fortawesome/fontawesome-free/scss/brands';
+// xs < 576px
+// sm 577px - 767px
+// md 768px - 991px
+// lg 992px - 1199px
+// xl 1200px+
+
+body, td, th, input, textarea, select {
+  color: #333333;
+  -webkit-font-smoothing: antialiased;
+}
+
+a:hover {
+  color: orange;
+}
+
+h1 {
+  font-size: 30px;
+  margin-bottom: 17px;
+}
+
+h1, h2, a {
+  color: $brand-primary;
+}
+
+h2 {
+  margin-top: 0;
+  white-space: normal!important;
+  font-size: 18px;
+}
+
+.has-error {
+  color: $shy-errors;
+}
+
+.help-block {
+  margin-bottom: 0px;
+}
+
+.apple-pay-button {
+  height: 34px;
+  width: 74px;
+  cursor: pointer;
+}
+
+.btn-lg {
+  width: 131px;
+}
+
+.btn-lg.pull-left {
+  margin-right: 10px;
+}
+
+@supports (-webkit-appearance: -apple-pay-button) { 
+  .apple-pay-button {
+    display: inline-block;
+    -webkit-appearance: -apple-pay-button;
+  }
+  .apple-pay-button-black {
+    -apple-pay-button-style: black;
+  }
+  .apple-pay-button-white {
+    -apple-pay-button-style: white;
+  }
+  .apple-pay-button-white-with-line {
+    -apple-pay-button-style: white-outline;
+  }
+}
+
+@supports not (-webkit-appearance: -apple-pay-button) {
+  .apple-pay-button {
+    display: inline-block;
+    background-size: 100% 60%;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    border-radius: 5px;
+    padding: 0px;
+    box-sizing: border-box;
+    min-width: 100px;
+    min-height: 34px;
+    max-height: 64px;
+  }
+  .apple-pay-button-black {
+    background-image: -webkit-named-image(apple-pay-logo-white);
+    background-color: black;
+  }
+  .apple-pay-button-white {
+    background-image: -webkit-named-image(apple-pay-logo-black);
+    background-color: white;
+  }
+  .apple-pay-button-white-with-line {
+    background-image: -webkit-named-image(apple-pay-logo-black);
+    background-color: white;
+    border: .5px solid black;
+  } 
+}

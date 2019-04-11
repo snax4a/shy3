@@ -2,3 +2,11 @@ $brand-base: #6f5499;
 $brand-primary: darken($brand-base, 6.5%);
 $shy-lavender: #c9bddb;
 $fa-font-path: '~@fortawesome/fontawesome-free/webfonts';
+
+// Not used yet - check against shy2's scss as Bootstrap there is 4.x
+$brand-light: lighten($brand-base, 33.5%);
+$shy-orange: #f0ad4e;
+$shy-errors: #a94442;
+$link-hover-decoration: none;
+$input-border-focus: $brand-base;
+$enable-gradients: true;
