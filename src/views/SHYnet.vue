@@ -1,11 +1,11 @@
 <template lang='pug'>
-.container.cart
-  h1 Shopping Cart
+.container.shynet
+  h1 SHYnet
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 
 @Component
-export default class Cart extends Vue {}
+export default class SHYnet extends Vue {}
 </script>

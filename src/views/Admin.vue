@@ -1,11 +1,11 @@
 <template lang='pug'>
-.container.cart
-  h1 Shopping Cart
+.container.admin
+  h1 Admin
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 
 @Component
-export default class Cart extends Vue {}
+export default class Admin extends Vue {}
 </script>
