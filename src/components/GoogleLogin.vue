@@ -11,8 +11,9 @@ import { Component, Vue, Prop } from 'vue-property-decorator';
 export default class GoogleLogin extends Vue {
   @Prop({ default: 'a workshop' }) private title!: string;
   @Prop({ default: 'https://www.schoolhouseyoga.com/workshops' }) private url!: string;
-  login() {
-    console.log('Logged in');
+
+  private login() {
+    // console.log('Logged in');
   }
 }
 </script>
