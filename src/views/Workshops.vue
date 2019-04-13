@@ -4,17 +4,20 @@
   h2 H2 This is a test
   p P Here's some text to view
   Tweet(title='Moon Salutations Workshop', url='https://www.schoolhouseyoga.com/workshops')
+  br
+  AddToCalendar(label=false, title='Test Event')
 </template>
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator';
 import Tweet from '@/components/Tweet.vue';
+import AddToCalendar from '@/components/AddToCalendar.vue';
 
 declare let window: any; // suppress window.twttr error
 
 @Component({
   components: {
-    Tweet,
+    Tweet, AddToCalendar,
   },
 })
 export default class Workshops extends Vue {
@@ -26,8 +29,8 @@ export default class Workshops extends Vue {
 </script>
 
 <style lang="scss">
-.twitter-share-button {
-  width: 78px;
-  height: 26px;
-}
+// .twitter-share-button {
+  // width: 78px; // default 76px
+  // height: 26px; // default 28px
+// }
 </style>

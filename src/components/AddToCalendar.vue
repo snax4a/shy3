@@ -67,7 +67,5 @@ END:VCALENDAR`);
     str = str.substring(0, maxLength || 250);
     return str;
   }
-
-  // https://calendar.google.com/calendar/r/eventedit?text=Yoga+1&dates=20190414T090000/20190414T102000&details=undefined&location=East+Liberty
 }
 </script>
