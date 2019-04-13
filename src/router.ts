@@ -1,18 +1,18 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import Classes from './views/Classes.vue';
-import Workshops from './views/Workshops.vue';
-import Cart from './views/Cart.vue';
-import Home from './views/Home.vue';
-import Login from './views/Login.vue';
-import Profile from './views/Profile.vue';
-import Privacy from './views/Privacy.vue';
-import Terms from './views/Terms.vue';
-import Locations from './views/Locations.vue';
-import TeacherTraining from './views/TeacherTraining.vue';
-import Signup from './views/Signup.vue';
-// import Admin from './views/Admin.vue';
-// import SHYnet from './views/SHYnet.vue';
+import Classes from '@/views/Classes.vue';
+import Workshops from '@/views/Workshops.vue';
+import Cart from '@/views/Cart.vue';
+import Home from '@/views/Home.vue';
+import Login from '@/views/Login.vue';
+import Profile from '@/views/Profile.vue';
+import Privacy from '@/views/Privacy.vue';
+import Terms from '@/views/Terms.vue';
+import Locations from '@/views/Locations.vue';
+import TeacherTraining from '@/views/TeacherTraining.vue';
+import Signup from '@/views/Signup.vue';
+// import Admin from '@/views/Admin.vue';
+// import SHYnet from '@/views/SHYnet.vue';
 
 Vue.use(Router);
 
@@ -78,12 +78,16 @@ export default new Router({
     {
       path: '/admin',
       name: 'admin',
-      component: () => import(/* webpackChunkName: "admin" */ './views/Admin.vue'), // lazy-loaded
+      component: () => import(/* webpackChunkName: "admin" */ '@/views/Admin.vue'), // lazy-loaded
     },
     {
       path: '/shynet',
       name: 'shynet',
-      component: () => import(/* webpackChunkName: "shynet" */ './views/SHYnet.vue'), // lazy-loaded
+      component: () => import(/* webpackChunkName: "shynet" */ '@/views/SHYnet.vue'), // lazy-loaded
     },
   ],
+  scrollBehavior(to, from, savedPosition) {
+    // classes, workshops, and locations routes should not reset to top if a hash is provided
+    return { x: 0, y: 0 };
+  },
 });
