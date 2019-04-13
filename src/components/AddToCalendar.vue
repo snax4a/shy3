@@ -1,5 +1,5 @@
 <template lang='pug'>
-b-dropdown(variant='outline-primary', v-if='!edge')
+b-dropdown.add-to-calendar(variant='outline-primary', v-if='!edge')
   template(slot='button-content')
     fa(:icon='["far", "calendar-plus"]')
     | &nbsp;
@@ -29,11 +29,13 @@ export default class AddToCalendar extends Vue {
   @Prop({ default: '2020-01-01T11:00' }) private ends!: string;
   @Prop({ default: false }) private weekly!: boolean;
   @Prop({ default: window.navigator.userAgent.indexOf('Edge') > -1 }) private edge!: boolean;
-  @Prop() private icsFile!: string;
-  @Prop() private googleCalendarUrl!: string;
 
-  private mounted() {
-    const iCal = encodeURIComponent(`BEGIN:VCALENDAR
+  get googleCalendarUrl(): string {
+    return `https://www.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(this.title)}&dates=${this.iCalUTC(this.starts)}/${this.iCalUTC(this.ends)}&details=${encodeURIComponent(this.description)}&location=${encodeURIComponent(this.location)}`;
+  }
+
+  get icsFile(): string {
+      const iCal = encodeURIComponent(`BEGIN:VCALENDAR
 VERSION:2.0
 PRODID:-//Schoolhouse Yoga, Inc.//Website//EN
 BEGIN:VEVENT
@@ -51,15 +53,14 @@ ATTACH;VALUE=URI:Chord
 END:VALARM
 END:VEVENT
 END:VCALENDAR`);
-    this.icsFile = `data:text/calendar;charset=utf-8,${iCal}`;
-    this.googleCalendarUrl = `https://www.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(this.title)}&dates=${this.iCalUTC(this.starts)}/${this.iCalUTC(this.ends)}&details=${encodeURIComponent(this.description)}&location=${encodeURIComponent(this.location)}`;
+    return `data:text/calendar;charset=utf-8,${iCal}`;
   }
 
   private iCalUTC(isoDate: string) {
     return moment(isoDate, moment.ISO_8601).format('YYYYMMDDTHHmmss');
   }
 
-  private iCalText(str: string, maxLength: number) {
+  private iCalText(str: string, maxLength: number): string {
     if (!str) {
       return '';
     }
@@ -69,3 +70,10 @@ END:VCALENDAR`);
   }
 }
 </script>
+
+<style lang="scss">
+.add-to-calendar > .btn-outline-primary {
+  border-color: #fff;
+  padding: 0;
+}
+</style>

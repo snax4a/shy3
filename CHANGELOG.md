@@ -1,4 +1,5 @@
 # Product Backlog
+* [High] Make Login a b-dropdown-form tied to Component
 * [High] Build ShoppingCart, ProductList, and User using Vuex
 * [High] GoogleLogin component - login via Oauth to Google (currently /auth/google)
 * [High] Create UserManager component for Admin and SHYnet views
