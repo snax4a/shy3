@@ -4,7 +4,6 @@ import Classes from '@/views/Classes.vue';
 import Workshops from '@/views/Workshops.vue';
 import Cart from '@/views/Cart.vue';
 import Home from '@/views/Home.vue';
-import Login from '@/views/Login.vue';
 import Profile from '@/views/Profile.vue';
 import Privacy from '@/views/Privacy.vue';
 import Terms from '@/views/Terms.vue';
@@ -34,11 +33,6 @@ export default new Router({
       path: '/workshops',
       name: 'workshops',
       component: Workshops,
-    },
-    {
-      path: '/login',
-      name: 'login',
-      component: Login,
     },
     {
       path: '/cart',

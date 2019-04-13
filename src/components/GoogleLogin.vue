@@ -1,5 +1,5 @@
 <template lang='pug'>
-b-button(@click='login()', variant='warning', size='lg')
+b-button(@click='login()', variant='warning')
   img.img-google(src='/img/google.svg')
   |  Google Login
 </template>
@@ -19,9 +19,9 @@ export default class GoogleLogin extends Vue {
 </script>
 
 <style scoped lang="scss">
-.btn-warning:hover {
-  background-position: 0 -42px;
-}
+// .btn-warning:hover {
+//   background-position: 0 -42px;
+// }
 
 .img-google {
   height: 21px;

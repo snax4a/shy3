@@ -20,7 +20,22 @@
         b-nav-item(to='/shynet', v-if='user.loggedIn && user.role != "student"') SHYnet
       // Right aligned nav items
       b-navbar-nav.ml-auto
-        b-nav-item(to='/login', v-if='!user.loggedIn') Login
+
+        b-dropdown(text='Login',  v-if='!user.loggedIn', variant='outline-primary' right='')
+          b-dropdown-form
+            GoogleLogin
+            // b-dropdown-divider
+            b-dropdown-header or
+            // b-dropdown-divider
+            b-form-group(label='Email', label-for='email')
+              b-form-input(id='email', placeholder='email@example.com', autofocus='')
+            b-form-group(label='Password', label-for='password')
+              b-form-input(id='password', type='password')
+            b-button(variant='warning', @click='login') Login
+            b-dropdown-divider
+            b-dropdown-item-button Forgot Password?
+            b-dropdown-item(to='/signup') Sign up
+
         b-nav-item-dropdown(right='', v-if='user.loggedIn')
           template(slot='button-content')
             fa(icon='user')
@@ -39,8 +54,14 @@
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator';
+import GoogleLogin from '@/components/GoogleLogin.vue';
 
-@Component
+@Component({
+  components: {
+    GoogleLogin,
+  },
+})
+
 export default class NavBar extends Vue {
   @Prop({ default: 0 }) private count!: number;
   @Prop({ default: { firstName: 'Guest', lastName: 'User', loggedIn: false, role: 'student' } }) private user!: any;
@@ -76,5 +97,9 @@ img.brand {
   height:170px;
   width: 170px;
   margin-top: 20px;
+}
+
+.dropdown-header {
+  padding-left: 60px;
 }
 </style>
