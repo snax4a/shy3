@@ -12,31 +12,22 @@
 // xl 1200px+
 
 body, td, th, input, textarea, select {
-  color: #333333;
   -webkit-font-smoothing: antialiased;
 }
 
-a {
-  color: $brand-base;
-}
-
-a:hover {
-  color: orange;
+h1, h2 {
+  color: $brand-primary;
 }
 
 h1 {
-  font-size: 30px;
+  // font-size: 30px;
   margin-bottom: 17px;
-}
-
-h1, h2, a {
-  color: $brand-primary;
 }
 
 h2 {
   margin-top: 0;
-  white-space: normal!important;
-  font-size: 18px;
+  // white-space: normal!important;
+  // font-size: 18px;
 }
 
 .has-error {
@@ -44,7 +35,7 @@ h2 {
 }
 
 .help-block {
-  margin-bottom: 0px;
+  margin-bottom: 0;
 }
 
 .apple-pay-button {
@@ -53,13 +44,31 @@ h2 {
   cursor: pointer;
 }
 
-.btn-lg {
-  width: 131px;
+// 3D buttons
+.btn-warning {
+  background-image: linear-gradient(180deg,#f0ad4e 0,#eb9316);
+  background-repeat: repeat-x;
+  border-color: #e38d13;
+  box-shadow: inset 0 1px 0 hsla(0,0%,100%,.15), 0 1px 1px rgba(0,0,0,.075)!important;
+  text-shadow: 0 -1px 0 rgba(0,0,0,.2);
+  background-color: #f0ad4e;
+  color: #fff;
 }
 
-.btn-lg.pull-left {
-  margin-right: 10px;
+.btn-warning:hover {
+  background-color: #eb9316;
+  background-position: 0 -34px;
+  border-color: #d58512;
+  color: #fff;
+  text-decoration: none;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 1px 1px rgba(0, 0, 0, 0.075);
 }
+
+// .btn {
+//   font-size: 14px;
+//   line-height: 1.42857;
+//   transition: none;
+// }
 
 @supports (-webkit-appearance: -apple-pay-button) { 
   .apple-pay-button {

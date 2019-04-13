@@ -71,8 +71,8 @@ footer a:hover {
 a.social {
 	padding: 10px 0 0 0;
 	// margin-bottom: 10px;
-	width: 54px;
-	height: 54px;
+	width: 50px;
+	height: 50px;
 	border-radius: 50%;
 	border-width: 1px;
 	background-color: $shy-lavender;

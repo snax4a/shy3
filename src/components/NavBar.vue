@@ -1,10 +1,10 @@
 <template lang='pug'>
-b-navbar(toggleable='md', type='primary')
-  .container
+.container
+  b-navbar(toggleable='md', type='light')
     b-navbar-brand(to='/')
       img.brand(src='/img/logo-512x512.png', srcset='/img/logo.svg', alt='Schoolhouse Yoga Pittsburgh seal')
     b-navbar-toggle(target='nav-collapse')
-    b-collapse#nav-collapse(is-nav='')
+    b-collapse.text-right#nav-collapse(is-nav='')
       b-navbar-nav
         b-nav-item(to='/classes') Classes
         b-nav-item(to='/workshops')
@@ -25,14 +25,14 @@ b-navbar(toggleable='md', type='primary')
           template(slot='button-content')
             fa(icon='user')
             | &nbsp;{{ user.firstName }}
-          b-dropdown-item(to='/profile') Profile
-          b-dropdown-item(to='/logout') Logout
-        b-nav-item-dropdown(text='Contact', right='')
-          b-dropdown-item(href='#')
+          b-dropdown-item.text-right(to='/profile') Profile
+          b-dropdown-item.text-right(to='/logout') Logout
+        b-nav-item-dropdown.text-right(text='Contact', right='')
+          b-dropdown-item.text-right(href='#')
             // Open modal dialog (contact)
             fa(icon='envelope')
             | &nbsp;&nbsp;Send a message online
-          b-dropdown-item(href='tel:+1-412-401-4444')
+          b-dropdown-item.text-right(href='tel:+1-412-401-4444')
             fa(icon='phone')
             | &nbsp;&nbsp;Call +1 (412) 401-4444
 </template>
@@ -48,28 +48,33 @@ export default class NavBar extends Vue {
 </script>
 
 <style scoped lang="scss">
+.navbar {
+	border-bottom: 0;
+  margin-bottom: 0;
+  padding: 0;
+}
+
+.navbar-brand {
+  float: left;
+  height: 50px;
+}
+
+.navbar .container {
+	padding-top: env(safe-area-inset-top);
+}
+
 .badge {
 	position: relative;
 	top: -2px;
 }
 
-.dropdown-item {
-  color: $brand-base!important;
-}
-
-.dropdown-item:hover {
-  color: orange!important;
-}
-
 li>.router-link-exact-active {
-  background-image: linear-gradient(180deg,#dbdbdb 0,#e2e2e2);
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#FFDBDBDB",endColorstr="#FFE2E2E2",GradientType=0);
-  background-repeat: repeat-x;
-  box-shadow: inset 0 3px 9px rgba(0,0,0,.075);
+  color: gray!important;
 }
 
 img.brand {
   height:170px;
   width: 170px;
+  margin-top: 20px;
 }
 </style>
