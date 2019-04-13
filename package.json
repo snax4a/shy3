@@ -1,7 +1,18 @@
 {
   "name": "shy",
-  "version": "0.1.0",
   "private": true,
+  "version": "0.1.0",
+  "description": "Schoolhouse Yoga's Website",
+  "author": "Nate Stuyvesant",
+  "license": "https://www.schoolhouseyoga.com/terms",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nstuyvesant/shy3.git"
+  },
+  "bugs": {
+    "url": "https://github.com/nstuyvesant/shy3/issues"
+  },
+  "homepage": "https://github.com/nstuyvesant/shy3",
   "scripts": {
     "serve": "vue-cli-service serve --open",
     "build": "vue-cli-service build",
@@ -15,11 +26,12 @@
     "bootstrap-vue": "^2.0.0-rc.18",
     "braintree-web": "^3.44.2",
     "chart.js": "^2.8.0",
+    "moment": "^2.24.0",
     "register-service-worker": "^1.6.2",
     "vue": "^2.6.10",
     "vue-class-component": "^7.0.2",
     "vue-property-decorator": "^8.1.0",
-    "vue-router": "^3.0.3",
+    "vue-router": "^3.0.4",
     "vuex": "^3.1.0"
   },
   "devDependencies": {
