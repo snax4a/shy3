@@ -20,19 +20,20 @@
         b-nav-item(to='/shynet', v-if='user.loggedIn && user.role != "student"') SHYnet
       b-navbar-nav.ml-auto
         b-dropdown(text='Login',  v-if='!user.loggedIn', variant='outline-primary', right='', @shown='focusEmail')
+          .text-center
+            GoogleLogin
+          b-dropdown-header.text-center or
+          b-dropdown-divider
           b-dropdown-form.login(@submit.prevent='login', novalidate='', autocomplete='on')
-            .text-center
-              GoogleLogin
-            b-dropdown-header.text-center or
             b-form-group(label='Email', label-for='email')
               b-form-input(id='email', placeholder='email@example.com', autocomplete='email', maxlength='80', ref='email')
             b-form-group(label='Password', label-for='password')
               b-form-input(id='password', type='password', autocomplete='current-password', maxlength='20', placeholder='Password')
             .text-right
               b-button(variant='warning', type='submit') Login
-            b-dropdown-divider
-            b-dropdown-item-button Forgot Password?
-            b-dropdown-item(to='/signup') Sign up
+          b-dropdown-divider
+          b-dropdown-item-button Forgot Password?
+          b-dropdown-item(to='/signup') Sign up
         b-nav-item-dropdown(right='', v-if='user.loggedIn')
           template(slot='button-content')
             fa(icon='user')
@@ -40,11 +41,11 @@
           b-dropdown-item.text-right(to='/profile') Profile
           b-dropdown-item.text-right(to='/logout') Logout
         b-nav-item-dropdown.text-right(text='Contact', variant='outline-primary', right='', @shown='focusFirstName')
+          b-dropdown-item.text-center(href='tel:+1-412-401-4444')
+            fa(icon='phone')
+            | &nbsp;&nbsp;Call +1 (412) 401-4444
+          b-dropdown-divider
           b-dropdown-form.contact(@submit.prevent='contact', novalidate='', autocomplete='on')
-            b-dropdown-item.text-right(href='tel:+1-412-401-4444')
-              fa(icon='phone')
-              | &nbsp;&nbsp;Call +1 (412) 401-4444
-            b-dropdown-header.text-center or
             b-form-group(label='First name', label-for='firstName')
               b-form-input(id='firstName', placeholder='First name', autocomplete='given-name', maxlength='20', ref='firstName')
             b-form-group(label='Last name', label-for='lastName')
@@ -88,6 +89,10 @@ export default class NavBar extends Vue {
   private login(e: any) {
     // console.log(evt);
     // alert(JSON.stringify(this.form));
+  }
+
+  private contact(e: any) {
+
   }
 }
 </script>
