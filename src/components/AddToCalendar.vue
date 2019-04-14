@@ -31,10 +31,12 @@ export default class AddToCalendar extends Vue {
   @Prop({ default: window.navigator.userAgent.indexOf('Edge') > -1 }) private edge!: boolean;
 
   get googleCalendarUrl(): string {
+    // tslint:disable-next-line
     return `https://www.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(this.title)}&dates=${this.iCalUTC(this.starts)}/${this.iCalUTC(this.ends)}&details=${encodeURIComponent(this.description)}&location=${encodeURIComponent(this.location)}`;
   }
 
   get icsFile(): string {
+      /* tslint:disable */
       const iCal = encodeURIComponent(`BEGIN:VCALENDAR
 VERSION:2.0
 PRODID:-//Schoolhouse Yoga, Inc.//Website//EN
@@ -54,6 +56,7 @@ END:VALARM
 END:VEVENT
 END:VCALENDAR`);
     return `data:text/calendar;charset=utf-8,${iCal}`;
+    /* tslint:enable */
   }
 
   private iCalUTC(isoDate: string) {
