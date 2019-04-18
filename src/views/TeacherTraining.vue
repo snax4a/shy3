@@ -43,15 +43,15 @@
         br
         | The deadline to withdraw from the program is February 10th. A non-refundable fee
         | of $100 will apply. No refunds will be granted after February 10th.
-      b-form(@submit.prevent='onSubmit')
+      b-form(@submit.prevent='addToCart')
         b-form-group(label='Payment Options')
-          b-form-radio(v-model='productId', name='paymentTerms', value='98') Payment in full ($2,750) 
-          b-form-radio(v-model='productId', name='paymentTerms', value='99') 9 x Monthly payments ($334/each)
-        b-form-checkbox(v-model='agreed') I agree to these terms and conditions.
-        span.has-error(v-if='!agreed') You must select this checkbox to proceed.            
-      br
-      button.btn.btn-warning.submit(type='submit', v-if='!applePaySupported', :disabled='!agreed') Pay Now
-      button.apple-pay-button(v-if='applePaySupported', :disabled='!agreed')
+          b-form-radio(v-model='form.productId', name='paymentTerms', value='98') Payment in full ($2,750) 
+          b-form-radio(v-model='form.productId', name='paymentTerms', value='99') 9 x Monthly payments ($334/each)
+        b-form-checkbox(v-model='form.agreed', aria-describedby='password-help-block') I agree to these terms and conditions.
+        b-form-text.has-error(id='agreed-help-block', v-if='!form.agreed') You must select this checkbox to proceed.            
+        br
+        b-button.btn-warning.submit(type='submit', v-if='!applePaySupported', :disabled='!form.agreed') Pay Now
+        b-button.apple-pay-button(v-if='applePaySupported', :disabled='!form.agreed')
 </template>
 
 <script lang="ts">
@@ -59,12 +59,14 @@ import { Component, Vue } from 'vue-property-decorator';
 
 @Component
 export default class TeacherTraining extends Vue {
-  private productId: number = 98;
-  private agreed: boolean = false;
   private applePaySupported: boolean = false;
+  private form: any = {
+    agreed: false,
+    productId: 98,
+  };
 
-  private onSubmit(e: any) {
-    console.log(this.productId);
+  private addToCart(evt: any) {
+    alert(JSON.stringify(this.form));
   }
 }
 </script>

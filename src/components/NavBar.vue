@@ -25,10 +25,10 @@
           b-dropdown-header.text-center or
           b-dropdown-divider
           b-dropdown-form.login(@submit.prevent='login', novalidate='', autocomplete='on')
-            b-form-group(label='Email', label-for='email')
-              b-form-input(id='email', placeholder='email@example.com', autocomplete='email', maxlength='80', ref='email')
+            b-form-group(label='Email', label-for='userEmail')
+              b-form-input(v-model='user.email', id='userEmail', placeholder='email@example.com', autocomplete='email', maxlength='80', ref='email')
             b-form-group(label='Password', label-for='password')
-              b-form-input(id='password', type='password', autocomplete='current-password', maxlength='20', placeholder='Password')
+              b-form-input(v-model='user.password', id='password', type='password', autocomplete='current-password', maxlength='20', placeholder='Password')
             .text-right
               b-button(variant='warning', type='submit') Login
           b-dropdown-divider
@@ -47,16 +47,17 @@
           b-dropdown-divider
           b-dropdown-form.contact(@submit.prevent='contact', novalidate='', autocomplete='on')
             b-form-group(label='First name', label-for='firstName')
-              b-form-input(id='firstName', placeholder='First name', autocomplete='given-name', maxlength='20', ref='firstName')
+              b-form-input(v-model='contact.firstName', id='firstName', placeholder='First name', autocomplete='given-name', maxlength='20', ref='firstName', aria-describedby='first-name-error')
+              b-form-text.has-error(id='first-name-error', v-if='!contact.firstName') Please provide your first name.
             b-form-group(label='Last name', label-for='lastName')
-              b-form-input(id='lastName', placeholder='Last name', autocomplete='family-name', maxlength='20')
+              b-form-input(v-model='contact.lastName', id='lastName', placeholder='Last name', autocomplete='family-name', maxlength='20')
             b-form-group(label='Email', label-for='contactEmail')
-              b-form-input(id='contactEmail', placeholder='email@example.com', autocomplete='email', maxlength='80')
+              b-form-input(v-model='contact.email', id='contactEmail', placeholder='email@example.com', autocomplete='email', maxlength='80')
             b-form-group(label='Phone', label-for='phone')
-              b-form-input(id='phone', type='tel', placeholder='412-555-1212', autocomplete='tel-national', maxlength='14')
+              b-form-input(v-model='contact.phone', id='phone', type='tel', placeholder='412-555-1212', autocomplete='tel-national', maxlength='14')
             b-form-group(label='Comment or question', label-for='question')
-              b-form-textarea(id='question', rows='3', placeholder='Comment or question')
-            b-form-checkbox(id='optOut') Do not subscribe to newsletter
+              b-form-textarea(v-model='contact.quest', id='question', rows='3', placeholder='Comment or question')
+            b-form-checkbox(v-model='optOut') Do not subscribe to newsletter
             br
             .text-right
               b-button(variant='warning', type='submit') Submit
@@ -74,7 +75,8 @@ import GoogleLogin from '@/components/GoogleLogin.vue';
 
 export default class NavBar extends Vue {
   @Prop({ default: 0 }) private count!: number;
-  @Prop({ default: { firstName: 'Guest', lastName: 'User', loggedIn: false, role: 'student' } }) private user!: any;
+  @Prop({ default: { firstName: 'Guest', lastName: 'User', email: '', password: '',
+    loggedIn: false, role: 'student', optOut: false } }) private user!: any;
 
   private focusEmail(e: any) {
     const theField = this.$refs.email as HTMLElement;
@@ -87,12 +89,11 @@ export default class NavBar extends Vue {
   }
 
   private login(e: any) {
-    // console.log(evt);
-    // alert(JSON.stringify(this.form));
+    alert(JSON.stringify(this.user));
   }
 
   private contact(e: any) {
-
+    alert(JSON.stringify(this.contact));
   }
 }
 </script>
