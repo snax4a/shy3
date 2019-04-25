@@ -56,8 +56,8 @@
             b-form-group(label='Phone', label-for='phone')
               b-form-input(v-model='contact.phone', id='phone', type='tel', placeholder='412-555-1212', autocomplete='tel-national', maxlength='14')
             b-form-group(label='Comment or question', label-for='question')
-              b-form-textarea(v-model='contact.quest', id='question', rows='3', placeholder='Comment or question')
-            b-form-checkbox(v-model='optOut') Do not subscribe to newsletter
+              b-form-textarea(v-model='contact.question', id='question', rows='3', placeholder='Comment or question')
+            b-form-checkbox(v-model='contact.optOut') Do not subscribe to newsletter
             br
             .text-right
               b-button(variant='warning', type='submit') Submit
