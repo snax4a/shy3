@@ -14,7 +14,7 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
 import './scss/app.scss';
 
-// FontAwesome 5.0 - load icons as SVG with tree-shaking
+// FontAwesome 5.0 - load each icon as SVG with tree-shaking to minimize size
 library.add(faShoppingCart, faPhone, faEnvelope, faCalendarAlt, faMapMarkerAlt, faCalendarPlus,
   faTwitter, faFacebookF, faInstagram, faYoutube, faUser, faGoogle, faApple, faWindows);
 Vue.component('fa', FontAwesomeIcon);
