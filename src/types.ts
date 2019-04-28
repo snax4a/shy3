@@ -111,6 +111,7 @@ export enum Role {
 export interface RootState {
   announcementSections: AnnouncementSection[];
   sections: WorkshopSection[];
+  carousel: string[];
   cart: Cart;
   classes: YogaClass[];
   currentUser: User;

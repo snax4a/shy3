@@ -32,14 +32,14 @@ export default new Vuex.Store({
     workshops: [],
   },
   mutations: {
+    announcementsSet(state, announcementSections) {
+      state.announcementSections = announcementSections;
+    },
     countChange(state, changeAmount) {
       state.cart.count += changeAmount;
     },
     faqsSet(state, faqs) {
       state.faqs = faqs;
-    },
-    announcementsSet(state, announcementSections) {
-      state.announcementSections = announcementSections;
     },
   },
   actions: {

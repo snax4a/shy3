@@ -2,7 +2,7 @@
 .container.teacher-training
   .row
     .col-md-6
-      img.img-fluid.border(src='../assets/images/teacher-training.jpg', alt='Teacher training')
+      img.img-fluid.border(src='@/assets/images/teacher-training.jpg', alt='Teacher training')
     .col-md-6
       h1 Schoolhouse Yoga Teacher Training
       p

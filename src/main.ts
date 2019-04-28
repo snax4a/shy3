@@ -4,6 +4,7 @@ import router from './router';
 import store from './store';
 import './registerServiceWorker';
 import BootstrapVue from 'bootstrap-vue';
+// import BCarousel from 'bootstrap-vue/es/components/carousel/carousel';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faShoppingCart, faPhone, faMapMarkerAlt,
   faEnvelope, faCalendarAlt, faUser } from '@fortawesome/free-solid-svg-icons';
@@ -20,6 +21,7 @@ library.add(faShoppingCart, faPhone, faEnvelope, faCalendarAlt, faMapMarkerAlt, 
 Vue.component('fa', FontAwesomeIcon);
 
 Vue.use(BootstrapVue);
+// Vue.component('b-carousel', BCarousel); // requires @types/bootstrap-vue which doesn't exist
 
 Vue.config.productionTip = false;
 

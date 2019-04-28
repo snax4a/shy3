@@ -10,6 +10,7 @@
 * [High] Change modals to b-dropdown-form
 * [Medium] Incorporate old JsonLd component into Workshops normal view
 * [Medium] If someone goes to /login, expose the Login dropdown and form
+* [Low] Implement types.ts in store.ts
 
 <a name="1.0.0"></a>
 * Added Login and Contact as b-dropdown-forms
