@@ -14,10 +14,10 @@
         a.btn.btn-warning(href='https://www.youtube.com/watch?v=fxuAnP2GF0I&feature=youtu.be', target='_blank') Watch our video!
     .col-md-8
       b-carousel(id='carouselFade', interval='7000', fade='', indicators='')
-        b-carousel-slide(img-src='/img/home1.jpg', img-alt='Woman in handstand at one of our Pittsburgh yoga schools')
-        b-carousel-slide(img-src='/img/home2.jpg', img-alt='Woman in lotus at one of our Pittsburgh yoga schools')
-        b-carousel-slide(img-src='/img/home3.jpg', img-alt='Woman stretching at one of our Pittsburgh yoga schools')
-        b-carousel-slide(img-src='/img/home4.jpg', img-alt='Man in lotus at one of our Pittsburgh yoga schools')
+        b-carousel-slide(img-src='../assets/images/home1.jpg', img-alt='Woman in handstand at one of our Pittsburgh yoga schools')
+        b-carousel-slide(img-src='../assets/images/home2.jpg', img-alt='Woman in lotus at one of our Pittsburgh yoga schools')
+        b-carousel-slide(img-src='../assets/images/home3.jpg', img-alt='Woman stretching at one of our Pittsburgh yoga schools')
+        b-carousel-slide(img-src='../assets/images/home4.jpg', img-alt='Man in lotus at one of our Pittsburgh yoga schools')
   .row
     h1.col-md-6 Frequently-asked questions
   .row
