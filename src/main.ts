@@ -3,6 +3,7 @@ import App from './App.vue';
 import router from './router';
 import store from './store';
 import './registerServiceWorker';
+import Vuelidate from 'vuelidate';
 import BootstrapVue from 'bootstrap-vue';
 // import BCarousel from 'bootstrap-vue/es/components/carousel/carousel';
 import { library } from '@fortawesome/fontawesome-svg-core';
@@ -20,6 +21,7 @@ library.add(faShoppingCart, faPhone, faEnvelope, faCalendarAlt, faMapMarkerAlt, 
   faTwitter, faFacebookF, faInstagram, faYoutube, faUser, faGoogle, faApple, faWindows);
 Vue.component('fa', FontAwesomeIcon);
 
+Vue.use(Vuelidate);
 Vue.use(BootstrapVue);
 // Vue.component('b-carousel', BCarousel); // requires @types/bootstrap-vue which doesn't exist
 
