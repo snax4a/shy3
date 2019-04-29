@@ -13,7 +13,7 @@
         br
         a.btn.btn-warning(href='https://www.youtube.com/watch?v=fxuAnP2GF0I&feature=youtu.be', target='_blank') Watch our video!
     .col-md-8
-      b-carousel(id='carouselFade', interval='7000', fade='', indicators='')
+      b-carousel(id='carouselFade', :interval='7000', fade='', indicators='')
         b-carousel-slide(img-src='../assets/images/home1.jpg', img-alt='Woman in handstand at one of our Pittsburgh yoga schools')
         b-carousel-slide(img-src='../assets/images/home2.jpg', img-alt='Woman in lotus at one of our Pittsburgh yoga schools')
         b-carousel-slide(img-src='../assets/images/home3.jpg', img-alt='Woman stretching at one of our Pittsburgh yoga schools')
@@ -34,7 +34,6 @@ import { Component, Vue } from 'vue-property-decorator';
 export default class Home extends Vue {
   private mounted() {
     this.announcementsFetch();
-    this.carouselFetch();
     this.faqsFetch();
   }
 
@@ -52,10 +51,6 @@ export default class Home extends Vue {
 
   private announcementsFetch() {
     this.$store.dispatch('announcementsFetch');
-  }
-
-    private carouselFetch() {
-    this.$store.dispatch('carouselFetch');
   }
 
   private faqsFetch() {
