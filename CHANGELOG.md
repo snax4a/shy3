@@ -1,4 +1,5 @@
 # Product Backlog
+* [High] Create Login and Contact components from NavBar.vue elements
 * [High] Add toast for contact form, subscribe to newsletter, and adding anything to the cart
 * [High] Hookup Contact form on NavBar to server
 * [High] Hookup Login form on NavBar to server and store token
