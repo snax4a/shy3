@@ -36,12 +36,12 @@ module.exports = {
       })
   },
   configureWebpack: {
-    resolve: {
-      alias: {
-        "@": path.join(__dirname, vueSrc)
-      },
-      extensions: ['.js', '.vue', '.json']
-    },
+    // resolve: {
+    //   alias: {
+    //     "@": path.join(__dirname, vueSrc)
+    //   },
+    //   extensions: ['.js', '.vue', '.json']
+    // },
     plugins: [
       new MomentLocalesPlugin(),
       new PurgecssPlugin({
