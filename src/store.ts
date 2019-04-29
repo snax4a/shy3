@@ -2,6 +2,7 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import AnnouncementService from '@/services/AnnouncementService';
 import FaqService from '@/services/FaqService';
+import ClassService from '@/services/ClassService';
 // import { RootState } from './types';
 
 Vue.use(Vuex);
@@ -35,11 +36,17 @@ export default new Vuex.Store({
     announcementsSet(state, announcementSections) {
       state.announcementSections = announcementSections;
     },
+    // classesSet(state, classes) {
+    //   state.classes = classes;
+    // },
     countChange(state, changeAmount) {
       state.cart.count += changeAmount;
     },
     faqsSet(state, faqs) {
       state.faqs = faqs;
+    },
+    scheduleSet(state, schedule) {
+      state.schedule = schedule;
     },
   },
   actions: {
@@ -53,10 +60,22 @@ export default new Vuex.Store({
       }
       return null;
     },
+    // classesFetch(context) {
+    //   if (this.state.classes.length === 0) {
+    //     const classes = ClassService.classesGet();
+    //     context.commit('classesSet', classes);
+    //   }
+    // },
     faqsFetch(context) {
       if (this.state.faqs.length === 0) {
         const faqs = FaqService.faqsGet();
         context.commit('faqsSet', faqs);
+      }
+    },
+    scheduleFetch(context) {
+      if (this.state.schedule.length === 0) {
+        const schedule = ClassService.scheduleGet();
+        context.commit('scheduleSet', schedule);
       }
     },
   },
