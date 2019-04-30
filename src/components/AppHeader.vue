@@ -11,8 +11,8 @@ import Banner from '@/components/Banner.vue';
 
 @Component({
   components: {
-    NavBar, Banner,
-  },
+    NavBar, Banner
+  }
 })
 export default class AppHeader extends Vue {}
 </script>

@@ -19,14 +19,14 @@
         b-nav-item(to='/admin', v-if='user.loggedIn && user.role == "admin"') Admin
         b-nav-item(to='/shynet', v-if='user.loggedIn && user.role != "student"') SHYnet
       b-navbar-nav.ml-auto
-        b-dropdown(text='Login',  v-if='!user.loggedIn', variant='outline-primary', right='', @shown='focusEmail')
+        b-dropdown(text='Login', v-if='!user.loggedIn', variant='outline-primary', right='', @shown='focusEmail')
           .text-center
             GoogleLogin
           b-dropdown-header.text-center or
           b-dropdown-divider
           b-dropdown-form.login(@submit.prevent='login', novalidate='', autocomplete='on')
             b-form-group(label='Email', label-for='userEmail')
-              b-form-input(v-model='user.email', id='userEmail', placeholder='email@example.com', autocomplete='email', maxlength='80', ref='email')
+              b-form-input(v-model='user.email', id='userEmail', type='email', placeholder='email@example.com', autocomplete='email', maxlength='80', ref='email')
             b-form-group(label='Password', label-for='password')
               b-form-input(v-model='user.password', id='password', type='password', autocomplete='current-password', maxlength='20', placeholder='Password')
             .text-right
@@ -48,10 +48,10 @@
           b-dropdown-form.contact(@submit.prevent='contact', novalidate='', autocomplete='on')
             b-form-group(label='First name', label-for='firstName')
               b-form-input(v-model='contact.firstName', id='firstName', placeholder='First name', autocomplete='given-name', maxlength='20', ref='firstName', aria-describedby='first-name-error')
-              b-form-text.has-error(id='first-name-error', v-if='!contact.firstName') Please provide your first name.
+              b-form-text.has-error(v-if='!contact.firstName', id='first-name-error') Please provide your first name.
             b-form-group(label='Last name', label-for='lastName')
               b-form-input(v-model='contact.lastName', id='lastName', placeholder='Last name', autocomplete='family-name', maxlength='20')
-            b-form-group(label='Email', label-for='contactEmail')
+            b-form-group(label='Email', label-for='contactEmail', :invalid-feedback='invalidContactEmail')
               b-form-input(v-model='contact.email', id='contactEmail', placeholder='email@example.com', autocomplete='email', maxlength='80')
             b-form-group(label='Phone', label-for='phone')
               b-form-input(v-model='contact.phone', id='phone', type='tel', placeholder='412-555-1212', autocomplete='tel-national', maxlength='14')
@@ -65,12 +65,25 @@
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator';
+import { required, email, minLength, sameAs } from 'vuelidate/lib/validators';
 import GoogleLogin from '@/components/GoogleLogin.vue';
 
 @Component({
   components: {
-    GoogleLogin,
+    GoogleLogin
   },
+  validations: {
+    user: {
+      email: { required },
+      password: { required }
+    },
+    contact: {
+      firstName: { required },
+      lastName: { required },
+      email: { required, email },
+      question: { required }
+    }
+  }
 })
 
 export default class NavBar extends Vue {
@@ -88,6 +101,12 @@ export default class NavBar extends Vue {
     theField.focus();
   }
 
+  private invalidContactEmail(): string {
+    // if (this.contact.email )
+    console.log('Invalid.');
+    return 'Please enter a valid email address';
+  }
+
   private login(e: any) {
     alert(JSON.stringify(this.user));
   }
@@ -95,6 +114,11 @@ export default class NavBar extends Vue {
   private contact(e: any) {
     alert(JSON.stringify(this.contact));
   }
+
+  // private validations() {
+  //   return {
+  //   };
+  // }
 }
 </script>
 

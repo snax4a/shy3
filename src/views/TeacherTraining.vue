@@ -62,7 +62,7 @@ export default class TeacherTraining extends Vue {
   private applePaySupported: boolean = false;
   private form: any = {
     agreed: false,
-    productId: 98,
+    productId: 98
   };
 
   private addToCart(evt: any) {

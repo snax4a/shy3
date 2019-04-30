@@ -12,7 +12,7 @@ export default new Vuex.Store({
     announcementSections: [],
     cart: {
       count: 0,
-      items: [],
+      items: []
     },
     classes: [],
     currentUser: {
@@ -23,14 +23,14 @@ export default new Vuex.Store({
       loggedIn: false,
       role: 'student',
       provider: 'local',
-      optOut: false,
+      optOut: false
     },
     faqs: [],
     locations: [],
     products: [],
     schedule: [],
     teachers: [],
-    workshops: [],
+    workshops: []
   },
   mutations: {
     announcementsSet(state, announcementSections) {
@@ -47,7 +47,7 @@ export default new Vuex.Store({
     },
     scheduleSet(state, schedule) {
       state.schedule = schedule;
-    },
+    }
   },
   actions: {
     addToCart(context) {
@@ -77,8 +77,8 @@ export default new Vuex.Store({
         const schedule = ClassService.scheduleGet();
         context.commit('scheduleSet', schedule);
       }
-    },
+    }
   },
   getters: { // filtering operations mostly
-  },
+  }
 });

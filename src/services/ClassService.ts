@@ -6,5 +6,5 @@ export default {
   },
   scheduleGet() {
     return Api().get('/api/schedule');
-  },
+  }
 };

@@ -22,66 +22,66 @@ export default new Router({
     {
       path: '/',
       name: 'home',
-      component: Home,
+      component: Home
     },
     {
       path: '/classes',
       name: 'classes',
-      component: Classes,
+      component: Classes
     },
     {
       path: '/workshops',
       name: 'workshops',
-      component: Workshops,
+      component: Workshops
     },
     {
       path: '/cart',
       name: 'cart',
-      component: Cart,
+      component: Cart
     },
     {
       path: '/teachertraining',
       name: 'teachertraining',
-      component: TeacherTraining,
+      component: TeacherTraining
     },
     {
       path: '/locations',
       name: 'locations',
-      component: Locations,
+      component: Locations
     },
     {
       path: '/privacy',
       name: 'privacy',
-      component: Privacy,
+      component: Privacy
     },
     {
       path: '/terms',
       name: 'terms',
-      component: Terms,
+      component: Terms
     },
     {
       path: '/profile',
       name: 'profile',
-      component: Profile,
+      component: Profile
     },
     {
       path: '/signup',
       name: 'signup',
-      component: Signup,
+      component: Signup
     },
     {
       path: '/admin',
       name: 'admin',
-      component: () => import(/* webpackChunkName: "admin" */ '@/views/Admin.vue'), // lazy-loaded
+      component: () => import(/* webpackChunkName: "admin" */ '@/views/Admin.vue') // lazy-loaded
     },
     {
       path: '/shynet',
       name: 'shynet',
-      component: () => import(/* webpackChunkName: "shynet" */ '@/views/SHYnet.vue'), // lazy-loaded
-    },
+      component: () => import(/* webpackChunkName: "shynet" */ '@/views/SHYnet.vue') // lazy-loaded
+    }
   ],
   scrollBehavior(to, from, savedPosition) {
     // classes, workshops, and locations routes should not reset to top if a hash is provided
     return { x: 0, y: 0 };
-  },
+  }
 });

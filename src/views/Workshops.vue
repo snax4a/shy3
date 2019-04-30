@@ -17,8 +17,8 @@ declare let window: any; // suppress window.twttr error
 
 @Component({
   components: {
-    Tweet, AddToCalendar,
-  },
+    Tweet, AddToCalendar
+  }
 })
 export default class Workshops extends Vue {
   private mounted() {

@@ -105,7 +105,7 @@ export interface Cart {
 export enum Role {
   Student,
   Teacher,
-  Admin,
+  Admin
 }
 
 export interface RootState {

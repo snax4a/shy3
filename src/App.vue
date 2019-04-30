@@ -12,8 +12,8 @@ import AppFooter from '@/components/AppFooter.vue';
 
 @Component({
   components: {
-    AppHeader, AppFooter,
-  },
+    AppHeader, AppFooter
+  }
 })
 export default class Home extends Vue {}
 </script>
