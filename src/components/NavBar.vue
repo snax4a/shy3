@@ -24,11 +24,13 @@
             GoogleLogin
           b-dropdown-header.text-center or
           b-dropdown-divider
-          b-dropdown-form.login(@submit.prevent='login', novalidate='', autocomplete='on')
+          b-dropdown-form.login(@submit.prevent='loginSubmit', novalidate='', autocomplete='on')
             b-form-group(label='Email', label-for='userEmail')
-              b-form-input(v-model='user.email', id='userEmail', type='email', placeholder='email@example.com', autocomplete='email', maxlength='80', ref='email')
+              b-form-input(v-model.trim='user.email', id='userEmail', type='email', placeholder='email@example.com', autocomplete='email', maxlength='80', ref='email', aria-describedby='userEmailFeedback', :class='{ "is-invalid": contactSubmitted && $v.user.email.$error }')
+              b-form-invalid-feedback(id='userEmailFeedback', v-if='contactSubmitted && $v.user.email.$invalid') Please provide a valid email address.
             b-form-group(label='Password', label-for='password')
-              b-form-input(v-model='user.password', id='password', type='password', autocomplete='current-password', maxlength='20', placeholder='Password')
+              b-form-input(v-model='user.password', id='password', type='password', autocomplete='current-password', maxlength='20', placeholder='Password', aria-describedby='userPasswordFeedback', :class='{ "is-invalid": contactSubmitted && $v.user.password.$error }')
+              b-form-invalid-feedback(id='userPasswordFeedback', v-if='contactSubmitted && $v.user.password.$invalid') Please enter your password.
             .text-right
               b-button(variant='warning', type='submit') Login
           b-dropdown-divider
@@ -45,18 +47,21 @@
             fa(icon='phone')
             | &nbsp;&nbsp;Call +1 (412) 401-4444
           b-dropdown-divider
-          b-dropdown-form.contact(@submit.prevent='contact', novalidate='', autocomplete='on')
-            b-form-group(label='First name', label-for='firstName')
-              b-form-input(v-model='contact.firstName', id='firstName', placeholder='First name', autocomplete='given-name', maxlength='20', ref='firstName', aria-describedby='first-name-error')
-              b-form-text.has-error(v-if='!contact.firstName', id='first-name-error') Please provide your first name.
-            b-form-group(label='Last name', label-for='lastName')
-              b-form-input(v-model='contact.lastName', id='lastName', placeholder='Last name', autocomplete='family-name', maxlength='20')
-            b-form-group(label='Email', label-for='contactEmail', :invalid-feedback='invalidContactEmail')
-              b-form-input(v-model='contact.email', id='contactEmail', placeholder='email@example.com', autocomplete='email', maxlength='80')
-            b-form-group(label='Phone', label-for='phone')
-              b-form-input(v-model='contact.phone', id='phone', type='tel', placeholder='412-555-1212', autocomplete='tel-national', maxlength='14')
-            b-form-group(label='Comment or question', label-for='question')
-              b-form-textarea(v-model='contact.question', id='question', rows='3', placeholder='Comment or question')
+          b-dropdown-form.contact(@submit.prevent='contactSubmit', novalidate, autocomplete='on')
+            b-form-group(label='First name', label-for='contactFirstName')
+              b-form-input(v-model='contact.firstName', id='contactFirstName', placeholder='First name', autocomplete='given-name', maxlength='20', ref='firstName', aria-describedby='firstNameFeedback', :class='{ "is-invalid": contactSubmitted && $v.contact.firstName.$error }')
+              b-form-invalid-feedback(id='firstNameFeedback', v-if='contactSubmitted && $v.contact.firstName.$invalid') Please provide your first name.
+            b-form-group(label='Last name', label-for='contactLastName')
+              b-form-input(v-model.trim='contact.lastName', id='contactLastName', placeholder='Last name', autocomplete='family-name', maxlength='20', aria-describedby='lastNameFeedback', :class='{ "is-invalid": contactSubmitted && $v.contact.lastName.$error }')
+              b-form-invalid-feedback(id='lastNameFeedback', v-if='contactSubmitted && $v.contact.lastName.$invalid') Please provide your last name.
+            b-form-group(label='Email', label-for='contactEmail')
+              b-form-input(v-model.trim='contact.email', id='contactEmail', placeholder='email@example.com', autocomplete='email', maxlength='80', aria-describedby='emailFeedback', :class='{ "is-invalid": contactSubmitted && $v.contact.email.$error }')
+              b-form-invalid-feedback(id='emailFeedback', v-if='contactSubmitted && $v.contact.email.$invalid') Please provide a valid email address.
+            b-form-group(label='Phone', label-for='contactPhone')
+              b-form-input(v-model.trim='contact.phone', id='contactPhone', type='tel', placeholder='412-555-1212', autocomplete='tel-national', maxlength='14')
+            b-form-group(label='Comment or question', label-for='contactQuestion')
+              b-form-textarea(v-model='contact.question', id='contactQuestion', rows='3', placeholder='Comment or question', aria-describedby='questionFeedback', :class='{ "is-invalid": contactSubmitted && $v.contact.question.$error }')
+              b-form-invalid-feedback(id='questionFeedback', v-if='contactSubmitted && $v.contact.question.$invalid') Please provide a comment or question.
             b-form-checkbox(v-model='contact.optOut') Do not subscribe to newsletter
             br
             .text-right
@@ -65,7 +70,7 @@
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator';
-import { required, email, minLength, sameAs } from 'vuelidate/lib/validators';
+import { required, email, minLength } from 'vuelidate/lib/validators';
 import GoogleLogin from '@/components/GoogleLogin.vue';
 
 @Component({
@@ -87,9 +92,14 @@ import GoogleLogin from '@/components/GoogleLogin.vue';
 })
 
 export default class NavBar extends Vue {
-  @Prop({ default: 0 }) private count!: number;
+  @Prop({ default: 0 })
+  private count!: number;
   @Prop({ default: { firstName: 'Guest', lastName: 'User', email: '', password: '',
-    loggedIn: false, role: 'student', optOut: false } }) private user!: any;
+    loggedIn: false, role: 'student', optOut: false } })
+  private user!: any;
+  private contact: any = { firstName: '', lastName: '', email: '', phone: '', question: '', optOut: false };
+  private contactSubmitted: boolean = false;
+  private loginSubmitted: boolean = false;
 
   private focusEmail(e: any) {
     const theField = this.$refs.email as HTMLElement;
@@ -101,24 +111,24 @@ export default class NavBar extends Vue {
     theField.focus();
   }
 
-  private invalidContactEmail(): string {
-    // if (this.contact.email )
-    console.log('Invalid.');
-    return 'Please enter a valid email address';
-  }
-
-  private login(e: any) {
+  private loginSubmit(e: any) {
+    console.log('Login');
+    this.loginSubmitted = true;
+    this.$v.user.$touch();
+    if (this.$v.user.$invalid) {
+      return;
+    }
     alert(JSON.stringify(this.user));
   }
 
-  private contact(e: any) {
+  private contactSubmit(e: any) {
+    this.contactSubmitted = true;
+    this.$v.contact.$touch();
+    if (this.$v.contact.$invalid) {
+      return;
+    }
     alert(JSON.stringify(this.contact));
   }
-
-  // private validations() {
-  //   return {
-  //   };
-  // }
 }
 </script>
 
