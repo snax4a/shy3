@@ -26,11 +26,11 @@
           b-dropdown-divider
           b-dropdown-form.login(@submit.prevent='loginSubmit', novalidate='', autocomplete='on')
             b-form-group(label='Email', label-for='userEmail')
-              b-form-input(v-model.trim='user.email', id='userEmail', type='email', placeholder='email@example.com', autocomplete='email', maxlength='80', ref='email', aria-describedby='userEmailFeedback', :class='{ "is-invalid": contactSubmitted && $v.user.email.$error }')
-              b-form-invalid-feedback(id='userEmailFeedback', v-if='contactSubmitted && $v.user.email.$invalid') Please provide a valid email address.
+              b-form-input(v-model.trim='user.email', id='userEmail', type='email', placeholder='email@example.com', autocomplete='email', maxlength='80', ref='email', aria-describedby='userEmailFeedback', :class='{ "is-invalid": loginSubmitted && $v.user.email.$error }')
+              b-form-invalid-feedback(id='userEmailFeedback', v-if='loginSubmitted && $v.user.email.$invalid') Please provide a valid email address.
             b-form-group(label='Password', label-for='password')
-              b-form-input(v-model='user.password', id='password', type='password', autocomplete='current-password', maxlength='20', placeholder='Password', aria-describedby='userPasswordFeedback', :class='{ "is-invalid": contactSubmitted && $v.user.password.$error }')
-              b-form-invalid-feedback(id='userPasswordFeedback', v-if='contactSubmitted && $v.user.password.$invalid') Please enter your password.
+              b-form-input(v-model='user.password', id='password', type='password', autocomplete='current-password', maxlength='20', placeholder='Password', aria-describedby='userPasswordFeedback', :class='{ "is-invalid": loginSubmitted && $v.user.password.$error }')
+              b-form-invalid-feedback(id='userPasswordFeedback', v-if='loginSubmitted && $v.user.password.$invalid') Please enter your password.
             .text-right
               b-button(variant='warning', type='submit') Login
           b-dropdown-divider
