@@ -6,8 +6,8 @@
         h2 Class Passes
         h3 Treat yourself
         b-button-group
-          b-button.btn-warning(ng-click='$ctrl.addItem(4)', alt='Twelve class pass') 12
-          b-button.btn-warning(ng-click='$ctrl.addItem(2)', alt='Four class pass') 4
+          b-button.btn-warning(ng-click='$ctrl.addItem(4)', alt='Fifteen class pass') 15
+          b-button.btn-warning(ng-click='$ctrl.addItem(2)', alt='Five class pass') 5
           b-button.btn-warning(ng-click='$ctrl.addItem(1)', alt='One class pass') 1
       .d-none.d-sm-block
         h2 Teacher Training
@@ -17,8 +17,8 @@
         h2 Gift Cards
         h3 The gift of good health
         b-button-group
-          b-button.btn-warning(ng-click='$ctrl.addItem(8)', alt='Gift card - Twelve classes') 12
-          b-button.btn-warning(ng-click='$ctrl.addItem(6)', alt='Gift card - Four classes') 4
+          b-button.btn-warning(ng-click='$ctrl.addItem(8)', alt='Gift card - Fifteen classes') 15
+          b-button.btn-warning(ng-click='$ctrl.addItem(6)', alt='Gift card - Five classes') 5
           b-button.btn-warning(ng-click='$ctrl.addItem(5)', alt='Gift card - One class') 1
 </template>
 
