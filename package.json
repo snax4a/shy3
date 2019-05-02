@@ -51,7 +51,7 @@
     "@vue/cli-plugin-unit-jest": "^3.7.0",
     "@vue/cli-service": "^3.7.0",
     "@vue/test-utils": "1.0.0-beta.29",
-    "fibers": "^4.0.0",
+    "fibers": "^4.0.1",
     "glob-all": "^3.1.0",
     "path": "^0.12.7",
     "purgecss-webpack-plugin": "^1.5.0",

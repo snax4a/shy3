@@ -49,7 +49,6 @@ export default class Login extends Vue {
   }
 
   private loginSubmit(e: any) {
-    console.log('Login');
     this.loginSubmitted = true;
     this.$v.login.$touch();
     if (this.$v.login.$invalid) {
