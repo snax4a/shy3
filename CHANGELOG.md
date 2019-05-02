@@ -1,5 +1,4 @@
 # Product Backlog
-* [High] Create Login and Contact components from NavBar.vue elements
 * [High] Add toast for contact form, subscribe to newsletter, and adding anything to the cart
 * [High] Hookup Contact form on NavBar to server
 * [High] Hookup Login form on NavBar to server and store token
@@ -14,6 +13,7 @@
 * [Low] Implement types.ts in store.ts
 
 <a name="1.0.0"></a>
+* Created Login and Contact components from NavBar.vue elements
 * Added Login and Contact as b-dropdown-forms
 * Added glob-all purgecss-webpack-plugin path to reduce CSS from 200K to 16.44K
 * Created AddToCalendar component
