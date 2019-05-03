@@ -16,10 +16,10 @@
         .day(v-for='day in studio.days')
           strong {{ fullDate(day.date) }}
           table.table.table-striped.table-hover
-            tr(v-for='yogaClass in day.classes')
-              td {{ amPm(yogaClass.startTime) }}-{{ amPm(yogaClass.endTime) }}
-              td {{ yogaClass.title }}
-              td {{ yogaClass.teacherFirstName }} {{ yogaClass.teacherLastName }}
+            tr.row(v-for='yogaClass in day.classes')
+              td.col-4 {{ amPm(yogaClass.startTime) }}-{{ amPm(yogaClass.endTime) }}
+              td.col-4 {{ yogaClass.title }}
+              td.col-4 {{ yogaClass.teacherFirstName }} {{ yogaClass.teacherLastName }}
           //- td.day(colspan='3') {{ day.date | date:'fullDate' }}
           //- tr(ng-repeat-end, ng-repeat='class in day.classes')
           //-   td.time(ng-class='{ canceled: class.canceled===true }')
@@ -46,7 +46,7 @@ export default class Classes extends Vue {
   }
 
   private amPm(date: Date): string {
-    return date.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
+    return date.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true }).replace(':00', '').replace(' ', '').toLowerCase();
   }
 
   private fullDate(date: Date): string {
