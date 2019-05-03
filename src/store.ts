@@ -3,6 +3,7 @@ import Vuex from 'vuex';
 import AnnouncementService from '@/services/AnnouncementService';
 import FaqService from '@/services/FaqService';
 import ClassService from '@/services/ClassService';
+import LocationService from '@/services/LocationService';
 // import { RootState } from './types';
 
 Vue.use(Vuex);
@@ -45,6 +46,9 @@ export default new Vuex.Store({
     faqsSet(state, faqs) {
       state.faqs = faqs;
     },
+    locationsSet(state, locations) {
+      state.locations = locations;
+    },
     scheduleSet(state, schedule) {
       state.schedule = schedule;
     }
@@ -72,10 +76,16 @@ export default new Vuex.Store({
         context.commit('faqsSet', faqs);
       }
     },
-    scheduleFetch(context) {
+    async locationsFetch(context): Promise<any> {
+      if (this.state.locations.length === 0) {
+        const { data } = await LocationService.locationsActiveGet();
+        context.commit('locationsSet', data);
+      }
+    },
+    async scheduleFetch(context): Promise<any> {
       if (this.state.schedule.length === 0) {
-        const schedule = ClassService.scheduleGet();
-        context.commit('scheduleSet', schedule);
+        const { data } = await ClassService.scheduleGet();
+        context.commit('scheduleSet', ClassService.nest(data));
       }
     }
   },

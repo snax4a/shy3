@@ -24,50 +24,51 @@ function rowToClass(row: any) {
   return yogaClass;
 }
 
-function nest(flatScheduleItems: any[]): any[] {
-  const nestedScheduleItems = [];
-  let currentLocation: string = '';
-  let locationIndex = -1; // assume none
-  let currentDay: number = 0;
-  let dayIndex: number = 0;
-
-  for (const i in flatScheduleItems) {
-    const row = flatScheduleItems[i];
-    if (currentLocation !== row.location) {
-      locationIndex++; // zero first time through
-      dayIndex = 0; // Start days over for new location
-      nestedScheduleItems.push({
-        location: row.location,
-        days: [
-          {
-            day: row.day,
-            date: nextDateForDOW(row.day),
-            classes: [rowToClass(row)]
-          }
-        ]
-      });
-    } else {
-      if (currentDay !== row.day) {
-        dayIndex++;
-        nestedScheduleItems[locationIndex].days.push({
-          day: row.day,
-          date: nextDateForDOW(row.day),
-          classes: [rowToClass(row)]
-        });
-      } else {
-        nestedScheduleItems[locationIndex].days[dayIndex].classes.push(rowToClass(row));
-      }
-      currentDay = row.day;
-    }
-    currentDay = row.day;
-    currentLocation = row.location;
-  }
-  return nestedScheduleItems;
-}
-
 export default {
   classesGet() {
       return Api().get('/api/class');
+  },
+  nest(flatScheduleItems: any[]): any[] {
+    const nestedScheduleItems = [];
+    let currentLocation: string = '';
+    let locationIndex = -1; // assume none
+    let currentDay: number = 0;
+    let dayIndex: number = 0;
+
+    for (const i in flatScheduleItems) {
+      const row = flatScheduleItems[i];
+      if (currentLocation !== row.location) {
+        locationIndex++; // zero first time through
+        dayIndex = 0; // Start days over for new location
+        nestedScheduleItems.push({
+          location: row.location,
+          locationId: row.locationId,
+          days: [
+            {
+              day: row.day,
+              date: nextDateForDOW(row.day),
+              classes: [rowToClass(row)]
+            }
+          ]
+        });
+      } else {
+        if (currentDay !== row.day) {
+          dayIndex++;
+          nestedScheduleItems[locationIndex].days.push({
+            day: row.day,
+            date: nextDateForDOW(row.day),
+            classes: [rowToClass(row)]
+          });
+        } else {
+          nestedScheduleItems[locationIndex].days[dayIndex].classes.push(rowToClass(row));
+        }
+        currentDay = row.day;
+      }
+      currentDay = row.day;
+      currentLocation = row.location;
+    }
+    console.log(nestedScheduleItems);
+    return nestedScheduleItems;
   },
   scheduleGet() {
     return Api().get('/api/schedule');
