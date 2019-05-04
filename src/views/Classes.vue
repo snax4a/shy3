@@ -7,7 +7,7 @@
     b-button(variant='primary', :href='`#location${location._id}`', v-for='location in locations', :key='location._id') {{ location.name }}
   .studio(v-for='studio in schedule')
     h2.studio
-      b-link(:id='`location${studio.locationId}`', :href='`/locations#${studio.locationId}`') 
+      b-link(:id='`location${studio.locationId}`', :href='`/locations#location${studio.locationId}`') 
         fa(icon='map-marker-alt') 
         | &nbsp;{{ studio.location }}
     .day(v-for='day in studio.days')
