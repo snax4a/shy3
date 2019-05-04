@@ -1,9 +1,9 @@
 <template lang='pug'>
 b-dropdown.add-to-calendar(variant='outline-primary', v-if='!edge')
   template(slot='button-content')
-    fa(:icon='["far", "calendar-plus"]')
-    | &nbsp;
-    span(v-if='label') Add to Calendar
+    fa(:icon='["far", "calendar-plus"]') 
+    span(v-if='label')
+      | &nbsp;Add to Calendar
   b-dropdown-item(:href='icsFile', download='event.ics', target='_blank')
     fa(:icon='["fab", "apple"]')
     | &nbsp;&nbsp;Apple Calendar
@@ -32,7 +32,7 @@ export default class AddToCalendar extends Vue {
 
   get googleCalendarUrl(): string {
     // tslint:disable-next-line
-    return `https://www.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(this.title)}&dates=${this.iCalUTC(this.starts)}/${this.iCalUTC(this.ends)}&details=${encodeURIComponent(this.description)}&location=${encodeURIComponent(this.location)}`;
+    return `https://www.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(this.title)}&dates=${this.iCalUTC(this.starts)}/${this.iCalUTC(this.ends)}&details=${encodeURIComponent(this.description)}&location=${encodeURIComponent(this.location)}${this.weekly ? '&recur=RRULE:FREQ=WEEKLY' : ''}`;
   }
 
   get icsFile(): string {
@@ -75,6 +75,10 @@ END:VCALENDAR`);
 </script>
 
 <style lang="scss">
+.add-to-calendar {
+  margin-right: 5px;
+}
+
 .add-to-calendar > .btn-outline-primary {
   border-color: #fff;
   padding: 0;
