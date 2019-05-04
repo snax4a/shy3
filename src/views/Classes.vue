@@ -4,7 +4,7 @@
   p
     b Pittsburgh Yoga Schools
   b-button-group.studios
-    b-button(variant='primary', :to='`#location${location._id}`', v-for='location in locations', :key='location._id') {{ location.name }}
+    b-button(variant='primary', :href='`#location${location._id}`', v-for='location in locations', :key='location._id') {{ location.name }}
   .studio(v-for='studio in schedule')
     h2.studio
       b-link(:id='`location${studio.locationId}`', :href='`/locations#${studio.locationId}`') 
@@ -18,11 +18,18 @@
           td.col-4(:class='') 
               AddToCalendar(label=false, :title='yogaClass.title', :description='yogaClass.description', :location='yogaClass.location', :starts='yogaClass.startTime', :ends='yogaClass.endTime', weekly='true')
               | {{ amPm(yogaClass.startTime) }}-{{ amPm(yogaClass.endTime) }}
-          td.col-4 {{ yogaClass.title }} 
+          td.col-4
+            b-link(v-b-modal='"classModal"', @click='sendToModal(yogaClass)') {{ yogaClass.title }} 
             span(v-if='yogaClass.canceled === true') (Canceled)
-          td.col-4 {{ yogaClass.teacherFirstName }} {{ yogaClass.teacherLastName }}
-          //-     a(href='#', ng-click='$ctrl.classDescriptionOpen(class.title, class.description)') {{ class.title }}
-          //-     a(href='#', ng-click='$ctrl.teacherOpen(class.teacherFirstName, class.teacherLastName, class.teacherImageId, class.teacherBio, class.teacherUrl)') {{ class.teacherFirstName }} {{ class.teacherLastName }}
+          td.col-4
+            b-link(v-b-modal='"teacherModal"', @click='sendToModal(yogaClass)') {{ yogaClass.teacherFirstName }} {{ yogaClass.teacherLastName }}
+  b-modal(id='classModal', :title='modalRecord.title', ok-only=true)
+    p {{ modalRecord.description }}
+  b-modal(id='teacherModal', :title='`${modalRecord.teacherFirstName} ${modalRecord.teacherLastName}`', ok-only=true)
+    .col-6
+      b-img(v-if='modalRecord.teacherImageId', :src='`https://www.schoolhouseyoga.com/api/file/${modalRecord.teacherImageId}`', :alt='`${modalRecord.teacherFirstName} ${modalRecord.teacherLastName}`', fluid-grow, left=true)
+    p {{ modalRecord.teacherBio }}
+    b-link(v-if='modalRecord.teacherUrl', target='_blank', :href='modalRecord.teacherUrl') Visit {{ modalRecord.teacherFirstName }}'s website.
 </template>
 
 <script lang="ts">
@@ -36,6 +43,8 @@ import AddToCalendar from '@/components/AddToCalendar.vue';
 })
 
 export default class Classes extends Vue {
+  private modalRecord: any = {};
+
   private mounted() {
     this.locationsFetch();
     this.scheduleFetch();
@@ -68,12 +77,27 @@ export default class Classes extends Vue {
   private scheduleFetch() {
     this.$store.dispatch('scheduleFetch');
   }
+
+  private sendToModal(record: any) {
+    this.modalRecord = record;
+  }
 }
 </script>
 
 <style scoped lang="scss">
   .studios {
     margin-bottom: 20px;
+  }
+
+  .col-6 {
+    padding-left: 0;
+  }
+
+  .img-fluid {
+    margin-top:0px;
+    border: 1px solid lightgray;
+    margin-bottom: 10px;
+    margin-right: 15px;
   }
 
   h2 {

@@ -67,7 +67,6 @@ export default {
       currentDay = row.day;
       currentLocation = row.location;
     }
-    console.log(nestedScheduleItems);
     return nestedScheduleItems;
   },
   scheduleGet() {
