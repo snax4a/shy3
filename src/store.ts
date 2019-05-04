@@ -4,6 +4,7 @@ import AnnouncementService from '@/services/AnnouncementService';
 import FaqService from '@/services/FaqService';
 import ClassService from '@/services/ClassService';
 import LocationService from '@/services/LocationService';
+import WorkshopService from '@/services/WorkshopService';
 // import { RootState } from './types';
 
 Vue.use(Vuex);
@@ -51,6 +52,9 @@ export default new Vuex.Store({
     },
     scheduleSet(state, schedule) {
       state.schedule = schedule;
+    },
+    workshopsSet(state, workshops) {
+      state.workshops = workshops;
     }
   },
   actions: {
@@ -86,6 +90,13 @@ export default new Vuex.Store({
       if (this.state.schedule.length === 0) {
         const { data } = await ClassService.scheduleGet();
         context.commit('scheduleSet', ClassService.nest(data));
+      }
+    },
+    async workshopsFetch(context): Promise<any> {
+      if (this.state.workshops.length === 0) {
+        const { data } = await WorkshopService.workshopsGet();
+        console.log('Workshops', data);
+        context.commit('workshopsSet', data);
       }
     }
   },

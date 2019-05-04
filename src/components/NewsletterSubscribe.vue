@@ -1,10 +1,10 @@
 <template lang='pug'>
-b-form(@submit.prevent='onSubmit', novalidate, autocomplete='on', v-if='show', @shown='focusSubscriber')
-  b-input-group.col-sm-5
-    b-form-input(id='subscriberEmail', v-model='subscriber.email', placeholder='Email address for newsletter', required, autocomplete='email', maxlength='80', ref='subscriber', aria-describedby='subscriberEmailFeedback', :class='{ "is-invalid": subscriptionSubmitted && $v.subscriber.email.$error }')
+b-form(@submit.prevent='onSubmit', novalidate, autocomplete='on', v-if='show')
+  b-input-group
+    b-form-input(id='subscriberEmail', v-model='subscriber.email', type='email', placeholder='Email address for newsletter', autocomplete='email', maxlength='80', ref='subscriber', aria-describedby='subscriberEmailFeedback', :class='{ "is-invalid": subscriptionSubmitted && $v.subscriber.email.$error }')
     b-input-group-append
       b-button(variant='warning', type='submit') Subscribe
-  b-form-invalid-feedback(id='subscriberEmailFeedback', v-if='subscriptionSubmitted && $v.subscriber.email.$invalid') Please provide a valid email address.
+    b-form-invalid-feedback(id='subscriberEmailFeedback', v-if='subscriptionSubmitted && $v.subscriber.email.$invalid') Please provide a valid email address.
 </template>
 
 <script lang="ts">
@@ -25,8 +25,11 @@ export default class NewsLetterSubscribe extends Vue {
     email: ''
   };
 
-  private focusSubscriber(e: any) {
-    alert('Called');
+  private mounted() {
+    this.focusSubscriber();
+  }
+
+  private focusSubscriber() {
     const theField = this.$refs.subscriber as HTMLElement;
     theField.focus();
   }

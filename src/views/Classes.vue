@@ -12,12 +12,12 @@
         | &nbsp;{{ studio.location }}
     .day(v-for='day in studio.days')
       .day-name
-        strong {{ fullDate(day.date) }}
+        strong {{ utils.fullDate(day.date) }}
       table.table
         tr.row(v-for='yogaClass in day.classes', :class='yogaClass.canceled === true ? "strikethrough": ""')
           td.col-4(:class='') 
               AddToCalendar(label=false, :title='yogaClass.title', :description='yogaClass.description', :location='yogaClass.location', :starts='yogaClass.startTime', :ends='yogaClass.endTime', weekly='true')
-              | {{ amPm(yogaClass.startTime) }}-{{ amPm(yogaClass.endTime) }}
+              | {{ utils.amPm(yogaClass.startTime) }}-{{ utils.amPm(yogaClass.endTime) }}
           td.col-4
             b-link(v-b-modal='"classModal"', @click='sendToModal(yogaClass)') {{ yogaClass.title }} 
             span(v-if='yogaClass.canceled === true') (Canceled)
@@ -35,6 +35,7 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import AddToCalendar from '@/components/AddToCalendar.vue';
+import utils from '@/utils';
 
 @Component({
   components: {
@@ -44,23 +45,24 @@ import AddToCalendar from '@/components/AddToCalendar.vue';
 
 export default class Classes extends Vue {
   private modalRecord: any = {};
+  private utils: any = utils;
 
   private mounted() {
     this.locationsFetch();
     this.scheduleFetch();
   }
 
-  private amPm(date: Date): string {
-    return date.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
-      .replace(':00', '')
-      .replace(' ', '')
-      .toLowerCase();
-  }
+  // private amPm(date: Date): string {
+  //   return date.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
+  //     .replace(':00', '')
+  //     .replace(' ', '')
+  //     .toLowerCase();
+  // }
 
-  private fullDate(date: Date): string {
-    const options: any = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-    return date.toLocaleString('en-US', options);
-  }
+  // private fullDate(date: Date): string {
+  //   const options: any = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+  //   return date.toLocaleString('en-US', options);
+  // }
 
   private locationsFetch() {
     this.$store.dispatch('locationsFetch');
