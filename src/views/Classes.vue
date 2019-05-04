@@ -3,19 +3,17 @@
   h1 Yoga Classes in Pittsburgh
   p
     b Pittsburgh Yoga Schools
-  p
-    b-button-group
-      b-button(variant='primary', :to='`#location${location._id}`', v-for='location in locations', :key='location._id') {{ location.name }}
-    br
-    br
+  b-button-group.studios
+    b-button(variant='primary', :to='`#location${location._id}`', v-for='location in locations', :key='location._id') {{ location.name }}
   .studio(v-for='studio in schedule')
     h2.studio
       b-link(:id='`location${studio.locationId}`', :href='`/locations#${studio.locationId}`') 
         fa(icon='map-marker-alt') 
         | &nbsp;{{ studio.location }}
     .day(v-for='day in studio.days')
-      strong {{ fullDate(day.date) }}
-      table.table.table-striped.table-hover
+      .day-name
+        strong {{ fullDate(day.date) }}
+      table.table
         tr.row(v-for='yogaClass in day.classes', :class='yogaClass.canceled === true ? "strikethrough": ""')
           td.col-4(:class='') 
               AddToCalendar(label=false, :title='yogaClass.title', :description='yogaClass.description', :location='yogaClass.location', :starts='yogaClass.startTime', :ends='yogaClass.endTime', weekly='true')
@@ -24,11 +22,6 @@
             span(v-if='yogaClass.canceled === true') (Canceled)
           td.col-4 {{ yogaClass.teacherFirstName }} {{ yogaClass.teacherLastName }}
           //-     a(href='#', ng-click='$ctrl.classDescriptionOpen(class.title, class.description)') {{ class.title }}
-          //-     span(ng-if='class.canceled===true') (Canceled)
-          //-     span(ng-if='class.showDescription')
-          //-       br
-          //-       | {{ class.description }}
-          //-   td(ng-class='{ canceled: class.canceled===true }') 
           //-     a(href='#', ng-click='$ctrl.teacherOpen(class.teacherFirstName, class.teacherLastName, class.teacherImageId, class.teacherBio, class.teacherUrl)') {{ class.teacherFirstName }} {{ class.teacherLastName }}
 </template>
 
@@ -79,10 +72,18 @@ export default class Classes extends Vue {
 </script>
 
 <style scoped lang="scss">
+  .studios {
+    margin-bottom: 20px;
+  }
+
   h2 {
     font-size: 24px;
     margin-top: 10px;
     margin-bottom: 10px;
+  }
+
+  .day-name {
+    margin-bottom: 5px;
   }
 
   .strikethrough {
