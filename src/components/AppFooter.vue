@@ -3,15 +3,15 @@ footer
   .container
     .row
       .col-sm-5.col-md-7.col-lg-8.text-center.text-sm-left
-        router-link.btn.social(to='/classes', alt='Schedule for Yoga Classes in Squirrel Hill, East Liberty, and North Hills')
+        b-link.btn.social(to='/classes', alt='Schedule for Yoga Classes in Squirrel Hill, East Liberty, and North Hills')
           fa.fa-2x(icon='calendar-alt')
-        router-link.d-none.d-md-inline.schedule(to='/classes', alt='Class Schedule') Class Schedule
-        router-link.btn.social(to='/locations', alt='Directions to our Pittsburgh yoga schools')
+        b-link.d-none.d-md-inline.schedule(to='/classes', alt='Class Schedule') Class Schedule
+        b-link.btn.social(to='/locations', alt='Directions to our Pittsburgh yoga schools')
           fa.fa-2x(icon='map-marker-alt')
         span.d-none.d-lg-inline
-          router-link(to='/locations#squirrelhill', alt='Directions to Squirrel Hill school') Squirrel Hill
-          router-link(to='/locations#eastliberty', alt='Directions to East Liberty school') East Liberty
-          router-link(to='/locations#northhills', alt='Directions to North Hills school') North Hills
+          b-link(to='/locations#location1', alt='Directions to Squirrel Hill school') Squirrel Hill
+          b-link(to='/locations#location2', alt='Directions to East Liberty school') East Liberty
+          b-link(to='/locations#location3', alt='Directions to North Hills school') North Hills
         .spacer.d-block
       .col-sm-7.col-md-5.col-lg-4.text-center.text-sm-right
         a.btn.social(href='https://twitter.com/schoolhouseyoga', alt='Twitter', target='_blank') 
@@ -26,8 +26,8 @@ footer
     .row
       .col-md-6.text-center.text-md-left &copy; 2019 Schoolhouse Yoga, Inc. - All Rights Reserved
       .col-md-6.text-center.text-md-right
-        router-link(to='/privacy', alt='Privacy Policy') Privacy Policy
-        router-link(to='/terms', alt='Terms of use') Terms of Use
+        b-link(to='/privacy', alt='Privacy Policy') Privacy Policy
+        b-link(to='/terms', alt='Terms of use') Terms of Use
 </template>
 
 <script lang="ts">
