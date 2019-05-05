@@ -16,7 +16,7 @@ b-dropdown.add-to-calendar(variant='outline-primary', v-if='!edge')
 </template>
 
 <script lang="ts">
-import { format } from 'date-fns';
+import format from 'date-fns/format';
 import { Component, Vue, Prop } from 'vue-property-decorator';
 
 @Component

@@ -37,6 +37,10 @@ export default class Home extends Vue {
     this.faqsFetch();
   }
 
+  private announcementsFetch() {
+    this.$store.dispatch('announcementsFetch');
+  }
+
   get announcementSections(): any[] {
     return this.$store.state.announcementSections;
   }
@@ -47,10 +51,6 @@ export default class Home extends Vue {
 
   get faqs(): any[] {
     return this.$store.state.faqs;
-  }
-
-  private announcementsFetch() {
-    this.$store.dispatch('announcementsFetch');
   }
 
   private faqsFetch() {

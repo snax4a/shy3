@@ -1,7 +1,7 @@
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const PurgecssPlugin = require('purgecss-webpack-plugin');
 const glob = require('glob-all');
 const path = require('path');
-const vueSrc = "./src";
 
 module.exports = {
   css: {
@@ -36,6 +36,7 @@ module.exports = {
   },
   configureWebpack: {
     plugins: [
+      // new BundleAnalyzerPlugin({ analyzerMode: 'static' }),
       new PurgecssPlugin({
         paths: glob.sync([
           path.join(__dirname, './src/index.html'),
