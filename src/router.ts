@@ -81,7 +81,13 @@ export default new Router({
     }
   ],
   scrollBehavior(to, from, savedPosition) {
-    // classes, workshops, and locations routes should not reset to top if a hash is provided
-    return { x: 0, y: 0 };
+    if (to.hash) {
+      return {
+        selector: to.hash
+        // , offset: { x: 0, y: 10 }
+      };
+    } else {
+      return { x: 0, y: 0 };
+    }
   }
 });

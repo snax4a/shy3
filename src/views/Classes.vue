@@ -7,7 +7,7 @@
     b-button(variant='primary', :href='`#location${location._id}`', v-for='location in locations', :key='location._id') {{ location.name }}
   .studio(v-for='studio in schedule')
     h2.studio
-      b-link(:id='`location${studio.locationId}`', :href='`/locations#location${studio.locationId}`') 
+      b-link(:id='`location${studio.locationId}`', :to='`/locations#location${studio.locationId}`') 
         fa(icon='map-marker-alt') 
         | &nbsp;{{ studio.location }}
     .day(v-for='day in studio.days')
@@ -50,19 +50,13 @@ export default class Classes extends Vue {
   private mounted() {
     this.locationsFetch();
     this.scheduleFetch();
+    // const anchor = this.$router.currentRoute.hash;
+    // this.$nextTick(() => {
+    //   if (anchor && document.querySelector(anchor)) {
+    //     location.href = anchor;
+    //   }
+    // });
   }
-
-  // private amPm(date: Date): string {
-  //   return date.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
-  //     .replace(':00', '')
-  //     .replace(' ', '')
-  //     .toLowerCase();
-  // }
-
-  // private fullDate(date: Date): string {
-  //   const options: any = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-  //   return date.toLocaleString('en-US', options);
-  // }
 
   private locationsFetch() {
     this.$store.dispatch('locationsFetch');

@@ -65,8 +65,6 @@ Vue.use(Vuelidate);
 // Vue.use(Toast);
 Vue.use(BootstrapVue);
 
-// Vue.component('b-carousel', BCarousel); // requires @types/bootstrap-vue which doesn't exist
-
 Vue.config.productionTip = false;
 
 new Vue({

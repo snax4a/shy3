@@ -4,7 +4,8 @@
   .row.location(v-for='location in locations')
     .col-sm-3
       address
-        h2(:id='`location${location._id}`') {{ location.name }}
+        a(:id='`location${location._id}`')
+        h2 {{ location.name }}
         |  {{ location.address }}
         br
         |  {{ location.city }}, {{ location.state }} {{ location.zipCode }}
