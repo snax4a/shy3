@@ -95,7 +95,6 @@ export default new Vuex.Store({
     async workshopsFetch(context): Promise<any> {
       if (this.state.workshops.length === 0) {
         const { data } = await WorkshopService.workshopsGet();
-        console.log('Workshops', data);
         context.commit('workshopsSet', data);
       }
     }

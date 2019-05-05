@@ -16,5 +16,9 @@ export default {
     const thisDate = new Date(date);
     const options: any = { weekday: 'long', month: 'long', day: 'numeric' };
     return thisDate.toLocaleString('en-US', options);
+  },
+  nowAsIso(): string {
+    const thisDate = new Date();
+    return thisDate.toISOString();
   }
 };
