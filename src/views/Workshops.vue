@@ -80,8 +80,8 @@ declare let window: any; // suppress window.twttr error
 export default class Workshops extends Vue {
   private utils: any = utils;
 
-  private mounted() {
-    this.workshopsFetch();
+  private async mounted(): Promise<any> {
+    await this.workshopsFetch();
     window.twttr.widgets.load(); // call whenever using Tweet component
   }
 
@@ -89,8 +89,8 @@ export default class Workshops extends Vue {
     return this.$store.state.workshops;
   }
 
-  private workshopsFetch() {
-    this.$store.dispatch('workshopsFetch');
+  private workshopsFetch(): Promise<any> {
+    return this.$store.dispatch('workshopsFetch');
   }
 }
 </script>
