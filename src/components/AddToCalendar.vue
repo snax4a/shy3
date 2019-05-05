@@ -16,7 +16,7 @@ b-dropdown.add-to-calendar(variant='outline-primary', v-if='!edge')
 </template>
 
 <script lang="ts">
-import moment from 'moment';
+import { format } from 'date-fns';
 import { Component, Vue, Prop } from 'vue-property-decorator';
 
 @Component
@@ -42,7 +42,7 @@ VERSION:2.0
 PRODID:-//Schoolhouse Yoga, Inc.//Website//EN
 BEGIN:VEVENT
 UID:${Math.random().toString(36).substr(2)}
-DTSTAMP:${moment().format('YYYYMMDDTHHmmss')}
+DTSTAMP:${format(new Date(), 'YYYYMMDDTHHmmss')}
 DTSTART:${this.iCalUTC(this.starts)}
 DTEND:${this.iCalUTC(this.ends)}${this.weekly ? '\nRRULE:FREQ=WEEKLY;WKST=SU' : ''}
 SUMMARY:${this.iCalText(this.title, 250)}
@@ -59,8 +59,9 @@ END:VCALENDAR`);
     /* tslint:enable */
   }
 
-  private iCalUTC(isoDate: string) {
-    return moment(isoDate, moment.ISO_8601).format('YYYYMMDDTHHmmss');
+  private iCalUTC(isoDate: string): string {
+    const formattedUTCDate: string = format(isoDate, 'YYYYMMDDTHHmmss');
+    return formattedUTCDate;
   }
 
   private iCalText(str: string, maxLength: number): string {
