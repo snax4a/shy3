@@ -13,10 +13,12 @@ export default class PayNow extends Vue {
   @Prop({ default: false }) private applePayEnabled!: boolean;
 
   private addItem(product: number) {
+    this.$router.push('cart');
     alert(product);
   }
 
   private applePayBuyItem(product: number) {
+    this.$router.push('cart');
     alert(product);
   }
 }

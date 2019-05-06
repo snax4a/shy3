@@ -6,27 +6,32 @@
         h2 Class Passes
         h3 Treat yourself
         b-button-group
-          b-button.btn-warning(ng-click='$ctrl.addItem(4)', alt='Fifteen class pass') 15
-          b-button.btn-warning(ng-click='$ctrl.addItem(2)', alt='Five class pass') 5
-          b-button.btn-warning(ng-click='$ctrl.addItem(1)', alt='One class pass') 1
+          b-button(variant='warning', @click='addItem(4)', alt='Fifteen class pass') 15
+          b-button(variant='warning', @click='addItem(2)', alt='Five class pass') 5
+          b-button(variant='warning', @click='addItem(1)', alt='One class pass') 1
       .d-none.d-sm-block
         h2 Teacher Training
         h3 Spread the love
-        b-button.btn-warning(to='/teachertraining', alt='Yoga Teacher Training (in full)') More info
+        b-button(variant='warning', to='/teachertraining', alt='Yoga Teacher Training (in full)') More info
       .d-none.d-md-block
         h2 Gift Cards
         h3 The gift of good health
         b-button-group
-          b-button.btn-warning(ng-click='$ctrl.addItem(8)', alt='Gift card - Fifteen classes') 15
-          b-button.btn-warning(ng-click='$ctrl.addItem(6)', alt='Gift card - Five classes') 5
-          b-button.btn-warning(ng-click='$ctrl.addItem(5)', alt='Gift card - One class') 1
+          b-button(variant='warning', @click='addItem(8)', alt='Gift card - Fifteen classes') 15
+          b-button(variant='warning', @click='addItem(6)', alt='Gift card - Five classes') 5
+          b-button(variant='warning', @click='addItem(5)', alt='Gift card - One class') 1
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 
 @Component
-export default class Banner extends Vue {}
+export default class Banner extends Vue {
+  private addItem(product: number) {
+    this.$router.push('cart');
+    alert(product);
+  }
+}
 </script>
 
 <style scoped lang="scss">
