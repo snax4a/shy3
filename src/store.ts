@@ -13,8 +13,14 @@ export default new Vuex.Store({
   state: {
     announcementSections: [],
     cart: {
-      count: 0,
-      items: []
+      count: 1,
+      items: [{
+        name: 'One-class pass',
+        price: 18,
+        quantity: 1,
+        total: 18
+      }],
+      total: 18
     },
     classes: [],
     currentUser: {

@@ -42,11 +42,13 @@ import Login from '@/components/Login.vue';
 })
 
 export default class NavBar extends Vue {
-  @Prop({ default: 0 })
-  private count!: number;
   @Prop({ default: { firstName: 'Guest', lastName: 'User', email: '', password: '',
     loggedIn: false, role: 'student', optOut: false } })
   private user!: any;
+
+  private get count() {
+    return this.$store.state.cart.count;
+  }
 }
 </script>
 
