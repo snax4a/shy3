@@ -7,12 +7,11 @@ module.exports = {
   css: {
     loaderOptions: {
       sass: {
-        data: `
-          @import "@/scss/variables.scss";
-        `
+        data: '\n          @import "@/scss/variables.scss";\n        '
       }
     }
   },
+
   chainWebpack: config => {
     config.module
       .rule('vue')
@@ -34,6 +33,7 @@ module.exports = {
         return options
       })
   },
+
   configureWebpack: {
     plugins: [
       // new BundleAnalyzerPlugin({ analyzerMode: 'static' }),
@@ -45,5 +45,13 @@ module.exports = {
         ])
       })
     ]
+  },
+
+  assetsDir: 'src/assets',
+
+  pwa: {
+    name: 'Schoolhouse Yoga',
+    themeColor: '#5f4884',
+    msTileColor: '#5f4884'
   }
 };
