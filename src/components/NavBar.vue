@@ -31,6 +31,7 @@
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator';
+import { store, mutations } from '@/store';
 import Contact from '@/components/Contact.vue';
 import Login from '@/components/Login.vue';
 
@@ -47,7 +48,7 @@ export default class NavBar extends Vue {
   private user!: any;
 
   private get count() {
-    return this.$store.state.cart.count;
+    return store.cart.count;
   }
 }
 </script>

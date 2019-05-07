@@ -34,6 +34,7 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
+import { store, mutations } from '@/store';
 import AddToCalendar from '@/components/AddToCalendar.vue';
 import utils from '@/utils';
 
@@ -48,30 +49,16 @@ export default class Classes extends Vue {
   private utils: any = utils;
 
   private mounted() {
-    this.locationsFetch();
-    this.scheduleFetch();
-    // const anchor = this.$router.currentRoute.hash;
-    // this.$nextTick(() => {
-    //   if (anchor && document.querySelector(anchor)) {
-    //     location.href = anchor;
-    //   }
-    // });
+    mutations.locationsSet();
+    mutations.scheduleSet();
   }
 
-  private locationsFetch() {
-    this.$store.dispatch('locationsFetch');
+  private get locations(): any[] {
+    return store.locations;
   }
 
-  get locations(): any[] {
-    return this.$store.state.locations;
-  }
-
-  get schedule(): any[] {
-    return this.$store.state.schedule;
-  }
-
-  private scheduleFetch() {
-    this.$store.dispatch('scheduleFetch');
+  private get schedule(): any[] {
+    return store.schedule;
   }
 
   private sendToModal(record: any) {

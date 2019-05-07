@@ -56,10 +56,10 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
+import { store, mutations } from '@/store';
 
 @Component
 export default class TeacherTraining extends Vue {
-  private applePaySupported: boolean = false;
   private form: any = {
     agreed: false,
     productId: 98
@@ -67,6 +67,10 @@ export default class TeacherTraining extends Vue {
 
   private addToCart(evt: any) {
     alert(JSON.stringify(this.form));
+  }
+
+  private get applePaySupported(): boolean {
+    return store.applePaySupported;
   }
 }
 </script>

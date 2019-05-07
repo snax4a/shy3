@@ -1,5 +1,11 @@
 // utils
 export default {
+  addTime(date: Date, time: string): Date {
+    const hours = parseInt(time.substring(0, 2), 10);
+    const mins = parseInt(time.substring(3, 5), 10);
+    date.setHours(hours, mins);
+    return date;
+  },
   amPm(date: Date): string {
     const thisDate = new Date(date); // In case it's ISO 8601
     return thisDate.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
@@ -17,8 +23,64 @@ export default {
     const options: any = { weekday: 'long', month: 'long', day: 'numeric' };
     return thisDate.toLocaleString('en-US', options);
   },
+  nest(flatScheduleItems: any[]): any {
+    const nestedScheduleItems = [];
+    let currentLocation: string = '';
+    let locationIndex = -1; // assume none
+    let currentDay: number = 0;
+    let dayIndex: number = 0;
+
+    for (const i in flatScheduleItems) {
+      const row = flatScheduleItems[i];
+      if (currentLocation !== row.location) {
+        locationIndex++; // zero first time through
+        dayIndex = 0; // Start days over for new location
+        nestedScheduleItems.push({
+          location: row.location,
+          locationId: row.locationId,
+          days: [
+            {
+              day: row.day,
+              date: this.nextDateForDOW(row.day),
+              classes: [this.rowToClass(row)]
+            }
+          ]
+        });
+      } else {
+        if (currentDay !== row.day) {
+          dayIndex++;
+          nestedScheduleItems[locationIndex].days.push({
+            day: row.day,
+            date: this.nextDateForDOW(row.day),
+            classes: [this.rowToClass(row)]
+          });
+        } else {
+          nestedScheduleItems[locationIndex].days[dayIndex].classes.push(this.rowToClass(row));
+        }
+        currentDay = row.day;
+      }
+      currentDay = row.day;
+      currentLocation = row.location;
+    }
+    return nestedScheduleItems;
+  },
+  nextDateForDOW(dayOfWeek: number): Date {
+    const result = new Date();
+    result.setDate(result.getDate() + (dayOfWeek + 6 - result.getDay()) % 7);
+    // Clear time so we can add starts and ends
+    result.setHours(0);
+    result.setMinutes(0);
+    result.setSeconds(0);
+    return result;
+  },
   nowAsIso(): string {
     const thisDate = new Date();
     return thisDate.toISOString();
+  },
+  rowToClass(row: any) {
+    const yogaClass = { ...row };
+    yogaClass.startTime = this.addTime(this.nextDateForDOW(row.day), row.startTime);
+    yogaClass.endTime = this.addTime(this.nextDateForDOW(row.day), row.endTime);
+    return yogaClass;
   }
 };

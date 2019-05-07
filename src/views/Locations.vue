@@ -26,19 +26,16 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
+import { store, mutations } from '@/store';
 
 @Component
 export default class Locations extends Vue {
   private mounted() {
-    this.locationsFetch();
+    mutations.locationsSet();
   }
 
-  private locationsFetch() {
-    this.$store.dispatch('locationsFetch');
-  }
-
-  get locations(): any[] {
-    return this.$store.state.locations;
+  private get locations(): any[] {
+    return store.locations;
   }
 }
 </script>

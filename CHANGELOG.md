@@ -1,9 +1,8 @@
 # Product Backlog
+* [High] Build ShoppingCart, ProductList, and User using observable
 * [High] Add toast for contact form, subscribe to newsletter, and adding anything to the cart
 * [High] Hookup Contact form on NavBar to server
 * [High] Hookup Login form on NavBar to server and store token
-* [High] Build ShoppingCart, ProductList, and User using Vuex
-* [High] Create Shopping Cart as dropdown form like login
 * [High] GoogleLogin component - login via Oauth to Google (currently /auth/google)
 * [High] Create UserManager component for Admin and SHYnet views
 * [High] Create components for Admin tabs (Dashboard, UserManager, ScheduleManager, AnnouncementManager, OrderManager, ProductManager, ClassManager, WorkshopManager, LocationManager)
@@ -11,6 +10,7 @@
 * [Low] Implement types.ts in store.ts
 
 <a name="1.0.0"></a>
+* Migrated from Vuex to Vue.observable
 * Incorporated old JsonLd component into Workshops normal view
 * Changed modals to b-dropdown-form
 * [Bug Fix] Weekly does not work in AddToCalendar.vue for Google

@@ -64,6 +64,7 @@
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator';
+import { store, mutations } from '@/store';
 import NewsletterSubscribe from '@/components/NewsletterSubscribe.vue';
 import Tweet from '@/components/Tweet.vue';
 import AddToCalendar from '@/components/AddToCalendar.vue';
@@ -81,16 +82,12 @@ export default class Workshops extends Vue {
   private utils: any = utils;
 
   private async mounted(): Promise<any> {
-    await this.workshopsFetch();
+    await mutations.workshopsSet();
     window.twttr.widgets.load(); // call whenever using Tweet component
   }
 
-  get workshops(): any[] {
-    return this.$store.state.workshops;
-  }
-
-  private workshopsFetch(): Promise<any> {
-    return this.$store.dispatch('workshopsFetch');
+  private get workshops(): any[] {
+    return store.workshops;
   }
 }
 </script>

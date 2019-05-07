@@ -176,6 +176,7 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
+import { store, mutations } from '@/store';
 
 @Component
 export default class Cart extends Vue {
@@ -184,11 +185,11 @@ export default class Cart extends Vue {
   }
 
   private get count() {
-    return this.$store.state.cart.count;
+    return store.cart.count;
   }
 
   private get items() {
-    return this.$store.state.cart.items;
+    return store.cart.items;
   }
 
   private keepShopping() {
@@ -200,7 +201,7 @@ export default class Cart extends Vue {
   }
 
   private get total() {
-    return this.$store.state.cart.total;
+    return store.cart.total;
   }
 }
 </script>

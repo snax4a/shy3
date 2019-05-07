@@ -29,32 +29,21 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
+import { store, mutations } from '@/store';
 
 @Component
 export default class Home extends Vue {
   private mounted() {
-    this.announcementsFetch();
-    this.faqsFetch();
+    mutations.announcementsSet();
+    mutations.faqsSet();
   }
 
-  private announcementsFetch() {
-    this.$store.dispatch('announcementsFetch');
+  private get announcementSections(): any[] {
+    return store.announcementSections;
   }
 
-  get announcementSections(): any[] {
-    return this.$store.state.announcementSections;
-  }
-
-  get carousel(): string[] {
-    return this.$store.state.carousel;
-  }
-
-  get faqs(): any[] {
-    return this.$store.state.faqs;
-  }
-
-  private faqsFetch() {
-    this.$store.dispatch('faqsFetch');
+  private get faqs(): any[] {
+    return store.faqs;
   }
 }
 </script>
