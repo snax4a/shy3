@@ -15,6 +15,7 @@ export default new Vuex.Store({
     cart: {
       count: 1,
       items: [{
+        productId: 1, // must be unique, else increment quantity
         name: 'One-class pass',
         price: 18,
         quantity: 1,

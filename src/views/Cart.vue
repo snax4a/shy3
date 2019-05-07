@@ -5,7 +5,7 @@
     .col-md-6
       b-form(@submit.prevent='onSubmit', novalidate='')
         .card
-          .card-header {{ count > 0 ? count : 'No'}} items in your cart
+          .card-header {{ count > 0 ? count : 'No' }} items in your cart
           .card-body
             table.table.table-striped.table-hover
               thead
@@ -30,9 +30,8 @@
                       fa.has-error(:icon='["far", "trash-alt"]')
               tfoot
                 tr
-                  td(colspan='4')
-                    .d-flex.justify-content-end
-                      strong Total&nbsp;&nbsp;${{ total }}
+                  td.text-right(colspan='4')
+                    strong Total&nbsp;&nbsp;${{ total }}
                   td &nbsp;
           .card-footer.d-flex.justify-content-between
               b-button(variant='primary', @click='keepShopping') Keep Shopping
