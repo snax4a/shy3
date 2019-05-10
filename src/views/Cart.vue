@@ -18,16 +18,7 @@
               tbody
                 tr(v-if='count == 0')
                   td(colspan='5') &nbsp;
-                tr(v-for='item in items')
-                  td.align-middle {{ item.name }}
-                  td.align-middle.text-right ${{ item.price }}
-                  td.align-middle
-                    b-form-input.text-right(v-model='item.quantity', name='quantity', type='number', maxlength='2', min='1', max='10', required='', step='1')
-                  td.align-middle.text-right
-                      strong ${{ item.total }}
-                  td.align-middle
-                    a(@click='removeItem($index)')
-                      fa.has-error(:icon='["far", "trash-alt"]')
+                CartItem(v-for='item in items', :item='item')
               tfoot
                 tr
                   td.text-right(colspan='4')
@@ -177,30 +168,40 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import { store, mutations } from '@/store';
+import { Item } from '@/types';
+import CartItem from '@/components/CartItem.vue';
 
-@Component
+@Component({
+  components: {
+    CartItem
+  }
+})
 export default class Cart extends Vue {
-  private checkout() {
+  private async mounted(): Promise<void> {
+    return await mutations.productsSet();
+  }
+
+  private checkout(): void {
     alert('Set focus to credit card field');
   }
 
-  private get count() {
+  private get count(): number {
     return store.cart.count;
   }
 
-  private get items() {
+  private get items(): Item[] {
     return store.cart.items;
   }
 
-  private keepShopping() {
+  private keepShopping(): void {
     this.$router.go(-1);
   }
 
-  private onSubmit() {
+  private onSubmit(): void {
     alert('Submitted.');
   }
 
-  private get total() {
+  private get total(): number {
     return store.cart.total;
   }
 }

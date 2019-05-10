@@ -24,12 +24,13 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
+import { store, mutations } from '@/store';
 
 @Component
 export default class Banner extends Vue {
   private addItem(product: number) {
+    mutations.cartAdd(product);
     this.$router.push('cart');
-    alert(product);
   }
 }
 </script>

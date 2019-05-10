@@ -2,20 +2,16 @@ import Vue from 'vue';
 import Api from '@/services/Api';
 import faqs from '@/assets/data/faqs.json';
 import utils from '@/utils';
+import { Store, Role, Item, Product } from '@/types';
 
-export const store = Vue.observable({
+export const store: Store = Vue.observable({
   announcementSections: [],
-  applePaySupported: false,
   cart: {
-    count: 1,
-    items: [{
-      productId: 1, // must be unique, else increment quantity
-      name: 'One-class pass',
-      price: 18,
-      quantity: 1,
-      total: 18
-    }],
-    total: 18
+    applePayEnabled: false,
+    braintreeError: '',
+    count: 0,
+    items: [],
+    total: 0
   },
   classes: [],
   currentUser: {
@@ -24,9 +20,10 @@ export const store = Vue.observable({
     email: '',
     password: '',
     loggedIn: false,
-    role: 'student',
+    role: Role.Student,
     provider: 'local',
-    optOut: false
+    optOut: false,
+    googleId: ''
   },
   faqs: [],
   locations: [],
@@ -37,37 +34,68 @@ export const store = Vue.observable({
 });
 
 export const mutations = {
-  async announcementsSet() {
+  async announcementsSet(): Promise<void> {
     if (store.announcementSections.length === 0) {
       const { data } = await Api().get('/api/announcement');
       store.announcementSections = data;
     }
   },
-  cartCountSet(count: number) {
-    store.cart.count = count;
+  cartAdd(productId: number): void {
+    const product: Product | undefined = store.products.find((element: Product) => element._id === productId);
+    if (!product) {
+      throw new Error('That product ID is invalid.');
+    }
+    const item: Item | undefined = store.cart.items.find((element: Item) => element.productId === productId);
+    if (!item) {
+      store.cart.items.push({
+        productId,
+        productName: product.name,
+        price: product.price,
+        quantity: 1,
+        total: product.price
+      });
+    } else {
+      item.quantity++;
+      item.total = item.quantity * item.price;
+    }
+    this.cartRecalculate();
   },
-  cartCountChange(changeAmount: number) {
-    store.cart.count += changeAmount;
+  cartRecalculate(): void {
+    store.cart.count = store.cart.items
+      .reduce((accumulator, currentValue) => Math.round(accumulator + currentValue.quantity), 0);
+    store.cart.total = store.cart.items.reduce((accumulator, currentValue) => accumulator + currentValue.total, 0);
   },
-  faqsSet() {
+  cartItemDelete(cartItem: Item): void {
+    const index: number = store.cart.items.findIndex((item) => item.productId === cartItem.productId);
+    store.cart.count -= store.cart.items[index].quantity;
+    store.cart.total -= store.cart.items[index].total;
+    store.cart.items.splice(index, 1);
+  },
+  faqsSet(): void {
     if (store.faqs.length === 0) {
       const data: any = faqs;
       store.faqs = data;
     }
   },
-  async locationsSet() {
+  async locationsSet(): Promise<void> {
     if (store.locations.length === 0) {
       const { data } = await Api().get('/api/location/active');
       store.locations = data;
     }
   },
-  async scheduleSet() {
+  async productsSet(): Promise<void> {
+    if (store.products.length === 0) {
+      const { data } = await Api().get('/api/product/active');
+      store.products = data;
+    }
+  },
+  async scheduleSet(): Promise<void> {
     if (store.schedule.length === 0) {
       const { data } = await Api().get('/api/schedule');
       store.schedule = utils.nest(data);
     }
   },
-  async workshopsSet() {
+  async workshopsSet(): Promise<void> {
     if (store.workshops.length === 0) {
       const { data } = await Api().get('/api/workshop/active');
       store.workshops = data;
