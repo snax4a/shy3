@@ -50,9 +50,9 @@ export const mutations = {
       store.cart.items.push({
         productId,
         productName: product.name,
-        price: product.price,
-        quantity: 1,
-        total: product.price
+        price: +product.price,
+        quantity: +1,
+        total: +product.price
       });
     } else {
       item.quantity++;
@@ -62,8 +62,9 @@ export const mutations = {
   },
   cartRecalculate(): void {
     store.cart.count = store.cart.items
-      .reduce((accumulator, currentValue) => Math.round(accumulator + currentValue.quantity), 0);
-    store.cart.total = store.cart.items.reduce((accumulator, currentValue) => accumulator + currentValue.total, 0);
+      .reduce((accumulator, currentValue) => accumulator + currentValue.quantity, 0);
+    store.cart.total = store.cart.items
+      .reduce((accumulator, currentValue) => accumulator + currentValue.total, 0);
   },
   cartItemDelete(cartItem: Item): void {
     const index: number = store.cart.items.findIndex((item) => item.productId === cartItem.productId);

@@ -1,4 +1,5 @@
 # Product Backlog
+* [Bug] store.ts:cartAdd() uses decimals for item.price, item.total and cart.total
 * [High] Build User using Vue.observable
 * [High] Add Credit Card processing
 * [High] Add toast for contact form, subscribe to newsletter, and adding anything to the cart

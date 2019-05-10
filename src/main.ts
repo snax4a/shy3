@@ -33,6 +33,9 @@ import { faCalendarPlus, faTrashAlt, faCreditCard } from '@fortawesome/free-regu
 import { faTwitter, faFacebookF, faInstagram, faYoutube,
   faGoogle, faApple, faWindows } from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+
+import { mutations } from '@/store';
+
 import './scss/app.scss';
 
 // FontAwesome 5.0 - load each icon as SVG with tree-shaking to minimize size
@@ -66,6 +69,8 @@ Vue.use(Vuelidate);
 Vue.use(BootstrapVue);
 
 Vue.config.productionTip = false;
+
+mutations.productsSet();
 
 new Vue({
   router,

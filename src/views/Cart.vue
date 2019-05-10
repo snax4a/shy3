@@ -7,7 +7,7 @@
         .card
           .card-header {{ count > 0 ? count : 'No' }} items in your cart
           .card-body
-            table.table.table-striped.table-hover
+            table.table.table-striped.table-hover.table-borderless
               thead
                 tr
                   th What
@@ -18,7 +18,7 @@
               tbody
                 tr(v-if='count == 0')
                   td(colspan='5') &nbsp;
-                CartItem(v-for='item in items', :item='item')
+                CartItem(v-for='item in items', :item='item', :key='item.productId')
               tfoot
                 tr
                   td.text-right(colspan='4')
