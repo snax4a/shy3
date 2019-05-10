@@ -1,4 +1,6 @@
 # Product Backlog
+* [High] Implement checkout process
+* [High] Implement confirmation
 * [High] Build User using Vue.observable
 * [High] Add Credit Card processing
 * [High] Add toast for contact form, subscribe to newsletter, and adding anything to the cart
@@ -10,6 +12,7 @@
 * [Medium] If someone goes to /login, expose the Login dropdown and form
 
 <a name="1.0.0"></a>
+* Moved axios requests to created() from mounted() to improve load time
 * [Bug] store.ts:cartAdd() uses decimals for item.price, item.total and cart.total
 * Built Shopping Cart, and Product List using Vue.observable
 * Implemented types.ts in store.ts
