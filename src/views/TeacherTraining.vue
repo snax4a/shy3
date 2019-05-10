@@ -70,7 +70,7 @@ export default class TeacherTraining extends Vue {
   }
 
   private get applePaySupported(): boolean {
-    return store.applePaySupported;
+    return store.cart.applePayEnabled;
   }
 }
 </script>
