@@ -15,7 +15,7 @@
         b-nav-item(to='/cart', v-if='count > 0')
           fa(icon='shopping-cart')
           | &nbsp;Cart 
-          b-badge(variant='secondary') {{ count }}
+          b-badge.badge-pill(variant='warning') {{ count }}
         b-nav-item(to='/admin', v-if='user.loggedIn && user.role == "admin"') Admin
         b-nav-item(to='/shynet', v-if='user.loggedIn && user.role != "student"') SHYnet
       b-navbar-nav.ml-auto
@@ -70,8 +70,9 @@ export default class NavBar extends Vue {
 }
 
 .badge {
-	position: relative;
-	top: -2px;
+  position: relative;
+  top: -1px;
+  padding: 5px 7px 6px;
 }
 
 li>.router-link-exact-active {
