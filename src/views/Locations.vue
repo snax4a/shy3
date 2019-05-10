@@ -30,8 +30,8 @@ import { store, mutations } from '@/store';
 
 @Component
 export default class Locations extends Vue {
-  private mounted() {
-    mutations.locationsSet();
+  private async created(): Promise<void> {
+    return await mutations.locationsSet();
   }
 
   private get locations(): any[] {

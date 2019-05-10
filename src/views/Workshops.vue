@@ -70,6 +70,7 @@ import Tweet from '@/components/Tweet.vue';
 import AddToCalendar from '@/components/AddToCalendar.vue';
 import PayNow from '@/components/PayNow.vue';
 import utils from '@/utils';
+import { Workshop } from '@/types';
 
 declare let window: any; // suppress window.twttr error
 
@@ -81,12 +82,12 @@ declare let window: any; // suppress window.twttr error
 export default class Workshops extends Vue {
   private utils: any = utils;
 
-  private async mounted(): Promise<any> {
+  private async created(): Promise<void> {
     await mutations.workshopsSet();
     window.twttr.widgets.load(); // call whenever using Tweet component
   }
 
-  private get workshops(): any[] {
+  private get workshops(): Workshop[] {
     return store.workshops;
   }
 }

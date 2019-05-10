@@ -34,9 +34,8 @@ import { AnnouncementSection, Faq } from '@/types';
 
 @Component
 export default class Home extends Vue {
-  private mounted(): void {
-    mutations.announcementsSet();
-    mutations.faqsSet();
+  private async created(): Promise<[void, void]>  {
+    return await Promise.all([mutations.announcementsSet(), mutations.faqsSet()]);
   }
 
   private get announcementSections(): AnnouncementSection[] {

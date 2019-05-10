@@ -48,9 +48,8 @@ export default class Classes extends Vue {
   private modalRecord: any = {};
   private utils: any = utils;
 
-  private mounted() {
-    mutations.locationsSet();
-    mutations.scheduleSet();
+  private async created(): Promise<[void, void]> {
+    return await Promise.all([mutations.locationsSet(), mutations.scheduleSet()]);
   }
 
   private get locations(): any[] {
