@@ -3,7 +3,7 @@
   h1 Shopping Cart
   .row
     .col-md-6
-      b-form(@submit.prevent='onSubmit', novalidate='')
+      b-form(novalidate='')
         .card
           .card-header {{ count > 0 ? count : 'No' }} items in your cart
           .card-body
@@ -177,10 +177,6 @@ import CartItem from '@/components/CartItem.vue';
   }
 })
 export default class Cart extends Vue {
-  private async mounted(): Promise<void> {
-    return await mutations.productsSet();
-  }
-
   private checkout(): void {
     alert('Set focus to credit card field');
   }
