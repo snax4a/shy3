@@ -13,7 +13,7 @@
                   th What
                   th Each
                   th.text-center Qty
-                  th Amount
+                  th.text-right Amount
                   th &nbsp;
               tbody
                 tr(v-if='count == 0')
