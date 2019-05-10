@@ -45,8 +45,8 @@
         | of $100 will apply. No refunds will be granted after February 10th.
       b-form(@submit.prevent='addToCart')
         b-form-group(label='Payment Options')
-          b-form-radio(v-model='form.productId', name='paymentTerms', value='98') Payment in full ($2,750) 
-          b-form-radio(v-model='form.productId', name='paymentTerms', value='99') 9 x Monthly payments ($334/each)
+          b-form-radio(v-model.number='form.productId', name='paymentTerms', value='98') Payment in full ($2,750) 
+          b-form-radio(v-model.number='form.productId', name='paymentTerms', value='99') 9 x Monthly payments ($334/each)
         b-form-checkbox(v-model='form.agreed', aria-describedby='password-help-block') I agree to these terms and conditions.
         b-form-text.has-error(id='agreed-help-block', v-if='!form.agreed') You must select this checkbox to proceed.            
         br
@@ -65,8 +65,9 @@ export default class TeacherTraining extends Vue {
     productId: 98
   };
 
-  private addToCart(evt: any) {
-    alert(JSON.stringify(this.form));
+  private addToCart(evt: any): void {
+    mutations.cartAdd(this.form.productId);
+    this.$router.push('cart');
   }
 
   private get applePaySupported(): boolean {
