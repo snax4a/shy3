@@ -24,7 +24,7 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import { store, mutations } from '@/store';
+import { mutations } from '@/store';
 
 @Component
 export default class Banner extends Vue {

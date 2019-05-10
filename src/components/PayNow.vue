@@ -6,6 +6,7 @@ span
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator';
+import { mutations } from '@/store';
 
 @Component
 export default class PayNow extends Vue {
@@ -13,13 +14,13 @@ export default class PayNow extends Vue {
   @Prop({ default: false }) private applePayEnabled!: boolean;
 
   private addItem(product: number) {
+    mutations.cartAdd(product);
     this.$router.push('cart');
-    alert(product);
   }
 
   private applePayBuyItem(product: number) {
+    mutations.cartAdd(product);
     this.$router.push('cart');
-    alert(product);
   }
 }
 </script>
