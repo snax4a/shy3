@@ -1,5 +1,4 @@
 # Product Backlog
-* [Bug] store.ts:cartAdd() uses decimals for item.price, item.total and cart.total
 * [High] Build User using Vue.observable
 * [High] Add Credit Card processing
 * [High] Add toast for contact form, subscribe to newsletter, and adding anything to the cart
@@ -11,6 +10,7 @@
 * [Medium] If someone goes to /login, expose the Login dropdown and form
 
 <a name="1.0.0"></a>
+* [Bug] store.ts:cartAdd() uses decimals for item.price, item.total and cart.total
 * Built Shopping Cart, and Product List using Vue.observable
 * Implemented types.ts in store.ts
 * Migrated from Vuex to Vue.observable
