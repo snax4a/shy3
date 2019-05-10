@@ -30,19 +30,20 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import { store, mutations } from '@/store';
+import { AnnouncementSection, Faq } from '@/types';
 
 @Component
 export default class Home extends Vue {
-  private mounted() {
+  private mounted(): void {
     mutations.announcementsSet();
     mutations.faqsSet();
   }
 
-  private get announcementSections(): any[] {
+  private get announcementSections(): AnnouncementSection[] {
     return store.announcementSections;
   }
 
-  private get faqs(): any[] {
+  private get faqs(): Faq[] {
     return store.faqs;
   }
 }

@@ -1,3 +1,10 @@
+// import Vue from 'vue';
+
+// declare module 'vue/types/vue' {
+//   interface Vue {
+
+//   }
+// }
 export interface User {
   firstName: string;
   lastName: string;
@@ -7,6 +14,7 @@ export interface User {
   role: Role;
   provider: string;
   optOut: boolean;
+  googleId: string;
 }
 
 export interface Announcement {
@@ -16,8 +24,24 @@ export interface Announcement {
 }
 
 export interface AnnouncementSection {
-  name: string;
+  section: string;
   announcements: Announcement[];
+}
+
+export interface Item {
+  productId: number;
+  productName: string;
+  price: number;
+  quantity: number;
+  total: number;
+}
+
+export interface Cart {
+  applePayEnabled: boolean;
+  braintreeError: string;
+  count: number;
+  items: Item[];
+  total: number;
 }
 
 export interface Faq {
@@ -41,9 +65,10 @@ export interface Location {
 }
 
 export interface Product {
-  id: number;
+  _id: number;
   name: string;
   price: number;
+  active: boolean;
 }
 
 export interface Teacher {
@@ -89,29 +114,14 @@ export interface Workshop {
   sections: WorkshopSection[];
 }
 
-export interface CartItem {
-  product: Product;
-  quantity: number;
-}
-
-export interface Cart {
-  applePayEnabled: boolean;
-  braintreeError: string;
-  itemCount: number;
-  items: CartItem[];
-  grandTotal: number;
-}
-
 export enum Role {
-  Student,
-  Teacher,
-  Admin
+  Student = 'student',
+  Teacher = 'teacher',
+  Admin = 'admin'
 }
 
-export interface RootState {
+export interface Store {
   announcementSections: AnnouncementSection[];
-  sections: WorkshopSection[];
-  carousel: string[];
   cart: Cart;
   classes: YogaClass[];
   currentUser: User;
