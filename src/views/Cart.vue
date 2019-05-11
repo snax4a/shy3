@@ -28,7 +28,7 @@
             b-button(variant='primary', @click='keepShopping') Keep Shopping
             b-button(variant='warning', @click='checkout', :disabled='count == 0') Checkout »
     .col-md-6
-      b-form(@submit.prevent='placeOrder', novalidate='', autocomplete='on')
+      b-form(@submit.prevent='onSubmit', novalidate='', autocomplete='on')
         .card
           .card-header Payment Info
           .card-body
@@ -109,7 +109,7 @@
               b-form-group(label='Send gift card via')
                 b-form-radio(v-model='sendVia', value='Email') Email
                 b-form-radio(v-model='sendVia', value='Mail') Mail
-            p.mt-2 Class cards and workshop purchases are non-refundable. Class cards expire one year from their purchase date.
+            p.mt-2.mb-0 Class cards and workshop purchases are non-refundable. Class cards expire one year from their purchase date.
           .card-footer
             .row
               .col-sm-8.col-xs-7
