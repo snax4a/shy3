@@ -28,7 +28,7 @@ import BootstrapVue from 'bootstrap-vue';
 
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faShoppingCart, faPhone, faMapMarkerAlt,
-  faEnvelope, faCalendarAlt, faUser } from '@fortawesome/free-solid-svg-icons';
+  faEnvelope, faCalendarAlt, faUser, faLock } from '@fortawesome/free-solid-svg-icons';
 import { faCalendarPlus, faTrashAlt, faCreditCard } from '@fortawesome/free-regular-svg-icons';
 import { faTwitter, faFacebookF, faInstagram, faYoutube,
   faGoogle, faApple, faWindows } from '@fortawesome/free-brands-svg-icons';
@@ -41,7 +41,7 @@ import './scss/app.scss';
 // FontAwesome 5.0 - load each icon as SVG with tree-shaking to minimize size
 library.add(faShoppingCart, faPhone, faEnvelope, faCalendarAlt, faMapMarkerAlt, faCalendarPlus,
   faTwitter, faFacebookF, faInstagram, faYoutube, faUser, faGoogle, faApple, faWindows,
-  faTrashAlt, faCreditCard);
+  faTrashAlt, faCreditCard, faLock);
 Vue.component('fa', FontAwesomeIcon);
 
 Vue.use(Vuelidate);

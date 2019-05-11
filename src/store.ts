@@ -7,7 +7,7 @@ import { Store, Role, Item, Product } from '@/types';
 export const store: Store = Vue.observable({
   announcementSections: [],
   cart: {
-    applePayEnabled: false,
+    applePayEnabled: true,
     braintreeError: '',
     count: 0,
     items: [],

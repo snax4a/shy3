@@ -30,12 +30,12 @@ export default class AddToCalendar extends Vue {
   @Prop({ default: false }) private weekly!: boolean;
   @Prop({ default: window.navigator.userAgent.indexOf('Edge') > -1 }) private edge!: boolean;
 
-  get googleCalendarUrl(): string {
+  private get googleCalendarUrl(): string {
     // tslint:disable-next-line
     return `https://www.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(this.title)}&dates=${this.iCalUTC(this.starts)}/${this.iCalUTC(this.ends)}&details=${encodeURIComponent(this.description)}&location=${encodeURIComponent(this.location)}${this.weekly ? '&recur=RRULE:FREQ=WEEKLY' : ''}`;
   }
 
-  get icsFile(): string {
+  private get icsFile(): string {
       /* tslint:disable */
       const iCal = encodeURIComponent(`BEGIN:VCALENDAR
 VERSION:2.0

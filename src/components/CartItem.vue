@@ -14,14 +14,14 @@ tr
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator';
-import { required, numeric, between } from 'vuelidate/lib/validators';
+import { required, integer, between } from 'vuelidate/lib/validators';
 import { store, mutations } from '@/store';
 import { Item } from '@/types';
 
 @Component({
   validations: {
     item: {
-      quantity: { required, numeric, between: between(1, 10) }
+      quantity: { required, integer, between: between(1, 10) }
     }
   }
 })

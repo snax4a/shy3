@@ -25,148 +25,103 @@
                     strong Total&nbsp;&nbsp;${{ total }}
                   td &nbsp;
           .card-footer.d-flex.justify-content-between
-              b-button(variant='primary', @click='keepShopping') Keep Shopping
-              b-button(variant='warning', @click='checkout', :disabled='count == 0') Checkout »
-
-
-    //- .col-md-6
-      form(name='checkout', ng-submit='$ctrl.placeOrder(checkout)', novalidate='', autocomplete='on')
-        .panel.panel-default(aria-labelledby='paymentPanelTitle')
-          .panel-heading
-            #paymentPanelTitle.panel-title Payment Info
-          .panel-body
-            .row(ng-if='$ctrl.Cart.applePayEnabled')
-              .col-xs-12
+            b-button(variant='primary', @click='keepShopping') Keep Shopping
+            b-button(variant='warning', @click='checkout', :disabled='count == 0') Checkout »
+    .col-md-6
+      b-form(@submit.prevent='placeOrder', novalidate='', autocomplete='on')
+        .card
+          .card-header Payment Info
+          .card-body
+            .row(v-if='applePayEnabled')
+              .col-12.pb-2
                 a.apple-pay-button(ng-click='$ctrl.applePayCheckout()')
                 br
                 | Or fill out the form below to use a credit card.
-                br
-                br
             .row
-              .form-group.col-xs-12.col-sm-7.col-lg-6
-                label(id='labelCardNumber', for='card-number') Credit card number
-                .input-group(style='margin-bottom: 0px!important')
+              b-form-group.col-xs-12.col-sm-7.col-lg-6(label='Credit card number', label-for='card-number')
+                .input-group.mb-0
                   .form-control(id='card-number')
-                  span.input-group-addon
-                    span.far.fa-credit-card
-                ng-messages.help-block.has-error(for='$ctrl.Cart.hostedFieldsState.number', ng-show='(!$ctrl.Cart.hostedFieldsState.number.isEmpty && $ctrl.Cart.hostedFieldsState.number.isInvalid) || checkout.$submitted', role='alert')
-                  ng-message(when='isEmpty') Please provide a card number.
-                  ng-message(when='isInvalid') {{ $ctrl.braintreeError || 'Please provide a valid card number.' }} 
-              .form-group.col-xs-7.col-sm-5.col-lg-4
-                label(for='expiration-date') Expires
-                .input-group(style='margin-bottom: 0px!important')
+                  .input-group-append
+                    .span.input-group-text
+                      fa(:icon='["far", "credit-card"]')
+                b-form-invalid-feedback(id='creditCardFeedback', v-if='paymentSubmitted && $v.creditCard.$invalid') Please provide a valid card number.
+              b-form-group.col-xs-7.col-sm-5.col-lg-4(label='Expires', label-for='expiration-date')
+                .input-group.mb-0
                   .form-control(id='expiration-date')
-                  span.input-group-addon
-                    span.far.fa-calendar-alt
-                ng-messages.help-block.has-error(for='$ctrl.Cart.hostedFieldsState.expirationDate', ng-show='(!$ctrl.Cart.hostedFieldsState.expirationDate.isEmpty && $ctrl.Cart.hostedFieldsState.expirationDate.isInvalid) || checkout.$submitted', role='alert')
-                  ng-message(when='isEmpty') Please provide an expiration date.
-                  ng-message(when='isInvalid') Please provide a valid expiration date.
-              .form-group.col-xs-5.col-md-4
-                label(for='cvv') CVV
-                .input-group(style='margin-bottom: 0px!important')
+                  .input-group-append
+                    .span.input-group-text
+                      fa(icon='calendar-alt')
+                b-form-invalid-feedback(id='expirationFeedback', v-if='paymentSubmitted && $v.expiration.$invalid') Please provide a valid expiration date.
+              b-form-group.col-xs-5.col-md-4(label='CVV', label-for='cvv')
+                .input-group.mb-0
                   .form-control(id='cvv')
-                  span.input-group-addon
-                    span.fas.fa-lock
-                ng-messages.help-block.has-error(for='$ctrl.Cart.hostedFieldsState.cvv', ng-show='(!$ctrl.Cart.hostedFieldsState.cvv.isEmpty && $ctrl.Cart.hostedFieldsState.cvv.isInvalid) || checkout.$submitted', role='alert')
-                  ng-message(when='isEmpty') Please provide the card security code.            
-                  ng-message(when='isInvalid') Please provide a valid card security code.
+                  .input-group-append
+                    .span.input-group-text
+                      fa(icon='lock')
+                b-form-invalid-feedback(id='cvvFeedback', v-if='paymentSubmitted && $v.cvv.$invalid') Please provide a valid card security code.
             .row
-              .form-group.col-xs-12.col-sm-6
-                label(for='firstName')
-                  span(ng-if='$ctrl.Cart.gift') Purchaser&apos;s first name
-                  span(ng-if='!$ctrl.Cart.gift') Student&apos;s first name
-                input.form-control(id='firstName', name='firstName', ng-model='$ctrl.purchaser.firstName', required='', autocomplete='cc-given-name', type='text', maxlength='20', placeholder='First name')
-                ng-messages.help-block.has-error(for='checkout.firstName.$error', ng-show='checkout.firstName.$dirty || checkout.$submitted', role='alert')
-                  ng-message(when='required') Please provide the student&apos;s first name.
-              .form-group.col-xs-12.col-sm-6
-                label(for='lastName') Last name
-                input.form-control(id='lastName', name='lastName', ng-model='$ctrl.purchaser.lastName', required='', autocomplete='cc-family-name', type='text', maxlength='20', placeholder='Last name')
-                ng-messages.help-block.has-error(for='checkout.lastName.$error', ng-show='checkout.lastName.$dirty || checkout.$submitted', role='alert')
-                  ng-message(when='required') Please provide the student&apos;s last name.
+              b-form-group.col-xs-12.col-sm-6(:label='`${gift ? "Purchaser" : "Student"}\'s first name`', label-for='purchaserFirstName')
+                b-form-input(v-model='purchaser.firstName', type='text', id='purchaserFirstName', placeholder='First name', autocomplete='cc-given-name', maxlength='20', aria-describedby='purchaserFirstNameFeedback', :class='{ "is-invalid": paymentSubmitted && $v.purchaser.firstName.$error }')
+                b-form-invalid-feedback(id='purchaserFirstNameFeedback', v-if='paymentSubmitted && $v.purchaser.firstName.$invalid') This is a required field.
+              b-form-group.col-xs-12.col-sm-6(label='Last name', label-for='purchaserLastName')
+                b-form-input(v-model='purchaser.lastName', type='text', id='purchaserLastName', placeholder='Last name', autocomplete='cc-family-name', maxlength='20', aria-describedby='purchaserLastNameFeedback', :class='{ "is-invalid": paymentSubmitted && $v.purchaser.lastName.$error }')
+                b-form-invalid-feedback(id='purchaserLastNameFeedback', v-if='paymentSubmitted && $v.purchaser.lastName.$invalid') This is a required field.
             .row
-              .form-group.col-xs-12.col-sm-7
-                label(for='email') Email
-                input.form-control(id='email', name='email', ng-model='$ctrl.purchaser.email', required='', autocomplete='email', type='email', maxlength='80', placeholder='Email address')
-                ng-messages.help-block.has-error(for='checkout.email.$error', ng-show='checkout.email.$dirty || checkout.$submitted', role='alert')
-                  ng-message(when='required') Please provide an email address (used to credit student&apos;s account).
-                  ng-message(when='email') Please supply a valid email address for the student (used to credit student&apos;s account).
-              .form-group.col-xs-12.col-sm-5
-                label(for='phone') Phone
-                input.form-control(id='phone', name='phone', ng-model='$ctrl.purchaser.phone', required='', autocomplete='tel-national', type='tel', maxlength='23', placeholder='Phone')
-                ng-messages.help-block.has-error(for='checkout.phone.$error', ng-show='checkout.phone.$dirty || checkout.$submitted', role='alert')
-                  ng-message(when='required') Please provide the student&apos;s phone number.
-            .form-group
-              label(for='instructions') Instructions
-              textarea.form-control(id='instructions', name='instructions', ng-model='$ctrl.Cart.instructions', rows='2', cols='20', placeholder='Instructions for this purchase')
-            .checkbox
-              label
-                input(name='gift',type='checkbox', ng-model='$ctrl.Cart.gift', value='true', ng-click='$ctrl.focusOnRecipient()') 
-                | This is a gift
-
-            fieldset(ng-hide='!$ctrl.Cart.gift')
+              b-form-group.col-xs-12.col-sm-7(label='Email', label-for='purchaserEmail')
+                b-form-input(v-model='purchaser.email', type='email', id='purchaserEmail', placeholder='Email address', autocomplete='email', maxlength='80', aria-describedby='purchaserEmailFeedback', :class='{ "is-invalid": paymentSubmitted && $v.purchaser.email.$error }')
+                b-form-invalid-feedback(id='purchaserEmailFeedback', v-if='paymentSubmitted && $v.purchaser.email.$invalid') Please provide a valid email address.
+              b-form-group.col-xs-12.col-sm-5(label='Phone', label-for='purchaserPhone')
+                b-form-input(v-model='purchaser.phone', type='tel', id='purchaserPhone', placeholder='Phone', autocomplete='tel-national', maxlength='23', aria-describedby='purchaserPhoneFeedback', :class='{ "is-invalid": paymentSubmitted && $v.purchaser.phone.$error }')
+                b-form-invalid-feedback(id='purchaserPhoneFeedback', v-if='paymentSubmitted && $v.purchaser.phone.$invalid') Please provide a phone number.
+            b-form-group(label='Instructions', label-for='instructions')
+              b-form-textarea(v-model='instructions', id='instructions', rows='2', cols='20', placeholder='Instructions for this purchase')
+            b-form-checkbox(v-model='gift', @click='focusOnRecipient') This is a gift
+            fieldset(v-if='gift')
+              .row.mt-2
+                b-form-group.col-xs-12.col-sm-6(label='Student\'s first name', label-for='recipientFirstName')
+                  b-form-input(v-model='recipient.firstName', type='text', id='recipientFirstName', placeholder='First name', autocomplete='given-name', maxlength='20', aria-describedby='recipientFirstNameFeedback', :class='{ "is-invalid": paymentSubmitted && $v.recipient.firstName.$error }')
+                  b-form-invalid-feedback(id='recipientFirstNameFeedback', v-if='paymentSubmitted && $v.recipient.firstName.$invalid') Please provide the recipient's first name
+                b-form-group.col-xs-12.col-sm-6(label='Last name', label-for='recipientLastName')
+                  b-form-input(v-model='recipient.lastName', type='text', id='recipientLastName', placeholder='Last name', autocomplete='family-name', maxlength='20', aria-describedby='recipientLastNameFeedback', :class='{ "is-invalid": paymentSubmitted && $v.recipient.lastName.$error }')
+                  b-form-invalid-feedback(id='recipientLastNameFeedback', v-if='paymentSubmitted && $v.recipient.lastName.$invalid') Please provide the recipient's last name
               .row
-                .form-group.col-xs-12.col-sm-6
-                  label(for='recipientFirstName') Student&apos;s first name
-                  input.form-control(id='recipientFirstName', name='recipientFirstName', ng-model='$ctrl.recipient.firstName', ng-required='$ctrl.Cart.gift', type='text', maxlength='14', placeholder="Recipient's first name", autocomplete='given-name')
-                  ng-messages.help-block.has-error(for='checkout.recipientFirstName.$error', ng-show='checkout.recipientFirstName.$dirty || checkout.$submitted', role='alert')
-                    ng-message(when='required') Please provide the student&apos;s first name.
-                .form-group.col-xs-12.col-sm-6
-                  label(for='recipientLastName') Last name
-                  input.form-control(id='recipientLastName', name='recipientLastName', ng-model='$ctrl.recipient.lastName', ng-required='$ctrl.Cart.gift', type='text', maxlength='20', placeholder="Recipient's last name", autocomplete='family-name')
-                  ng-messages.help-block.has-error(for='checkout.recipientLastName.$error', ng-show='checkout.recipientLastName.$dirty || checkout.$submitted', role='alert')
-                    ng-message(when='required') Please provide the student&apos;s last name.
+                b-form-group.col-xs-12.col-sm-7(label='Email', label-for='recipientEmail')
+                  b-form-input(v-model='recipient.email', id='recipientEmail', type='email', maxlength='80', placeholder="Recipient's email address", autocomplete='email', aria-describedby='recipientEmailFeedback', :class='{ "is-invalid": paymentSubmitted && $v.recipient.email.$error }')
+                  b-form-invalid-feedback(id='recipientEmailFeedback', v-if='paymentSubmitted && $v.recipient.email.$invalid') Please supply a valid email address for the recipient.
+                b-form-group.col-xs-12.col-sm-5(label='Phone', label-for='recipientPhone')
+                  b-form-input(v-model='recipient.phone', id='recipientPhone', type='tel', maxlength='14', placeholder="Recipient's phone", autocomplete='tel-national', aria-describedby='recipientPhoneFeedback', :class='{ "is-invalid": paymentSubmitted && $v.recipient.phone.$error }')
+                  b-form-invalid-feedback(id='recipientPhoneFeedback', v-if='paymentSubmitted && $v.recipient.phone.$invalid') Please supply a valid phone number for the recipient.
               .row
-                .form-group.col-xs-12.col-sm-7
-                  label(for='recipientEmail') Email
-                  input.form-control(id='recipientEmail', name='recipientEmail', ng-model='$ctrl.recipient.email', ng-required='$ctrl.Cart.gift && $ctrl.Cart.sendVia == "Email"', type='email', maxlength='80', placeholder="Recipient's email address", autocomplete='email')
-                  ng-messages.help-block.has-error(for='checkout.recipientEmail.$error', ng-show='checkout.recipientEmail.$dirty || checkout.$submitted', role='alert')
-                    ng-message(when='required') Please provide the student&apos;s email address.
-                    ng-message(when='email') Please supply a valid email address for the recipient.
-                .form-group.col-xs-12.col-sm-5
-                  label(for='recipientPhone') Phone
-                  input.form-control(id='recipientPhone', name='recipientPhone', ng-model='$ctrl.recipient.phone', ng-required='$ctrl.Cart.gift', type='tel', maxlength='14', placeholder="Recipient's phone", autocomplete='tel-national')
-                  ng-messages.help-block.has-error(for='checkout.recipientPhone.$error', ng-show='checkout.recipientPhone.$dirty || checkout.$submitted', role='alert')
-                    ng-message(when='required') Please provide the student&apos;s phone number.
-              .form-group
-                  label(for='recipientAddress') Address
-                  input.form-control(id='recipientAddress', name='recipientAddress', ng-model='$ctrl.recipient.address', ng-required='$ctrl.Cart.gift && $ctrl.Cart.sendVia == "Mail"', type='text', maxlength='255', placeholder="Recipient's address", autocomplete='street-address')
-                  ng-messages.help-block.has-error(for='checkout.recipientAddress.$error', ng-show='checkout.recipientAddress.$dirty || checkout.$submitted', role='alert')
-                    ng-message(when='required') Please provide the student&apos;s street address.
+                b-form-group.col-12(label='Street address', label-for='recipientAddress')
+                  b-form-input(v-model='recipient.address', id='recipientAddress', type='text', maxlength='255', placeholder='Recipient\'s street address', autocomplete='street-address', aria-describedby='recipientAddressFeedback', :class='{ "is-invalid": paymentSubmitted && $v.recipient.address.$error }')
+                  b-form-invalid-feedback(id='recipientAddressFeedback', v-if='paymentSubmitted && $v.recipient.address.$invalid') Please provide the student&apos;s street address.
               .row
-                .form-group.col-xs-12.col-sm-7
-                  label(for='recipientCity') City
-                  input.form-control(id='recipientCity', name='recipientCity', ng-model='$ctrl.recipient.city', ng-required='$ctrl.Cart.gift && $ctrl.Cart.sendVia == "Mail"', autocomplete='address-level2', type='text', maxlength='20', placeholder="Recipient's city")
-                  ng-messages.help-block.has-error(for='checkout.recipientCity.$error', ng-show='checkout.recipientCity.$dirty || checkout.$submitted', role='alert')
-                    ng-message(when='required') Please provide the student&apos;s city.
-                .form-group.col-xs-12.col-sm-5
-                  label(for='recipientState') State
-                  input.form-control(id='recipientState', name='recipientState', type='text', ng-model='$ctrl.recipient.state', ng-change='$ctrl.recipient.state = $ctrl.recipient.state.toUpperCase()', maxlength='2', ng-required='$ctrl.Cart.gift && $ctrl.Cart.sendVia == "Mail"', autocomplete='address-level1')
-                  ng-messages.help-block.has-error(for='checkout.recipientState.$error', ng-show='checkout.recipientState.$dirty || checkout.$submitted', role='alert')
-                    ng-message(when='required') Please provide the student&apos;s state.
+                b-form-group.col-xs-12.col-sm-7(label='City', label-for='recipientCity')
+                  b-form-input(v-model='recipient.city', id='recipientCity', type='text', maxlength='20', placeholder='City', autocomplete='address-level2', aria-describedby='recipientCityFeedback', :class='{ "is-invalid": paymentSubmitted && $v.recipient.city.$error }')
+                  b-form-invalid-feedback(id='recipientCityFeedback', v-if='paymentSubmitted && $v.recipient.city.$invalid') Please provide the student&apos;s city.
+                b-form-group.col-xs-12.col-sm-5(label='State', label-for='recipientState')
+                  b-form-input(v-model='recipient.state', id='recipientState', type='text', maxlength='2', placeholder='State', autocomplete='address-level1', aria-describedby='recipientStateFeedback', :class='{ "is-invalid": paymentSubmitted && $v.recipient.state.$error }')
+                  b-form-invalid-feedback(id='recipientStateFeedback', v-if='paymentSubmitted && $v.recipient.state.$invalid') Please provide the student&apos;s state.
               .row
-                .form-group.col-xs-12.col-sm-5
-                  label(for='recipientZipCode') ZIP code
-                  input.form-control(id='recipientZipCode', name='recipientZipCode', ng-model='$ctrl.recipient.zipCode', ng-required='$ctrl.Cart.gift && $ctrl.Cart.sendVia == "Mail"', autocomplete='postal-code', type='text', maxlength='10', placeholder="Recipient's ZIP code")
-                  ng-messages.help-block.has-error(for='checkout.recipientZipCode.$error', ng-show='checkout.recipientZipCode.$dirty || checkout.$submitted', role='alert')
-                    ng-message(when='required') Please provide the student&apos;s ZIP code.
-              | Send gift card via &nbsp;&nbsp;
-              label.radio-inline
-                input(type='radio', name='sendVia', ng-model='$ctrl.Cart.sendVia', value='Email') 
-                | Email 
-              label.radio-inline
-                input(type='radio', name='sendVia', ng-model='$ctrl.Cart.sendVia', value='Mail') 
-                | Mail
-              br
-              br
-            p Class cards and workshop purchases are non-refundable. Class cards expire one year from their purchase date.
-          .panel-footer.clearfix
-            p.col-xs-9.has-error(ng-if='$ctrl.Cart.getTotalItems() > 1') Warning: you are purchasing {{ $ctrl.Cart.getTotalItems() }} items. If you intended to purchase less, please adjust the quantity above.
-            p.col-xs-9.has-error(ng-if='$ctrl.Cart.getTotalItems() == 0') Warning: There are no items in your cart. Please add some items then place your order.
-            input.btn.btn-warning.pull-right(type='submit', name='placeOrder', value='Place Order', ng-disabled='$ctrl.buttonDisabled || !$ctrl.Cart.clientInstance || $ctrl.Cart.hostedFieldsState.isInvalid || !checkout.$valid || $ctrl.Cart.isEmpty()')
+                b-form-group.col-xs-12.col-sm-5(label='ZIP code', label-for='recipientZipCode')
+                  b-form-input(v-model='recipient.zipCode', id='recipientZipCode', type='text', maxlength='10', placeholder='ZIP code', autocomplete='postal-code', aria-describedby='recipientZipCodeFeedback', :class='{ "is-invalid": paymentSubmitted && $v.recipient.zipCode.$error }')
+                  b-form-invalid-feedback(id='recipientZipCodeFeedback', v-if='paymentSubmitted && $v.recipient.state.$invalid') Please provide the student&apos;s ZIP code.
+              b-form-group(label='Send gift card via')
+                b-form-radio(v-model='sendVia', value='Email') Email
+                b-form-radio(v-model='sendVia', value='Mail') Mail
+            p.mt-2 Class cards and workshop purchases are non-refundable. Class cards expire one year from their purchase date.
+          .card-footer
+            .row
+              .col-sm-8.col-xs-7
+                .has-error(v-if='count > 1') Warning: you are purchasing {{ count }} items. If you intended to purchase less, please adjust the quantity above.
+                .has-error(v-if='count === 0') Warning: There are no items in your cart. Please add some items then place your order.
+              .col-sm-4.col-xs-5.text-right
+                b-button(variant='warning', type='submit', :disabled='count == 0') Place Order
 </template>
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
+import { required, email } from 'vuelidate/lib/validators';
 import { store, mutations } from '@/store';
 import { Item } from '@/types';
 import CartItem from '@/components/CartItem.vue';
@@ -174,15 +129,64 @@ import CartItem from '@/components/CartItem.vue';
 @Component({
   components: {
     CartItem
+  },
+  validations: {
+    purchaser: {
+      firstName: { required },
+      lastName: { required },
+      email: { required, email },
+      phone: { required }
+    },
+    recipient: {
+      // required if gift
+      // firstName: { required },
+      // lastName: { required },
+      // email: { required, email },
+      // phone: { required }
+    }
   }
 })
 export default class Cart extends Vue {
+  private gift: boolean = false;
+
+  private sendVia: string = 'Email';
+
+  private purchaser: any = {
+    firstName: 'Jane',
+    lastName: 'Doe',
+    email: '',
+    phone: ''
+  };
+
+  private recipient: any = {
+    firstName: 'John',
+    lastName: 'Doe',
+    email: '',
+    phone: '',
+    address: '',
+    city: '',
+    state: 'PA',
+    zipCode: ''
+  };
+
+  private instructions: string = '';
+
+  private paymentSubmitted = false;
+
+  private get applePayEnabled(): boolean {
+    return store.cart.applePayEnabled;
+  }
+
   private checkout(): void {
     alert('Set focus to credit card field');
   }
 
   private get count(): number {
     return store.cart.count;
+  }
+
+  private focusOnRecipient(): void {
+    alert('Focus on recipient');
   }
 
   private get items(): Item[] {
