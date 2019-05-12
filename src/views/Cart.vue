@@ -127,31 +127,45 @@ import { store, mutations } from '@/store';
 import { Item, Order, SendVia } from '@/types';
 import CartItem from '@/components/CartItem.vue';
 
+const validations: any = function() {
+  return this.order.gift ?
+    {
+      order: {
+        purchaser: {
+          firstName: { required },
+          lastName: { required },
+          email: { required, email },
+          phone: { required }
+        },
+        recipient: {
+          firstName: { required },
+          lastName: { required },
+          email: { required, email },
+          phone: { required },
+          address: { required },
+          city: { required },
+          state: { required },
+          zipCode: { required }
+        }
+      }
+    } :
+    {
+      order: {
+        purchaser: {
+          firstName: { required },
+          lastName: { required },
+          email: { required, email },
+          phone: { required }
+        }
+      }
+    };
+};
+
 @Component({
   components: {
     CartItem
   },
-  validations: {
-    order: {
-      purchaser: {
-        firstName: { required },
-        lastName: { required },
-        email: { required, email },
-        phone: { required }
-      },
-      recipient: {
-        // required if gift
-        firstName: { required },
-        lastName: { required },
-        email: { required, email },
-        phone: { required },
-        address: { required },
-        city: { required },
-        state: { required },
-        zipCode: { required }
-      }
-    }
-  }
+  validations
 })
 export default class Cart extends Vue {
   private order: Order = {
@@ -178,6 +192,40 @@ export default class Cart extends Vue {
 
   private paymentSubmitted = false;
 
+  public validations(): any {
+    return this.order.gift ?
+      {
+        order: {
+          purchaser: {
+            firstName: { required },
+            lastName: { required },
+            email: { required, email },
+            phone: { required }
+          },
+          recipient: {
+            firstName: { required },
+            lastName: { required },
+            email: { required, email },
+            phone: { required },
+            address: { required },
+            city: { required },
+            state: { required },
+            zipCode: { required }
+          }
+        }
+      } :
+      {
+        order: {
+          purchaser: {
+            firstName: { required },
+            lastName: { required },
+            email: { required, email },
+            phone: { required }
+          }
+        }
+      };
+  }
+
   private applePayCheckout(): void {
     alert('Apple Pay checkout process');
   }
@@ -193,6 +241,22 @@ export default class Cart extends Vue {
   private get count(): number {
     return store.cart.count;
   }
+
+  // private focusFirstStatus(component = this) {
+  //   if (component.status) {
+  //     component.$el.focus();
+  //     return true;
+  //   }
+
+  //   let focused = false;
+
+  //   component.$children.some((childComponent) => {
+  //     focused = this.focusFirstStatus(childComponent);
+  //     return focused;
+  //   });
+
+  //   return focused;
+  // }
 
   private get items(): Item[] {
     return store.cart.items;
