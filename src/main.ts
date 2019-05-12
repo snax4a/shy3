@@ -44,6 +44,12 @@ library.add(faShoppingCart, faPhone, faEnvelope, faCalendarAlt, faMapMarkerAlt, 
   faTrashAlt, faCreditCard, faLock);
 Vue.component('fa', FontAwesomeIcon);
 
+Vue.directive('focus', {
+  inserted: (el) => {
+    el.focus();
+  }
+});
+
 Vue.use(Vuelidate);
 
 // Vue.use(Badge);
