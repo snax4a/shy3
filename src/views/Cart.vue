@@ -127,7 +127,7 @@ import { store, mutations } from '@/store';
 import { Item, Order, SendVia } from '@/types';
 import CartItem from '@/components/CartItem.vue';
 
-const validations: any = function() {
+const validations: any = function(this: any) {
   return this.order.gift ?
     {
       order: {
@@ -191,40 +191,6 @@ export default class Cart extends Vue {
   };
 
   private paymentSubmitted = false;
-
-  public validations(): any {
-    return this.order.gift ?
-      {
-        order: {
-          purchaser: {
-            firstName: { required },
-            lastName: { required },
-            email: { required, email },
-            phone: { required }
-          },
-          recipient: {
-            firstName: { required },
-            lastName: { required },
-            email: { required, email },
-            phone: { required },
-            address: { required },
-            city: { required },
-            state: { required },
-            zipCode: { required }
-          }
-        }
-      } :
-      {
-        order: {
-          purchaser: {
-            firstName: { required },
-            lastName: { required },
-            email: { required, email },
-            phone: { required }
-          }
-        }
-      };
-  }
 
   private applePayCheckout(): void {
     alert('Apple Pay checkout process');
