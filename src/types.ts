@@ -134,7 +134,7 @@ export interface Store {
 }
 
 export enum SendVia {
-  Email = 'Emai',
+  Email = 'Email',
   Mail = 'Mail'
 }
 

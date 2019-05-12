@@ -44,21 +44,21 @@
                   .input-group-append
                     .span.input-group-text
                       fa(:icon='["far", "credit-card"]')
-                b-form-invalid-feedback(id='creditCardFeedback', v-if='paymentSubmitted && $v.creditCard.$invalid') Please provide a valid card number.
+                //- b-form-invalid-feedback(id='creditCardFeedback', v-if='paymentSubmitted && $v.creditCard.$invalid') Please provide a valid card number.
               b-form-group.col-xs-7.col-sm-5.col-lg-4(label='Expires', label-for='expiration-date')
                 .input-group.mb-0
                   .form-control(id='expiration-date')
                   .input-group-append
                     .span.input-group-text
                       fa(icon='calendar-alt')
-                b-form-invalid-feedback(id='expirationFeedback', v-if='paymentSubmitted && $v.expiration.$invalid') Please provide a valid expiration date.
+                //- b-form-invalid-feedback(id='expirationFeedback', v-if='paymentSubmitted && $v.expiration.$invalid') Please provide a valid expiration date.
               b-form-group.col-xs-5.col-md-4(label='CVV', label-for='cvv')
                 .input-group.mb-0
                   .form-control(id='cvv')
                   .input-group-append
                     .span.input-group-text
                       fa(icon='lock')
-                b-form-invalid-feedback(id='cvvFeedback', v-if='paymentSubmitted && $v.cvv.$invalid') Please provide a valid card security code.
+                //- b-form-invalid-feedback(id='cvvFeedback', v-if='paymentSubmitted && $v.cvv.$invalid') Please provide a valid card security code.
             .row
               b-form-group.col-xs-12.col-sm-6(:label='`${order.gift ? "Purchaser" : "Student"}\'s first name`', label-for='purchaserFirstName')
                 b-form-input(v-model='order.purchaser.firstName', type='text', id='purchaserFirstName', placeholder='First name', autocomplete='cc-given-name', maxlength='20', aria-describedby='purchaserFirstNameFeedback', :class='{ "is-invalid": paymentSubmitted && $v.order.purchaser.firstName.$error }')
@@ -79,7 +79,8 @@
             fieldset(v-if='order.gift')
               .row.mt-2
                 b-form-group.col-xs-12.col-sm-6(label='Student\'s first name', label-for='recipientFirstName')
-                  b-form-input(v-model='order.recipient.firstName', v-focus, type='text', id='recipientFirstName', placeholder='First name', ref='recipientFirstName', autocomplete='given-name', maxlength='20', aria-describedby='recipientFirstNameFeedback', :class='{ "is-invalid": paymentSubmitted && $v.order.recipient.firstName.$error }')
+                  //- Add v-focus to next line
+                  b-form-input(v-model='order.recipient.firstName', type='text', id='recipientFirstName', placeholder='First name', autocomplete='given-name', maxlength='20', aria-describedby='recipientFirstNameFeedback', :class='{ "is-invalid": paymentSubmitted && $v.order.recipient.firstName.$error }')
                   b-form-invalid-feedback(id='recipientFirstNameFeedback', v-if='paymentSubmitted && $v.order.recipient.firstName.$invalid') Please provide the recipient's first name
                 b-form-group.col-xs-12.col-sm-6(label='Last name', label-for='recipientLastName')
                   b-form-input(v-model='order.recipient.lastName', type='text', id='recipientLastName', placeholder='Last name', autocomplete='family-name', maxlength='20', aria-describedby='recipientLastNameFeedback', :class='{ "is-invalid": paymentSubmitted && $v.order.recipient.lastName.$error }')
@@ -105,7 +106,7 @@
               .row
                 b-form-group.col-xs-12.col-sm-5(label='ZIP code', label-for='recipientZipCode')
                   b-form-input(v-model='order.recipient.zipCode', id='recipientZipCode', type='text', maxlength='10', placeholder='ZIP code', autocomplete='postal-code', aria-describedby='recipientZipCodeFeedback', :class='{ "is-invalid": paymentSubmitted && $v.order.recipient.zipCode.$error }')
-                  b-form-invalid-feedback(id='recipientZipCodeFeedback', v-if='paymentSubmitted && $v.order.recipient.state.$invalid') Please provide the student&apos;s ZIP code.
+                  b-form-invalid-feedback(id='recipientZipCodeFeedback', v-if='paymentSubmitted && $v.order.recipient.zipCode.$invalid') Please provide the student&apos;s ZIP code.
               b-form-group(label='Send gift card via')
                 b-form-radio(v-model='order.sendVia', value='Email') Email
                 b-form-radio(v-model='order.sendVia', value='Mail') Mail
@@ -140,10 +141,14 @@ import CartItem from '@/components/CartItem.vue';
       },
       recipient: {
         // required if gift
-        // firstName: { required },
-        // lastName: { required },
-        // email: { required, email },
-        // phone: { required }
+        firstName: { required },
+        lastName: { required },
+        email: { required, email },
+        phone: { required },
+        address: { required },
+        city: { required },
+        state: { required },
+        zipCode: { required }
       }
     }
   }
@@ -198,7 +203,7 @@ export default class Cart extends Vue {
   }
 
   private onSubmit(): void {
-    alert('Submit');
+    this.paymentSubmitted = true;
     this.$v.order.$touch();
     if (this.$v.order.$invalid) {
       return;
