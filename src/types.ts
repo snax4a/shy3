@@ -132,3 +132,30 @@ export interface Store {
   teachers: Teacher[];
   workshops: Workshop[];
 }
+
+export enum SendVia {
+  Email = 'Emai',
+  Mail = 'Mail'
+}
+
+export interface Contact {
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+}
+
+export interface Recipient extends Contact {
+  address: string;
+  city: string;
+  state: string;
+  zipCode: string;
+}
+
+export interface Order {
+  gift: boolean;
+  sendVia: SendVia;
+  instructions: string;
+  purchaser: Contact;
+  recipient: Recipient;
+}
