@@ -4,6 +4,41 @@ declare module 'braintree-web/client' {
 
 declare module 'braintree-web/hosted-fields' {
   export function create(options: { client: string, fields: any, styles: any }): Promise<string>;
+
+  // export interface HostedFields {
+
+    export function on(event: string, handler: ((event: HostedFieldsStateObject) => void)): void;
+  // }
+
+  export interface HostedFieldsHostedFieldsFieldData {
+    container: HTMLElement;
+    isFocused: boolean;
+    isEmpty: boolean;
+    isPotentiallyValid: boolean;
+    isValid: boolean;
+  }
+
+  export type HostedFieldsFieldDataFields = {
+      [key in HostedFieldsHostedFieldsFieldName]: HostedFieldsHostedFieldsFieldData;
+  };
+
+  export type HostedFieldsHostedFieldsFieldName = 'number' | 'cvv' | 'expirationDate' | 'expirationMonth' | 'expirationYear' | 'postalCode';
+
+  export interface HostedFieldsCardCode {
+    name: string;
+    size: number;
+  }
+  export interface HostedFieldsHostedFieldsCard {
+    type: string;
+    niceType: string;
+    code: HostedFieldsCardCode;
+  }
+  export interface HostedFieldsStateObject {
+    cards: HostedFieldsHostedFieldsCard[];
+    emittedBy: HostedFieldsHostedFieldsFieldName;
+    fields: HostedFieldsFieldDataFields;
+  }
+
 }
 
 declare module 'braintree-web/apple-pay' {
