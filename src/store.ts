@@ -1,8 +1,21 @@
 import Vue from 'vue';
 import Api from '@/services/Api';
+import braintree from '@/services/Braintree';
 import faqs from '@/assets/data/faqs.json';
-import utils from '@/utils';
+import { nest } from '@/utils';
 import { Store, Role, Item, Product } from '@/types';
+
+// Data to preload
+
+async function clientTokenGet(): Promise<string> {
+  const { data } = await Api().get('/api/token');
+  return braintree.client.create({ authorization: data });
+}
+
+// async function productsGet(): Promise<Product[]> {
+//   const { data } = await Api().get('/api/product/active');
+//   return data;
+// }
 
 export const store: Store = Vue.observable({
   announcementSections: [],
@@ -14,6 +27,7 @@ export const store: Store = Vue.observable({
     total: 0
   },
   classes: [],
+  client: clientTokenGet(), // Promise to Braintree client token
   currentUser: {
     firstName: 'Guest',
     lastName: 'User',
@@ -40,7 +54,10 @@ export const mutations = {
       store.announcementSections = data;
     }
   },
-  cartAdd(productId: number): void {
+  async cartAdd(productId: number): Promise<void> {
+    if (store.products.length === 0) {
+      await this.productsSet();
+    }
     const product: Product | undefined = store.products.find((element: Product) => element._id === productId);
     if (!product) {
       throw new Error('That product ID is invalid.');
@@ -72,6 +89,12 @@ export const mutations = {
     store.cart.total -= store.cart.items[index].total;
     store.cart.items.splice(index, 1);
   },
+  async clientSet(): Promise<void> {
+    if (!store.client) {
+      const { data } = await Api().get('/api/token');
+      store.client = braintree.client.create({ authorization: data });
+    }
+  },
   faqsSet(): void {
     if (store.faqs.length === 0) {
       const data: any = faqs;
@@ -93,7 +116,7 @@ export const mutations = {
   async scheduleSet(): Promise<void> {
     if (store.schedule.length === 0) {
       const { data } = await Api().get('/api/schedule');
-      store.schedule = utils.nest(data);
+      store.schedule = nest(data);
     }
   },
   async workshopsSet(): Promise<void> {

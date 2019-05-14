@@ -124,6 +124,7 @@ export interface Store {
   announcementSections: AnnouncementSection[];
   cart: Cart;
   classes: YogaClass[];
+  client: Promise<string>;
   currentUser: User;
   faqs: Faq[];
   locations: Location[];
