@@ -25,7 +25,7 @@
                     strong Total&nbsp;&nbsp;${{ total }}
                   td &nbsp;
           .card-footer.d-flex.justify-content-between
-            b-button(variant='primary', @click='keepShopping') Keep Shopping
+            b-button(variant='primary', @click='$router.go(-1)') Keep Shopping
             b-button(variant='warning', @click='$refs.cc.click()', :disabled='count == 0') Checkout »
     .col-md-6
       b-form(@submit.prevent='onSubmit', novalidate, autocomplete='on')
@@ -274,10 +274,6 @@ export default class Cart extends Vue {
 
   private get items(): Item[] {
     return store.cart.items;
-  }
-
-  private keepShopping(): void {
-    this.$router.go(-1);
   }
 
   private onSubmit(): void {
