@@ -12,12 +12,12 @@
         | &nbsp;{{ studio.location }}
     .day(v-for='day in studio.days')
       .day-name
-        strong {{ utils.fullDate(day.date) }}
+        strong {{ fullDate(day.date) }}
       table.table
         tr.row(v-for='yogaClass in day.classes', :class='yogaClass.canceled === true ? "strikethrough": ""')
           td.col-4(:class='') 
               AddToCalendar(label=false, :title='yogaClass.title', :description='yogaClass.description', :location='yogaClass.location', :starts='yogaClass.startTime', :ends='yogaClass.endTime', weekly='true')
-              | {{ utils.amPm(yogaClass.startTime) }}-{{ utils.amPm(yogaClass.endTime) }}
+              | {{ amPm(yogaClass.startTime) }}-{{ amPm(yogaClass.endTime) }}
           td.col-4
             b-link(v-b-modal='"classModal"', @click='sendToModal(yogaClass)') {{ yogaClass.title }} 
             span(v-if='yogaClass.canceled === true') (Canceled)
@@ -36,7 +36,7 @@
 import { Component, Vue } from 'vue-property-decorator';
 import { store, mutations } from '@/store';
 import AddToCalendar from '@/components/AddToCalendar.vue';
-import utils from '@/utils';
+import { fullDate, amPm } from '@/utils';
 
 @Component({
   components: {
@@ -46,10 +46,17 @@ import utils from '@/utils';
 
 export default class Classes extends Vue {
   private modalRecord: any = {};
-  private utils: any = utils;
+
+  private amPm(date: Date): string {
+    return amPm(date);
+  }
 
   private async created(): Promise<[void, void]> {
     return await Promise.all([mutations.locationsSet(), mutations.scheduleSet()]);
+  }
+
+  private fullDate(date: Date): string {
+    return fullDate(date);
   }
 
   private get locations(): any[] {

@@ -17,8 +17,8 @@
         span(v-if='section.title')
           b {{ section.title }} 
           span(v-if='section.description') {{ section.description }}
-        b(v-if='!section.hideDate') {{ utils.dayAndDate(section.starts) }}  &nbsp;&nbsp;| &nbsp;&nbsp;
-        span(v-if='!section.hideDate') {{ utils.amPm(section.starts) }} - {{ utils.amPm(section.ends) }} 
+        b(v-if='!section.hideDate') {{ dayAndDate(section.starts) }}  &nbsp;&nbsp;| &nbsp;&nbsp;
+        span(v-if='!section.hideDate') {{ amPm(section.starts) }} - {{ amPm(section.ends) }} 
         | &nbsp;&nbsp;|&nbsp;&nbsp; ${{ section.price }}
         PayNow.float-right(:product='section.productId')
         br
@@ -54,7 +54,7 @@
               "name":"{{ workshop.title }}",
               "price":"{{ section.price }}.00",
               "priceCurrency":"USD",
-              "validFrom":"{{ utils.nowAsIso() }}",
+              "validFrom":"{{ nowAsIso() }}",
               "priceValidUntil":"{{ section.ends }}",
               "availability":"http://schema.org/InStock",
               "url":"https://www.schoolhouseyoga.com/workshops#workshop{{ workshop._id }}"
@@ -69,7 +69,7 @@ import NewsletterSubscribe from '@/components/NewsletterSubscribe.vue';
 import Tweet from '@/components/Tweet.vue';
 import AddToCalendar from '@/components/AddToCalendar.vue';
 import PayNow from '@/components/PayNow.vue';
-import utils from '@/utils';
+import { dayAndDate, amPm, nowAsIso } from '@/utils';
 import { Workshop } from '@/types';
 
 declare let window: any; // suppress window.twttr error
@@ -80,11 +80,21 @@ declare let window: any; // suppress window.twttr error
   }
 })
 export default class Workshops extends Vue {
-  private utils: any = utils;
+  private amPm(date: Date): string {
+    return amPm(date);
+  }
 
   private async created(): Promise<void> {
     await mutations.workshopsSet();
     window.twttr.widgets.load(); // call whenever using Tweet component
+  }
+
+  private dayAndDate(date: Date): string {
+    return dayAndDate(date);
+  }
+
+  private nowAsIso(): string {
+    return nowAsIso();
   }
 
   private get workshops(): Workshop[] {

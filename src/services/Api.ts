@@ -5,7 +5,7 @@ export default() => {
         baseURL: `https://www.schoolhouseyoga.com`,
         withCredentials: false,
         headers: {
-            'Accept': 'application/json',
+            Accept: 'application/json',
             'Content-Type': 'application/json'
         }
     });
