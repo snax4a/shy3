@@ -2,7 +2,7 @@
 tr
   td.align-middle {{ item.productName }}
   td.align-middle.text-right ${{ item.price }}
-  td.align-middle
+  td.align-middle.text-right
     b-form-input.text-right.qty(@change='quantityChange', v-model.number='item.quantity', name='quantity', type='number', maxlength='2', min='1', max='10', step='1', aria-describedby='quantityFeedback', :class='{ "is-invalid": $v.item.quantity.$error }')
     b-form-invalid-feedback(id='quantityFeedback', v-if='$v.item.quantity.$invalid') Value between 1 and 10
   td.align-middle.text-right

@@ -26,7 +26,7 @@
                   td &nbsp;
           .card-footer.d-flex.justify-content-between
             b-button(variant='primary', @click='keepShopping') Keep Shopping
-            b-button(variant='warning', @click='checkout', :disabled='count == 0') Checkout »
+            b-button(variant='warning', @click='$refs.cc.click()', :disabled='count == 0') Checkout »
     .col-md-6
       b-form(@submit.prevent='onSubmit', novalidate, autocomplete='on')
         .card
@@ -38,7 +38,9 @@
                 br
                 | Or fill out the form below to use a credit card.
             .row
-              b-form-group.col-xs-12.col-sm-7.col-lg-6(label='Credit card number', label-for='card-number')
+              .form-group.col-xs-12.col-sm-7.col-lg-6
+                //- (label='Credit card number', label-for='card-number', ref='cc')
+                label(for='card-number', ref='cc') Credit card number
                 .input-group.mb-0
                   .form-control(id='card-number')
                   .input-group-append
@@ -79,8 +81,7 @@
             fieldset(v-if='order.gift')
               .row.mt-2
                 b-form-group.col-xs-12.col-sm-6(label='Student\'s first name', label-for='recipientFirstName')
-                  //- Add v-focus to next line
-                  b-form-input(v-model='order.recipient.firstName', type='text', id='recipientFirstName', placeholder='First name', autocomplete='given-name', maxlength='20', aria-describedby='recipientFirstNameFeedback', :class='{ "is-invalid": paymentSubmitted && $v.order.recipient.firstName.$error }')
+                  b-form-input(v-model='order.recipient.firstName', v-focus, type='text', id='recipientFirstName', placeholder='First name', autocomplete='given-name', maxlength='20', aria-describedby='recipientFirstNameFeedback', :class='{ "is-invalid": paymentSubmitted && $v.order.recipient.firstName.$error }')
                   b-form-invalid-feedback(id='recipientFirstNameFeedback', v-if='paymentSubmitted && $v.order.recipient.firstName.$invalid') Please provide the recipient's first name
                 b-form-group.col-xs-12.col-sm-6(label='Last name', label-for='recipientLastName')
                   b-form-input(v-model='order.recipient.lastName', type='text', id='recipientLastName', placeholder='Last name', autocomplete='family-name', maxlength='20', aria-describedby='recipientLastNameFeedback', :class='{ "is-invalid": paymentSubmitted && $v.order.recipient.lastName.$error }')
@@ -123,9 +124,11 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import { required, email } from 'vuelidate/lib/validators';
+import errorFocus from '@/mixins/errorfocus';
 import { store, mutations } from '@/store';
 import { Item, Order, SendVia } from '@/types';
 import CartItem from '@/components/CartItem.vue';
+import braintree from '@/services/Braintree';
 
 const validations: any = function(this: any) {
   return this.order.gift ?
@@ -165,7 +168,8 @@ const validations: any = function(this: any) {
   components: {
     CartItem
   },
-  validations
+  validations,
+  mixins: [errorFocus]
 })
 export default class Cart extends Vue {
   private order: Order = {
@@ -192,6 +196,59 @@ export default class Cart extends Vue {
 
   private paymentSubmitted = false;
 
+  private hostedFieldsInstance: any = {};
+
+  private async created(): Promise<void> {
+    store.client.then((client) => {
+      this.hostedFieldsInstance = braintree.hostedFields.create({
+        client,
+        fields: {
+          number: {
+            selector: '#card-number',
+            placeholder: '4111 1111 1111 1111'
+          },
+          cvv: {
+            selector: '#cvv',
+            placeholder: '123'
+          },
+          expirationDate: {
+            selector: '#expiration-date',
+            placeholder: '10/2020'
+          }
+        },
+        styles: {
+          input: {
+            'font-size': '14px',
+            'font-family': 'Helvetica Neue, Helvetica, Arial, sans-serif',
+            color: '#555'
+          },
+          ':focus': {
+            'border-color': '#66afe9'
+          },
+          'input.invalid': {
+            color: '#a94442'
+          },
+          'input.valid': {
+            color: 'green'
+          }
+        }
+      });
+    });
+  }
+
+  // braintreeHostedFieldsEventHandlers(eventNameArray: any) {
+  //   for(let eventName of eventNameArray) {
+  //     this.hostedFieldsInstance.on(eventName, event => {
+  //       this.$timeout(() => {
+  //         if(eventName === 'validityChange') {
+  //           this.braintreeUpdateHostedFieldsState();
+  //           return event;
+  //         }
+  //       });
+  //     });
+  //   }
+  // }
+
   private applePayCheckout(): void {
     alert('Apple Pay checkout process');
   }
@@ -200,29 +257,9 @@ export default class Cart extends Vue {
     return store.cart.applePayEnabled;
   }
 
-  private checkout(): void {
-    alert('Set focus to credit card field');
-  }
-
   private get count(): number {
     return store.cart.count;
   }
-
-  // private focusFirstStatus(component = this) {
-  //   if (component.status) {
-  //     component.$el.focus();
-  //     return true;
-  //   }
-
-  //   let focused = false;
-
-  //   component.$children.some((childComponent) => {
-  //     focused = this.focusFirstStatus(childComponent);
-  //     return focused;
-  //   });
-
-  //   return focused;
-  // }
 
   private get items(): Item[] {
     return store.cart.items;
