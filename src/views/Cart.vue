@@ -272,7 +272,7 @@ export default class Cart extends Vue {
     this.paymentSubmitted = true;
     this.$v.order.$touch();
     this.$nextTick(() => {
-      for(let ref in this.$refs) {
+      for (const ref in this.$refs) {
         const el: HTMLElement = this.$refs[ref] as HTMLElement;
         if (el.className.includes('is-invalid')) {
           el.focus();
