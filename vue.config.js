@@ -4,13 +4,7 @@ const glob = require('glob-all');
 const path = require('path');
 
 module.exports = {
-  css: {
-    loaderOptions: {
-      sass: {
-        data: '\n          @import "@/scss/variables.scss";\n        '
-      }
-    }
-  },
+  assetsDir: 'src/assets',
 
   chainWebpack: config => {
     config.module
@@ -47,7 +41,19 @@ module.exports = {
     ]
   },
 
-  assetsDir: 'src/assets',
+  css: {
+    loaderOptions: {
+      sass: {
+        data: '\n          @import "@/scss/variables.scss";\n        '
+      }
+    }
+  },
+
+  // devServer: {
+  //   watchOptions: {
+  //     poll: true
+  //   }
+  // },
 
   pwa: {
     name: 'Schoolhouse Yoga',

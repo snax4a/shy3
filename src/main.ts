@@ -43,7 +43,7 @@ library.add(faShoppingCart, faPhone, faEnvelope, faCalendarAlt, faMapMarkerAlt, 
 Vue.component('fa', FontAwesomeIcon);
 
 Vue.directive('focus', {
-  inserted: (el) => {
+  inserted: el => {
     el.focus();
   }
 });
@@ -76,5 +76,5 @@ Vue.config.productionTip = false;
 
 new Vue({
   router,
-  render: (h) => h(App)
+  render: h => h(App)
 }).$mount('#app');

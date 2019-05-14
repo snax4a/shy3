@@ -79,7 +79,7 @@ export const mutations = {
       .reduce((accumulator, currentValue) => accumulator + currentValue.total, 0);
   },
   cartItemDelete(cartItem: Item): void {
-    const index: number = store.cart.items.findIndex((item) => item.productId === cartItem.productId);
+    const index: number = store.cart.items.findIndex(item => item.productId === cartItem.productId);
     store.cart.count -= store.cart.items[index].quantity;
     store.cart.total -= store.cart.items[index].total;
     store.cart.items.splice(index, 1);

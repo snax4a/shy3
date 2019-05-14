@@ -196,9 +196,10 @@ export default class Cart extends Vue {
   private paymentSubmitted = false;
 
   private hostedFieldsInstance: any = {};
+  private hostedFieldsState: any = {};
 
   private async created(): Promise<void> {
-    store.client.then((client) => {
+    store.client.then(client => {
       this.hostedFieldsInstance = braintree.hostedFields.create({
         client,
         fields: {
@@ -225,7 +226,7 @@ export default class Cart extends Vue {
             'border-color': '#66afe9'
           },
           'input.invalid': {
-            color: '#a94442'
+            color: '#dc3545'
           },
           'input.valid': {
             color: 'green'
@@ -235,18 +236,27 @@ export default class Cart extends Vue {
     });
   }
 
-  // braintreeHostedFieldsEventHandlers(eventNameArray: any) {
-  //   for(let eventName of eventNameArray) {
-  //     this.hostedFieldsInstance.on(eventName, event => {
-  //       this.$timeout(() => {
-  //         if(eventName === 'validityChange') {
-  //           this.braintreeUpdateHostedFieldsState();
-  //           return event;
-  //         }
-  //       });
-  //     });
-  //   }
-  // }
+  private braintreeUpdateHostedFieldsState() {
+    this.hostedFieldsState = this.hostedFieldsInstance.getState().fields;
+    this.hostedFieldsState.cvv.isInvalid = !this.hostedFieldsState.cvv.isValid;
+    this.hostedFieldsState.expirationDate.isInvalid = !this.hostedFieldsState.expirationDate.isValid;
+    this.hostedFieldsState.number.isInvalid = !this.hostedFieldsState.number.isValid;
+    this.hostedFieldsState.isInvalid = this.hostedFieldsState.cvv.isInvalid ||
+      this.hostedFieldsState.number.isInvalid || this.hostedFieldsState.number.isInvalid;
+  }
+
+  private braintreeHostedFieldsEventHandlers(eventNameArray: any) {
+    for (const eventName of eventNameArray) {
+      this.hostedFieldsInstance.on(eventName, event => {
+        this.$nextTick(() => {
+          if (eventName === 'validityChange') {
+            this.braintreeUpdateHostedFieldsState();
+            return event;
+          }
+        });
+      });
+    }
+  }
 
   private applePayCheckout(): void {
     alert('Apple Pay checkout process');
@@ -271,7 +281,7 @@ export default class Cart extends Vue {
   private onSubmit(): void {
     this.paymentSubmitted = true;
     this.$v.order.$touch();
-    this.$nextTick(() => {
+    this.$nextTick(() => { // focus on first invalid field
       for (const ref in this.$refs) {
         const el: HTMLElement = this.$refs[ref] as HTMLElement;
         if (el.className.includes('is-invalid')) {
