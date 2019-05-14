@@ -1,8 +1,7 @@
 # Product Backlog
-* [High] Implement checkout process
+* [High] Implement checkout process with Hosted Fields
 * [High] Implement confirmation
 * [High] Build User using Vue.observable
-* [High] Add Credit Card processing
 * [High] Add toast for contact form, subscribe to newsletter, and adding anything to the cart
 * [High] Hookup Contact form on NavBar to server
 * [High] Hookup Login form on NavBar to server and store token
@@ -12,6 +11,7 @@
 * [Medium] If someone goes to /login, expose the Login dropdown and form
 
 <a name="1.0.0"></a>
+* Added Hosted Fields and validation
 * Moved axios requests to created() from mounted() to improve load time
 * [Bug] store.ts:cartAdd() uses decimals for item.price, item.total and cart.total
 * Built Shopping Cart, and Product List using Vue.observable
