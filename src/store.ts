@@ -12,11 +12,6 @@ async function clientTokenGet(): Promise<string> {
   return braintree.client.create({ authorization: data });
 }
 
-// async function productsGet(): Promise<Product[]> {
-//   const { data } = await Api().get('/api/product/active');
-//   return data;
-// }
-
 export const store: Store = Vue.observable({
   announcementSections: [],
   cart: {
