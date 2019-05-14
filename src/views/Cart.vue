@@ -39,21 +39,21 @@
                 | Or fill out the form below to use a credit card.
             .row
               .form-group.col-xs-12.col-sm-7.col-lg-6
-                label(for='card-number', ref='cc') Credit card number
+                label(for='cc', ref='cc') Credit card number
                 .input-group.mb-0
-                  .form-control(id='card-number')
+                  .form-control(id='cc')
                   .input-group-append
                     .span.input-group-text
                       fa(:icon='["far", "credit-card"]')
-                //- b-form-invalid-feedback(id='creditCardFeedback', v-if='paymentSubmitted && $v.creditCard.$invalid') Please provide a valid card number.
+                small(v-if='paymentSubmitted && hostedFieldsState.number && hostedFieldsState.number.isInvalid').has-error Please provide a valid card number.
               .form-group.col-xs-7.col-sm-5.col-lg-4
-                label(for='expiration-date', ref='expiration') Expires
+                label(for='expiration', ref='expiration') Expires
                 .input-group.mb-0
-                  .form-control(id='expiration-date')
+                  .form-control(id='expiration')
                   .input-group-append
                     .span.input-group-text
                       fa(icon='calendar-alt')
-                //- b-form-invalid-feedback(id='expirationFeedback', v-if='paymentSubmitted && $v.expiration.$invalid') Please provide a valid expiration date.
+                small(v-if='paymentSubmitted && hostedFieldsState.expirationDate && hostedFieldsState.expirationDate.isInvalid').has-error.has-error Fix expiration date.
               .form-group.col-xs-5.col-md-4
                 label(for='cvv', ref='cvv') CVV
                 .input-group.mb-0
@@ -61,7 +61,7 @@
                   .input-group-append
                     .span.input-group-text
                       fa(icon='lock')
-                //- b-form-invalid-feedback(id='cvvFeedback', v-if='paymentSubmitted && $v.cvv.$invalid') Please provide a valid card security code.
+                small(v-if='paymentSubmitted && hostedFieldsState.cvv && hostedFieldsState.cvv.isInvalid').has-error.has-error Please provide a valid card security code.
             .row
               b-form-group.col-xs-12.col-sm-6(:label='`${order.gift ? "Purchaser" : "Student"}\'s first name`', label-for='purchaserFirstName')
                 input.form-control(v-model='order.purchaser.firstName', type='text', id='purchaserFirstName', ref='purchaserFirstName', placeholder='First name', autocomplete='cc-given-name', maxlength='20', aria-describedby='purchaserFirstNameFeedback', :class='{ "is-invalid": paymentSubmitted && $v.order.purchaser.firstName.$error }')
@@ -199,45 +199,46 @@ export default class Cart extends Vue {
   private hostedFieldsState: any = {};
 
   private async created(): Promise<void> {
-    store.client.then(client => {
-      this.hostedFieldsInstance = braintree.hostedFields.create({
-        client,
-        fields: {
-          number: {
-            selector: '#card-number',
-            placeholder: '4111 1111 1111 1111'
-          },
-          cvv: {
-            selector: '#cvv',
-            placeholder: '123'
-          },
-          expirationDate: {
-            selector: '#expiration-date',
-            placeholder: '10/2020'
-          }
+    const client = await store.client;
+    this.hostedFieldsInstance = await braintree.hostedFields.create({
+      client,
+      fields: {
+        number: {
+          selector: '#cc',
+          placeholder: '4111 1111 1111 1111'
         },
-        styles: {
-          input: {
-            'font-size': '14px',
-            'font-family': 'Helvetica Neue, Helvetica, Arial, sans-serif',
-            color: '#555'
-          },
-          ':focus': {
-            'border-color': '#66afe9'
-          },
-          'input.invalid': {
-            color: '#dc3545'
-          },
-          'input.valid': {
-            color: 'green'
-          }
+        cvv: {
+          selector: '#cvv',
+          placeholder: '123'
+        },
+        expirationDate: {
+          selector: '#expiration',
+          placeholder: '10/2020'
         }
-      });
+      },
+      styles: {
+        input: {
+          'font-size': '14px',
+          'font-family': 'Helvetica Neue, Helvetica, Arial, sans-serif',
+          color: '#555'
+        },
+        ':focus': {
+          'border-color': '#66afe9'
+        },
+        'input.invalid': {
+          color: '#dc3545'
+        },
+        'input.valid': {
+          color: 'green'
+        }
+      }
     });
+    this.braintreeHostedFieldsEventHandlers(['blur', 'focus', 'validityChange', 'notEmpty', 'empty']);
   }
 
-  private braintreeUpdateHostedFieldsState() {
-    this.hostedFieldsState = this.hostedFieldsInstance.getState().fields;
+  private async braintreeUpdateHostedFieldsState() {
+    const thisInstance = await this.hostedFieldsInstance;
+    this.hostedFieldsState = thisInstance.getState().fields;
     this.hostedFieldsState.cvv.isInvalid = !this.hostedFieldsState.cvv.isValid;
     this.hostedFieldsState.expirationDate.isInvalid = !this.hostedFieldsState.expirationDate.isValid;
     this.hostedFieldsState.number.isInvalid = !this.hostedFieldsState.number.isValid;
@@ -245,9 +246,10 @@ export default class Cart extends Vue {
       this.hostedFieldsState.number.isInvalid || this.hostedFieldsState.number.isInvalid;
   }
 
-  private braintreeHostedFieldsEventHandlers(eventNameArray: any) {
+  private async braintreeHostedFieldsEventHandlers(eventNameArray: string[]) {
     for (const eventName of eventNameArray) {
-      this.hostedFieldsInstance.on(eventName, event => {
+      const thisInstance = await this.hostedFieldsInstance;
+      thisInstance.on(eventName, (event: any) => {
         this.$nextTick(() => {
           if (eventName === 'validityChange') {
             this.braintreeUpdateHostedFieldsState();
