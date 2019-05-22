@@ -196,7 +196,9 @@ export default class Cart extends Vue {
   private paymentSubmitted = false;
 
   private hostedFieldsInstance: any = {};
-  private hostedFieldsState: any = {};
+  private hostedFieldsState: any = {
+    isInvalid: true // because nothing was entered yet
+  };
 
   private async created(): Promise<void> {
     const client = await store.client;
@@ -289,7 +291,7 @@ export default class Cart extends Vue {
       }
     });
 
-    if (this.$v.order.$invalid) {
+    if (this.$v.order.$invalid || this.hostedFieldsState.isInvalid) {
       return;
     }
     alert(JSON.stringify(this.order));
