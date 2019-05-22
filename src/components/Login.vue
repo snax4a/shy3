@@ -1,5 +1,6 @@
 <template lang='pug'>
 b-dropdown(text='Login', variant='outline-primary', right='', @shown='focusEmail')
+  br
   .text-center
     GoogleLogin
   b-dropdown-header.text-center or

@@ -64,6 +64,7 @@ export default class Contact extends Vue {
 
 <style scoped lang="scss">
   .dropdown-menu  .contact {
-    min-width: 18rem;
+    min-width: 20rem;
+    padding: 0.25rem 1.5rem;
   }
 </style>
