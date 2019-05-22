@@ -8,7 +8,7 @@
 * [High] GoogleLogin component - login via Oauth to Google (currently /auth/google)
 * [High] Create UserManager component for Admin and SHYnet views
 * [High] Create components for Admin tabs (Dashboard, UserManager, ScheduleManager, AnnouncementManager, OrderManager, ProductManager, ClassManager, WorkshopManager, LocationManager)
-* [Medium] If someone goes to /login, expose the Login dropdown and form
+* [Medium] Route handler for /login and /cart/add/1
 
 <a name="1.0.0"></a>
 * Added Hosted Fields and validation
