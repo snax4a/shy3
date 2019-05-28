@@ -42,7 +42,7 @@
     "@fortawesome/free-regular-svg-icons": "^5.8.2",
     "@fortawesome/free-solid-svg-icons": "^5.8.2",
     "@fortawesome/vue-fontawesome": "^0.1.6",
-    "@types/braintree-web": "^3.6.4",
+    "@types/braintree-web": "^3.6.5",
     "@types/jest": "^24.0.13",
     "@types/vue": "^2.0.0",
     "@types/vuelidate": "^0.7.5",
