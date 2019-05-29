@@ -1,29 +1,22 @@
 <template lang='pug'>
-b-button(@click='login()', variant='warning')
-  img.img-google(src='/img/google.svg')
-  |  Google Login
+button.btn.btn-warning.btn-lg.google(@click='login()')
+  img(src='/img/google.svg')
+  |  Login with Google
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from 'vue-property-decorator';
+import { Component, Vue } from 'vue-property-decorator';
 
 @Component
 export default class GoogleLogin extends Vue {
-  @Prop({ default: 'a workshop' }) private title!: string;
-  @Prop({ default: 'https://www.schoolhouseyoga.com/workshops' }) private url!: string;
-
   private login() {
-    // console.log('Logged in');
+    // Use Google's non-redirect method of authenticating
   }
 }
 </script>
 
 <style scoped lang="scss">
-// .btn-warning:hover {
-//   background-position: 0 -42px;
-// }
-
-.img-google {
+img {
   height: 21px;
   width: 21px;
   position: relative;
