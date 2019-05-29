@@ -13,6 +13,18 @@ export function amPm(date: Date): string {
     .toLowerCase();
 }
 
+export function focusOnFirstError(component: any): void {
+  component.$nextTick(() => { // focus on first invalid field
+    for (const ref in component.$refs) {
+      const el: HTMLElement = component.$refs[ref] as HTMLElement;
+      if (el.className.includes('is-invalid')) {
+        el.focus();
+        break;
+      }
+    }
+  });
+}
+
 export function fullDate(date: Date): string {
   const thisDate = new Date(date);
   const options: any = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
