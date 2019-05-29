@@ -1,10 +1,11 @@
 <template lang='pug'>
-b-form(@submit.prevent='onSubmit', novalidate, autocomplete='on', v-if='show')
-  b-input-group
-    b-form-input(id='subscriberEmail', v-model='subscriber.email', type='email', placeholder='Email address for newsletter', autocomplete='email', maxlength='80', ref='subscriber', aria-describedby='subscriberEmailFeedback', :class='{ "is-invalid": subscriptionSubmitted && $v.subscriber.email.$error }')
-    b-input-group-append
-      b-button(variant='warning', type='submit') Subscribe
-    b-form-invalid-feedback(id='subscriberEmailFeedback', v-if='subscriptionSubmitted && $v.subscriber.email.$invalid') Please provide a valid email address.
+form(@submit.prevent='onSubmit', novalidate, autocomplete='on', v-if='show')
+  .input-group
+    input.form-control(id='subscriberEmail', v-model='subscriber.email', type='email', placeholder='Email address for newsletter', autocomplete='email', maxlength='80', ref='subscriber', aria-describedby='subscriberEmailFeedback', :class='{ "is-invalid": subscriptionSubmitted && $v.subscriber.email.$error }')
+    .input-group-append
+      button.btn.btn-warning(type='submit') Subscribe
+  .invalid-feedback#subscriberEmailFeedback Please provide a valid email address.
+  //- Known Bootstrap bug - can't put invalid feedback in input group or button is square
 </template>
 
 <script lang="ts">

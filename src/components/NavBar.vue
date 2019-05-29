@@ -15,7 +15,7 @@
         b-nav-item(to='/cart', v-if='count > 0')
           fa(icon='shopping-cart')
           | &nbsp;Cart 
-          b-badge.badge-pill(variant='warning') {{ count }}
+          span.badge.badge-pill.badge-warning {{ count }}
         b-nav-item(to='/admin', v-if='user.loggedIn && user.role == "admin"') Admin
         b-nav-item(to='/shynet', v-if='user.loggedIn && user.role != "student"') SHYnet
       b-navbar-nav.ml-auto

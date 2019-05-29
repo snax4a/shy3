@@ -3,11 +3,11 @@
   h1 Yoga Classes in Pittsburgh
   p
     b Pittsburgh Yoga Schools
-  b-button-group.studios
-    b-button(variant='primary', :href='`#location${location._id}`', v-for='location in locations', :key='location._id') {{ location.name }}
+  .btn-group.studios
+    a.btn.btn-primary(:href='`#location${location._id}`', v-for='location in locations', :key='location._id') {{ location.name }}
   .studio(v-for='studio in schedule')
     h2.studio
-      b-link(:id='`location${studio.locationId}`', :to='`/locations#location${studio.locationId}`') 
+      router-link(:id='`location${studio.locationId}`', :to='`/locations#location${studio.locationId}`') 
         fa(icon='map-marker-alt') 
         | &nbsp;{{ studio.location }}
     .day(v-for='day in studio.days')
@@ -19,17 +19,17 @@
               AddToCalendar(label=false, :title='yogaClass.title', :description='yogaClass.description', :location='yogaClass.location', :starts='yogaClass.startTime', :ends='yogaClass.endTime', weekly='true')
               | {{ amPm(yogaClass.startTime) }}-{{ amPm(yogaClass.endTime) }}
           td.col-4
-            b-link(v-b-modal='"classModal"', @click='sendToModal(yogaClass)') {{ yogaClass.title }} 
+            a(v-b-modal='"classModal"', href='#', @click='sendToModal(yogaClass)') {{ yogaClass.title }} 
             span(v-if='yogaClass.canceled === true') (Canceled)
           td.col-4
-            b-link(v-b-modal='"teacherModal"', @click='sendToModal(yogaClass)') {{ yogaClass.teacherFirstName }} {{ yogaClass.teacherLastName }}
+            a(v-b-modal='"teacherModal"', href='#', @click='sendToModal(yogaClass)') {{ yogaClass.teacherFirstName }} {{ yogaClass.teacherLastName }}
   b-modal(id='classModal', :title='modalRecord.title', ok-only=true)
     p {{ modalRecord.description }}
   b-modal(id='teacherModal', :title='`${modalRecord.teacherFirstName} ${modalRecord.teacherLastName}`', ok-only=true)
     .col-6
-      b-img(v-if='modalRecord.teacherImageId', :src='`https://www.schoolhouseyoga.com/api/file/${modalRecord.teacherImageId}`', :alt='`${modalRecord.teacherFirstName} ${modalRecord.teacherLastName}`', fluid-grow, left=true)
+      img.float-left.img-fluid(v-if='modalRecord.teacherImageId', :src='`https://www.schoolhouseyoga.com/api/file/${modalRecord.teacherImageId}`', :alt='`${modalRecord.teacherFirstName} ${modalRecord.teacherLastName}`')
     p {{ modalRecord.teacherBio }}
-    b-link(v-if='modalRecord.teacherUrl', target='_blank', :href='modalRecord.teacherUrl') Visit {{ modalRecord.teacherFirstName }}'s website.
+    a(v-if='modalRecord.teacherUrl', target='_blank', :href='modalRecord.teacherUrl') Visit {{ modalRecord.teacherFirstName }}'s website.
 </template>
 
 <script lang="ts">

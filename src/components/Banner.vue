@@ -5,21 +5,21 @@
       .class-passes
         h2 Class Passes
         h3 Treat yourself
-        b-button-group
-          b-button(variant='warning', @click='addItem(4)', alt='Fifteen class pass') 15
-          b-button(variant='warning', @click='addItem(2)', alt='Five class pass') 5
-          b-button(variant='warning', @click='addItem(1)', alt='One class pass') 1
+        .btn-group
+          button.btn.btn-warning(@click='addItem(4)', alt='Fifteen class pass') 15
+          button.btn.btn-warning(@click='addItem(2)', alt='Five class pass') 5
+          button.btn.btn-warning(@click='addItem(1)', alt='One class pass') 1
       .d-none.d-sm-block
         h2 Teacher Training
         h3 Spread the love
-        b-button(variant='warning', to='/teachertraining', alt='Yoga Teacher Training (in full)') More info
+        router-link.btn.btn-warning(to='/teachertraining', alt='Yoga Teacher Training (in full)') More info
       .d-none.d-md-block
         h2 Gift Cards
         h3 The gift of good health
-        b-button-group
-          b-button(variant='warning', @click='addItem(8)', alt='Gift card - Fifteen classes') 15
-          b-button(variant='warning', @click='addItem(6)', alt='Gift card - Five classes') 5
-          b-button(variant='warning', @click='addItem(5)', alt='Gift card - One class') 1
+        .btn-group
+          button.btn.btn-warning(@click='addItem(8)', alt='Gift card - Fifteen classes') 15
+          button.btn.btn-warning(@click='addItem(6)', alt='Gift card - Five classes') 5
+          button.btn.btn-warning(@click='addItem(5)', alt='Gift card - One class') 1
 </template>
 
 <script lang="ts">

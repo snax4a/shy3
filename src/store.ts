@@ -15,7 +15,7 @@ async function clientTokenGet(): Promise<string> {
 export const store: Store = Vue.observable({
   announcementSections: [],
   cart: {
-    applePayEnabled: true,
+    applePayEnabled: false,
     braintreeError: '',
     count: 0,
     items: [],

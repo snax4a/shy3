@@ -1,35 +1,33 @@
 import Vue from 'vue';
 import Vuelidate from 'vuelidate';
 // import axios from 'axios';
+// import BootstrapVue from 'bootstrap-vue';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faShoppingCart, faPhone, faMapMarkerAlt,
-  faEnvelope, faCalendarAlt, faUser, faLock, faVoteYea } from '@fortawesome/free-solid-svg-icons';
+  faEnvelope, faCalendarAlt, faUser, faLock } from '@fortawesome/free-solid-svg-icons';
 import { faCalendarPlus, faTrashAlt, faCreditCard } from '@fortawesome/free-regular-svg-icons';
 import { faTwitter, faFacebookF, faInstagram, faYoutube,
   faGoogle, faApple, faWindows } from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
-// import BootstrapVue from 'bootstrap-vue';
-import Badge from 'bootstrap-vue/es/components/badge';
-import Button from 'bootstrap-vue/es/components/button';
-import ButtonGroup from 'bootstrap-vue/es/components/button-group';
 import Carousel from 'bootstrap-vue/es/components/carousel';
 import Collapse from 'bootstrap-vue/es/components/collapse';
 import Dropdown from 'bootstrap-vue/es/components/dropdown';
-import Form from 'bootstrap-vue/es/components/form';
-import FormInput from 'bootstrap-vue/es/components/form-input';
-import FormCheckbox from 'bootstrap-vue/es/components/form-checkbox';
-import FormGroup from 'bootstrap-vue/es/components/form-group';
-import FormRadio from 'bootstrap-vue/es/components/form-radio';
-import FormTextarea from 'bootstrap-vue/es/components/form-textarea';
-import Image from 'bootstrap-vue/es/components/image';
-import InputGroup from 'bootstrap-vue/es/components/input-group';
-import Link from 'bootstrap-vue/es/components/link';
 import Modal from 'bootstrap-vue/es/components/modal';
 import Nav from 'bootstrap-vue/es/components/nav';
 import NavBar from 'bootstrap-vue/es/components/navbar';
-
+// import Button from 'bootstrap-vue/es/components/button';
+// import ButtonGroup from 'bootstrap-vue/es/components/button-group';
+// import Form from 'bootstrap-vue/es/components/form';
+// import FormTextarea from 'bootstrap-vue/es/components/form-textarea';
+// import FormCheckbox from 'bootstrap-vue/es/components/form-checkbox';
+// import FormGroup from 'bootstrap-vue/es/components/form-group';
+// import FormInput from 'bootstrap-vue/es/components/form-input';
+// import FormRadio from 'bootstrap-vue/es/components/form-radio';
 // import FormSelect from 'bootstrap-vue/es/components/form-select';
+// import Image from 'bootstrap-vue/es/components/image';
+// import InputGroup from 'bootstrap-vue/es/components/input-group';
+// import Link from 'bootstrap-vue/es/components/link';
 // import Pagination from 'bootstrap-vue/es/components/pagination';
 // import Tabs from 'bootstrap-vue/es/components/tabs';
 // import Toast from 'bootstrap-vue/es/components/toast';
@@ -52,28 +50,27 @@ Vue.directive('focus', {
 });
 
 Vue.use(Vuelidate);
+
 // Vue.use(BootstrapVue);
-Vue.use(Badge);
-Vue.use(Button);
-Vue.use(ButtonGroup);
 Vue.use(Carousel);
 Vue.use(Collapse);
 Vue.use(Dropdown);
-Vue.use(Form);
-Vue.use(FormCheckbox);
-Vue.use(FormInput);
-Vue.use(FormGroup);
-Vue.use(FormRadio);
-Vue.use(FormTextarea);
-Vue.use(Image);
-Vue.use(InputGroup);
-Vue.use(Link);
 Vue.use(Modal);
 Vue.use(Nav);
 Vue.use(NavBar);
-
+// Vue.use(Button);
+// Vue.use(ButtonGroup);
+// Vue.use(Form);
+// Vue.use(FormTextarea);
+// Vue.use(FormCheckbox);
+// Vue.use(FormInput);
+// Vue.use(FormGroup);
 // Vue.use(FormSelect);
+// Vue.use(Image);
+// Vue.use(InputGroup);
+// Vue.use(Link);
 // Vue.use(Pagination);
+// Vue.use(FormRadio);
 // Vue.use(Tabs);
 // Vue.use(Toast);
 

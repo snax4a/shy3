@@ -1,7 +1,7 @@
 <template lang='pug'>
 span
-  b-button.paynow(variant='warning', v-if='!applePayEnabled', @click='addItem(product)') Pay Now
-  b-button.apple-pay-button.pull-right(v-if='applePayEnabled', @click='applePayBuyItem(product)')
+  button.btn.btn-warning.paynow(v-if='!applePayEnabled', @click='addItem(product)') Pay Now
+  button.btn.btn-warning.apple-pay-button.pull-right(v-if='applePayEnabled', @click='applePayBuyItem(product)')
 </template>
 
 <script lang="ts">

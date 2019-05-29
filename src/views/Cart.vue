@@ -3,7 +3,7 @@
   h1 Shopping Cart
   .row
     .col-md-6
-      b-form(novalidate='')
+      form(novalidate='')
         .card
           .card-header {{ count > 0 ? count : 'No' }} items in your cart
           .card-body
@@ -25,10 +25,10 @@
                     strong Total&nbsp;&nbsp;${{ total }}
                   td &nbsp;
           .card-footer.d-flex.justify-content-between
-            b-button(variant='primary', @click='$router.go(-1)') Keep Shopping
-            b-button(variant='warning', @click='$refs.cc.click()', :disabled='count == 0') Checkout »
+            button.btn.btn-primary(@click='$router.go(-1)') Keep Shopping
+            button.btn.btn-warning(@click='$refs.cc.click()', :disabled='count == 0') Checkout »
     .col-md-6
-      b-form(@submit.prevent='onSubmit', novalidate, autocomplete='on')
+      form(@submit.prevent='onSubmit', novalidate='', autocomplete='on')
         .card
           .card-header Payment Info
           .card-body
@@ -63,55 +63,77 @@
                       fa(icon='lock')
                 small(v-if='paymentSubmitted && hostedFieldsState.cvv && hostedFieldsState.cvv.isInvalid').has-error.has-error Please provide a valid card security code.
             .row
-              b-form-group.col-xs-12.col-sm-6(:label='`${order.gift ? "Purchaser" : "Student"}\'s first name`', label-for='purchaserFirstName')
+              .form-group.col-xs-12.col-sm-6
+                label(for='purchaserFirstName') {{ order.gift ? "Purchaser" : "Student" }} first name
                 input.form-control(v-model='order.purchaser.firstName', type='text', id='purchaserFirstName', ref='purchaserFirstName', placeholder='First name', autocomplete='cc-given-name', maxlength='20', aria-describedby='purchaserFirstNameFeedback', :class='{ "is-invalid": paymentSubmitted && $v.order.purchaser.firstName.$error }')
-                b-form-invalid-feedback(id='purchaserFirstNameFeedback', v-if='paymentSubmitted && $v.order.purchaser.firstName.$invalid') This is a required field.
-              b-form-group.col-xs-12.col-sm-6(label='Last name', label-for='purchaserLastName')
+                .invalid-feedback#purchaserFirstNameFeedback This is a required field.
+              .form-group.col-xs-12.col-sm-6
+                label(for='purchaserLastName') Last name
                 input.form-control(v-model='order.purchaser.lastName', type='text', id='purchaserLastName', ref='purchaserLastName', placeholder='Last name', autocomplete='cc-family-name', maxlength='20', aria-describedby='purchaserLastNameFeedback', :class='{ "is-invalid": paymentSubmitted && $v.order.purchaser.lastName.$error }')
-                b-form-invalid-feedback(id='purchaserLastNameFeedback', v-if='paymentSubmitted && $v.order.purchaser.lastName.$invalid') This is a required field.
+                .invalid-feedback#purchaserLastNameFeedback This is a required field.
             .row
-              b-form-group.col-xs-12.col-sm-7(label='Email', label-for='purchaserEmail')
+              .form-group.col-xs-12.col-sm-7
+                label(for='purchaserEmail') Email
                 input.form-control(v-model='order.purchaser.email', type='email', id='purchaserEmail', ref='purchaserEmail', placeholder='Email address', autocomplete='email', maxlength='80', aria-describedby='purchaserEmailFeedback', :class='{ "is-invalid": paymentSubmitted && $v.order.purchaser.email.$error }')
-                b-form-invalid-feedback(id='purchaserEmailFeedback', v-if='paymentSubmitted && $v.order.purchaser.email.$invalid') Please provide a valid email address.
-              b-form-group.col-xs-12.col-sm-5(label='Phone', label-for='purchaserPhone')
+                .invalid-feedback#purchaserEmailFeedback Please provide a valid email address.
+              .form-group.col-xs-12.col-sm-5
+                label(for='purchaserPhone') Phone
                 input.form-control(v-model='order.purchaser.phone', type='tel', id='purchaserPhone', ref='purchaserPhone', placeholder='Phone', autocomplete='tel-national', maxlength='23', aria-describedby='purchaserPhoneFeedback', :class='{ "is-invalid": paymentSubmitted && $v.order.purchaser.phone.$error }')
-                b-form-invalid-feedback(id='purchaserPhoneFeedback', v-if='paymentSubmitted && $v.order.purchaser.phone.$invalid') Please provide a phone number.
-            b-form-group(label='Instructions', label-for='instructions')
+                .invalid-feedback#purchaserPhoneFeedback Please provide a phone number.
+            .form-group
+              label(for='instructions') Instructions
               textarea.form-control(v-model='order.instructions', id='instructions', rows='2', cols='20', placeholder='Instructions for this purchase')
-            b-form-checkbox(v-model='order.gift') This is a gift
+            .form-group.form-check
+              label
+                input.form-check-input(type='checkbox', v-model='order.gift')
+                | This is a gift
             fieldset(v-if='order.gift')
               .row.mt-2
-                b-form-group.col-xs-12.col-sm-6(label='Student\'s first name', label-for='recipientFirstName')
+                .form-group.col-xs-12.col-sm-6
+                  label(for='recipientFirstName') Student's first name
                   input.form-control(v-model='order.recipient.firstName', v-focus, type='text', id='recipientFirstName', ref='recipientFirstName', placeholder='First name', autocomplete='given-name', maxlength='20', aria-describedby='recipientFirstNameFeedback', :class='{ "is-invalid": paymentSubmitted && $v.order.recipient.firstName.$error }')
-                  b-form-invalid-feedback(id='recipientFirstNameFeedback', v-if='paymentSubmitted && $v.order.recipient.firstName.$invalid') Please provide the recipient's first name
-                b-form-group.col-xs-12.col-sm-6(label='Last name', label-for='recipientLastName')
+                  .invalid-feedback#recipientFirstNameFeedback Please provide the recipient&apos;s first name
+                .form-group.col-xs-12.col-sm-6
+                  label(for='recipientLastName') Last name
                   input.form-control(v-model='order.recipient.lastName', type='text', id='recipientLastName', ref='recipientLastName', placeholder='Last name', autocomplete='family-name', maxlength='20', aria-describedby='recipientLastNameFeedback', :class='{ "is-invalid": paymentSubmitted && $v.order.recipient.lastName.$error }')
-                  b-form-invalid-feedback(id='recipientLastNameFeedback', v-if='paymentSubmitted && $v.order.recipient.lastName.$invalid') Please provide the recipient's last name
+                  .invalid-feedback#recipientLastNameFeedback Please provide the recipient&apos;s last name
               .row
-                b-form-group.col-xs-12.col-sm-7(label='Email', label-for='recipientEmail')
+                .form-group.col-xs-12.col-sm-7
+                  label(for='recipientEmail') Email
                   input.form-control(v-model='order.recipient.email', id='recipientEmail', ref='recipientEmail', type='email', maxlength='80', placeholder="Recipient's email address", autocomplete='email', aria-describedby='recipientEmailFeedback', :class='{ "is-invalid": paymentSubmitted && $v.order.recipient.email.$error }')
-                  b-form-invalid-feedback(id='recipientEmailFeedback', v-if='paymentSubmitted && $v.order.recipient.email.$invalid') Please supply a valid email address for the recipient.
-                b-form-group.col-xs-12.col-sm-5(label='Phone', label-for='recipientPhone')
-                  b-form-input(v-model='order.recipient.phone', id='recipientPhone', ref='recipientPhone', type='tel', maxlength='14', placeholder="Recipient's phone", autocomplete='tel-national', aria-describedby='recipientPhoneFeedback', :class='{ "is-invalid": paymentSubmitted && $v.order.recipient.phone.$error }')
-                  b-form-invalid-feedback(id='recipientPhoneFeedback', v-if='paymentSubmitted && $v.order.recipient.phone.$invalid') Please supply a valid phone number for the recipient.
+                  .invalid-feedback#recipientEmailFeedback Please supply a valid email address for the recipient.
+                .form-group.col-xs-12.col-sm-5
+                  label(for='recipientPhone') Phone
+                  input.form-control(v-model='order.recipient.phone', id='recipientPhone', ref='recipientPhone', type='tel', maxlength='14', placeholder="Recipient's phone", autocomplete='tel-national', aria-describedby='recipientPhoneFeedback', :class='{ "is-invalid": paymentSubmitted && $v.order.recipient.phone.$error }')
+                  .invalid-feedback#recipientPhoneFeedback Please supply a valid phone number for the recipient.
               .row
-                b-form-group.col-12(label='Street address', label-for='recipientAddress')
+                .form-group.col-12
+                  label(for='recipientAddress') Street address
                   input.form-control(v-model='order.recipient.address', id='recipientAddress', ref='recipientAddress', type='text', maxlength='255', placeholder='Recipient\'s street address', autocomplete='street-address', aria-describedby='recipientAddressFeedback', :class='{ "is-invalid": paymentSubmitted && $v.order.recipient.address.$error }')
-                  b-form-invalid-feedback(id='recipientAddressFeedback', v-if='paymentSubmitted && $v.order.recipient.address.$invalid') Please provide the student&apos;s street address.
+                  .invalid-feedback#recipientAddressFeedback Please provide the student&apos;s street address.
               .row
-                b-form-group.col-xs-12.col-sm-7(label='City', label-for='recipientCity')
+                .form-group.col-xs-12.col-sm-7
+                  label(for='recipientCity') City
                   input.form-control(v-model='order.recipient.city', id='recipientCity', ref='recipientCity', type='text', maxlength='20', placeholder='City', autocomplete='address-level2', aria-describedby='recipientCityFeedback', :class='{ "is-invalid": paymentSubmitted && $v.order.recipient.city.$error }')
-                  b-form-invalid-feedback(id='recipientCityFeedback', v-if='paymentSubmitted && $v.order.recipient.city.$invalid') Please provide the student&apos;s city.
-                b-form-group.col-xs-12.col-sm-5(label='State', label-for='recipientState')
+                  .invalid-feedback#recipientCityFeedback Please provide the student&apos;s city.
+                .form-group.col-xs-12.col-sm-5
+                  label(for='recipientState') State
                   input.form-control(v-model='order.recipient.state', id='recipientState', ref='recipientState', type='text', maxlength='2', placeholder='State', autocomplete='address-level1', aria-describedby='recipientStateFeedback', :class='{ "is-invalid": paymentSubmitted && $v.order.recipient.state.$error }')
-                  b-form-invalid-feedback(id='recipientStateFeedback', v-if='paymentSubmitted && $v.order.recipient.state.$invalid') Please provide the student&apos;s state.
+                  .invalid-feedback(id='recipientStateFeedback', v-if='paymentSubmitted && $v.order.recipient.state.$invalid') Please provide the student&apos;s state.
               .row
-                b-form-group.col-xs-12.col-sm-5(label='ZIP code', label-for='recipientZipCode')
+                .form-group.col-xs-12.col-sm-5
+                  label(for='recipientZipCode') ZIP code
                   input.form-control(v-model='order.recipient.zipCode', id='recipientZipCode', ref='recipientZipCode', type='text', maxlength='10', placeholder='ZIP code', autocomplete='postal-code', aria-describedby='recipientZipCodeFeedback', :class='{ "is-invalid": paymentSubmitted && $v.order.recipient.zipCode.$error }')
-                  b-form-invalid-feedback(id='recipientZipCodeFeedback', v-if='paymentSubmitted && $v.order.recipient.zipCode.$invalid') Please provide the student&apos;s ZIP code.
-              b-form-group(label='Send gift card via')
-                b-form-radio(v-model='order.sendVia', value='Email') Email
-                b-form-radio(v-model='order.sendVia', value='Mail') Mail
+                  .invalid-feedback(id='recipientZipCodeFeedback', v-if='paymentSubmitted && $v.order.recipient.zipCode.$invalid') Please provide the student&apos;s ZIP code.
+              p.mb-0 Send gift card via
+                .form-check.form-check-inline
+                  label
+                    input.form-check-input(type='radio', v-model='order.sendVia', value='Email')
+                    | Email
+                .form-check.form-check-inline
+                  label
+                    input.form-check-input(type='radio', v-model='order.sendVia', value='Mail')
+                    | Mail
             p.mt-2.mb-0 Class cards and workshop purchases are non-refundable. Class cards expire one year from their purchase date.
           .card-footer
             .row
@@ -119,7 +141,7 @@
                 .has-error(v-if='count > 1') Warning: you are purchasing {{ count }} items. If you intended to purchase less, please adjust the quantity above.
                 .has-error(v-if='count === 0') Warning: There are no items in your cart. Please add some items then place your order.
               .col-sm-4.col-xs-5.text-right
-                b-button(variant='warning', type='submit', :disabled='count == 0') Place Order
+                button.btn.btn-warning(type='submit', :disabled='count == 0') Place Order
 </template>
 
 <script lang="ts">
@@ -127,6 +149,7 @@ import { Component, Prop, Vue } from 'vue-property-decorator';
 import { required, email } from 'vuelidate/lib/validators';
 import { store, mutations } from '@/store';
 import { Item, Order, SendVia } from '@/types';
+import { focusOnFirstError } from '@/utils';
 import CartItem from '@/components/CartItem.vue';
 import braintree from '@/services/Braintree';
 
@@ -281,15 +304,7 @@ export default class Cart extends Vue {
   private onSubmit(): void {
     this.paymentSubmitted = true;
     this.$v.order.$touch();
-    this.$nextTick(() => { // focus on first invalid field
-      for (const ref in this.$refs) {
-        const el: HTMLElement = this.$refs[ref] as HTMLElement;
-        if (el.className.includes('is-invalid')) {
-          el.focus();
-          break;
-        }
-      }
-    });
+    focusOnFirstError(this);
 
     if (this.$v.order.$invalid || this.hostedFieldsState.isInvalid) {
       return;

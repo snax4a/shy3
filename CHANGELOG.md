@@ -1,4 +1,6 @@
 # Product Backlog
+* [Bug] Checkout button on /cart clears form
+* [High] Set ApplePay status in store.ts based on braintree check
 * [High] Implement checkout process with Hosted Fields
 * [High] Implement confirmation
 * [High] Build User using Vue.observable
@@ -11,6 +13,7 @@
 * [Medium] Route handler for /login and /cart/add/1
 
 <a name="1.0.0"></a>
+* Removed unnecessary BootstrapVue components
 * Added Login view for Vue Router Guards
 * Added Hosted Fields and validation
 * Moved axios requests to created() from mounted() to improve load time

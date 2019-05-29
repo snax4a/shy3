@@ -6,14 +6,14 @@ b-dropdown(text='Login', variant='outline-primary', right='', @shown='focusEmail
   b-dropdown-header.text-center or
   b-dropdown-divider
   b-dropdown-form.login(@submit.prevent='loginSubmit', novalidate='', autocomplete='on')
-    b-form-group(label='Email', label-for='userEmail')
-      b-form-input(v-model.trim='login.email', id='userEmail', type='email', placeholder='email@example.com', autocomplete='email', maxlength='80', ref='email', aria-describedby='userEmailFeedback', :class='{ "is-invalid": loginSubmitted && $v.login.email.$error }')
-      b-form-invalid-feedback(id='userEmailFeedback', v-if='loginSubmitted && $v.login.email.$invalid') Please provide a valid email address.
-    b-form-group(label='Password', label-for='password')
-      b-form-input(v-model='login.password', id='password', type='password', autocomplete='current-password', maxlength='20', ref='password', placeholder='Password', aria-describedby='userPasswordFeedback', :class='{ "is-invalid": loginSubmitted && $v.login.password.$error }')
-      b-form-invalid-feedback(id='userPasswordFeedback', v-if='loginSubmitted && $v.login.password.$invalid') Please enter your password.
+    .form-group(label='Email', label-for='userEmail')
+      input.form-control(v-model.trim='login.email', id='userEmail', type='email', placeholder='email@example.com', autocomplete='email', maxlength='80', ref='email', aria-describedby='userEmailFeedback', :class='{ "is-invalid": loginSubmitted && $v.login.email.$error }')
+      .invalid-feedback#userEmailFeedback Please provide a valid email address.
+    .form-group(label='Password', label-for='password')
+      input.form-control(v-model='login.password', id='password', type='password', autocomplete='current-password', maxlength='20', ref='password', placeholder='Password', aria-describedby='userPasswordFeedback', :class='{ "is-invalid": loginSubmitted && $v.login.password.$error }')
+      .invalid-feedback#userPasswordFeedback Please enter your password.
     .text-right
-      b-button(variant='warning', type='submit') Login
+      button.btn.btn-warning.btn-lg(type='submit') Login
   b-dropdown-divider
   b-dropdown-item-button Forgot Password?
   b-dropdown-item(to='/signup') Sign up

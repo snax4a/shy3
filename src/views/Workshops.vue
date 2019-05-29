@@ -6,7 +6,7 @@
       NewsletterSubscribe(show='true')
   .row.workshop(v-for='workshop in workshops')
     .col-md-5
-      b-img.workshop-photo(:src='`https://www.schoolhouseyoga.com/api/file/${workshop.imageId}`', alt='Yoga workshop photo', fluid-grow, left=true)
+      img.float-left.img-fluid.workshop-photo(:src='`https://www.schoolhouseyoga.com/api/file/${workshop.imageId}`', alt='Yoga workshop photo')
     .col-md-7
       a(:id='`workshop${workshop._id}`')
       h4 {{ workshop.title }}
@@ -22,7 +22,7 @@
         | &nbsp;&nbsp;|&nbsp;&nbsp; ${{ section.price }}
         PayNow.float-right(:product='section.productId')
         br
-        b-link(:to='`/locations#location${section.locationId}`') {{ section.location }} 
+        router-link(:to='`/locations#location${section.locationId}`') {{ section.location }} 
         span(v-if='!section.hideDate') &nbsp;&nbsp;
           AddToCalendar(:title='workshop.title', :description='workshop.description', :location='section.location', :starts='section.starts', :ends='section.ends', weekly=false, label='false')
         script(type='application/ld+json').
