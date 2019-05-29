@@ -11,6 +11,7 @@
 * [Medium] Route handler for /login and /cart/add/1
 
 <a name="1.0.0"></a>
+* Added Login view for Vue Router Guards
 * Added Hosted Fields and validation
 * Moved axios requests to created() from mounted() to improve load time
 * [Bug] store.ts:cartAdd() uses decimals for item.price, item.total and cart.total
