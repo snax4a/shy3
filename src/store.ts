@@ -24,6 +24,7 @@ export const store: Store = Vue.observable({
   classes: [],
   client: clientTokenGet(), // Promise to Braintree client token
   currentUser: {
+    token: localStorage.getItem('user-token') || '',
     firstName: 'Guest',
     lastName: 'User',
     email: '',
@@ -112,6 +113,30 @@ export const mutations = {
     if (store.schedule.length === 0) {
       const { data } = await Api().get('/api/schedule');
       store.schedule = nest(data);
+    }
+  },
+  async tokenSet(): Promise<void> {
+    try {
+      const email = store.currentUser.email;
+      const password = store.currentUser.password;
+      const { data } = await Api().post('/auth/local', { email, password });
+      // store.currentUser = {
+      //   token: data.token,
+      //   role: data.role,
+      //   loggedIn: true,
+      //   firstName: data.firstName,
+      //   lastName: data.lastName,
+      //   provider: data.provider
+      // };
+      store.currentUser.token = data.token;
+      store.currentUser.role = data.role;
+      store.currentUser.loggedIn = true;
+      localStorage.setItem('user-token', store.currentUser.token);
+    } catch (e) {
+      store.currentUser.token = '';
+      store.currentUser.loggedIn = false;
+      store.currentUser.role = Role.Student;
+      localStorage.removeItem('user-token');
     }
   },
   async workshopsSet(): Promise<void> {
