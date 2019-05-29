@@ -10,7 +10,7 @@ b-dropdown(text='Login', variant='outline-primary', right='', @shown='focusEmail
       b-form-input(v-model.trim='login.email', id='userEmail', type='email', placeholder='email@example.com', autocomplete='email', maxlength='80', ref='email', aria-describedby='userEmailFeedback', :class='{ "is-invalid": loginSubmitted && $v.login.email.$error }')
       b-form-invalid-feedback(id='userEmailFeedback', v-if='loginSubmitted && $v.login.email.$invalid') Please provide a valid email address.
     b-form-group(label='Password', label-for='password')
-      b-form-input(v-model='login.password', id='password', type='password', autocomplete='current-password', maxlength='20', placeholder='Password', aria-describedby='userPasswordFeedback', :class='{ "is-invalid": loginSubmitted && $v.login.password.$error }')
+      b-form-input(v-model='login.password', id='password', type='password', autocomplete='current-password', maxlength='20', ref='password', placeholder='Password', aria-describedby='userPasswordFeedback', :class='{ "is-invalid": loginSubmitted && $v.login.password.$error }')
       b-form-invalid-feedback(id='userPasswordFeedback', v-if='loginSubmitted && $v.login.password.$invalid') Please enter your password.
     .text-right
       b-button(variant='warning', type='submit') Login
@@ -20,9 +20,10 @@ b-dropdown(text='Login', variant='outline-primary', right='', @shown='focusEmail
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from 'vue-property-decorator';
+import { Component, Vue } from 'vue-property-decorator';
 import { required, email } from 'vuelidate/lib/validators';
 import GoogleLogin from '@/components/GoogleLogin.vue';
+import { focusOnFirstError } from '@/utils';
 
 @Component({
   components: {
@@ -36,7 +37,7 @@ import GoogleLogin from '@/components/GoogleLogin.vue';
   }
 })
 
-export default class Login extends Vue {
+export default class LoginDropdown extends Vue {
   private login: any = {
     email: '',
     password: ''
@@ -52,6 +53,7 @@ export default class Login extends Vue {
   private loginSubmit(e: any) {
     this.loginSubmitted = true;
     this.$v.login.$touch();
+    focusOnFirstError(this);
     if (this.$v.login.$invalid) {
       return;
     }

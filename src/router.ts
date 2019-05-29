@@ -10,6 +10,7 @@ import Terms from '@/views/Terms.vue';
 import Locations from '@/views/Locations.vue';
 import TeacherTraining from '@/views/TeacherTraining.vue';
 import Signup from '@/views/Signup.vue';
+import Login from '@/views/Login.vue';
 // import Admin from '@/views/Admin.vue';
 // import SHYnet from '@/views/SHYnet.vue';
 
@@ -48,6 +49,11 @@ export default new Router({
       path: '/locations',
       name: 'locations',
       component: Locations
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: Login
     },
     {
       path: '/privacy',

@@ -19,7 +19,7 @@
         b-nav-item(to='/admin', v-if='user.loggedIn && user.role == "admin"') Admin
         b-nav-item(to='/shynet', v-if='user.loggedIn && user.role != "student"') SHYnet
       b-navbar-nav.ml-auto
-        Login(v-if='!user.loggedIn')
+        LoginDropdown(v-if='!user.loggedIn')
         b-nav-item-dropdown(right='', v-if='user.loggedIn')
           template(slot='button-content')
             fa(icon='user')
@@ -33,12 +33,12 @@
 import { Component, Vue, Prop } from 'vue-property-decorator';
 import { store, mutations } from '@/store';
 import Contact from '@/components/Contact.vue';
-import Login from '@/components/Login.vue';
+import LoginDropdown from '@/components/LoginDropdown.vue';
 
 @Component({
   components: {
     Contact,
-    Login
+    LoginDropdown
   }
 })
 
