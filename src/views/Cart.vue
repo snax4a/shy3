@@ -25,8 +25,8 @@
                     strong Total&nbsp;&nbsp;${{ total }}
                   td &nbsp;
           .card-footer.d-flex.justify-content-between
-            button.btn.btn-primary(@click='$router.go(-1)') Keep Shopping
-            button.btn.btn-warning(@click='$refs.cc.click()', :disabled='count == 0') Checkout »
+            button.btn.btn-primary(type='button', @click='$router.go(-1)') Keep Shopping
+            a.btn.btn-warning(href='#', @click='$refs.cc.click()', :disabled='count == 0') Checkout »
     .col-md-6
       form(@submit.prevent='onSubmit', novalidate='', autocomplete='on')
         .card

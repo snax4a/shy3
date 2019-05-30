@@ -1,5 +1,4 @@
 # Product Backlog
-* [Bug] Checkout button on /cart clears form
 * [High] Set ApplePay status in store.ts based on braintree check
 * [High] Implement checkout process with Hosted Fields
 * [High] Implement confirmation
@@ -13,6 +12,8 @@
 * [Medium] Route handler for /login and /cart/add/1
 
 <a name="1.0.0"></a>
+* [Bug] Keep Shopping button on /cart doesn't go back on Safari (works on Chrome)
+* Fixed Checkout button on /cart
 * Removed unnecessary BootstrapVue components
 * Added Login view for Vue Router Guards
 * Added Hosted Fields and validation
