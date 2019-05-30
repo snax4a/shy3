@@ -1,5 +1,5 @@
 <template lang='pug'>
-b-dropdown(text='Login', variant='outline-primary', right='', @shown='focusEmail')
+b-dropdown(text='Login', variant='outline-primary', ref='login', right='', @shown='focusEmail')
   br
   .text-center
     GoogleLogin
@@ -24,6 +24,7 @@ import { Component, Vue } from 'vue-property-decorator';
 import { required, email } from 'vuelidate/lib/validators';
 import GoogleLogin from '@/components/GoogleLogin.vue';
 import { focusOnFirstError } from '@/utils';
+import { BDropdown } from 'bootstrap-vue/es';
 
 @Component({
   components: {
@@ -45,12 +46,17 @@ export default class LoginDropdown extends Vue {
 
   private loginSubmitted: boolean = false;
 
-  private focusEmail(e: any) {
+  public loginShow(e: any): void {
+    const loginDropdown = this.$refs.login as BDropdown;
+    loginDropdown.show();
+  }
+
+  private focusEmail(e: any): void {
     const theField = this.$refs.email as HTMLElement;
     theField.focus();
   }
 
-  private loginSubmit(e: any) {
+  private loginSubmit(e: any): void {
     this.loginSubmitted = true;
     this.$v.login.$touch();
     focusOnFirstError(this);
