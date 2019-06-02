@@ -1,7 +1,6 @@
 import Vue from 'vue';
 import Vuelidate from 'vuelidate';
 // import axios from 'axios';
-// import BootstrapVue from 'bootstrap-vue';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faShoppingCart, faPhone, faMapMarkerAlt,
   faEnvelope, faCalendarAlt, faUser, faLock } from '@fortawesome/free-solid-svg-icons';
@@ -10,28 +9,17 @@ import { faTwitter, faFacebookF, faInstagram, faYoutube,
   faGoogle, faApple, faWindows } from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
-import Carousel from 'bootstrap-vue/es/components/carousel';
-import Collapse from 'bootstrap-vue/es/components/collapse';
-import Dropdown from 'bootstrap-vue/es/components/dropdown';
-import Modal from 'bootstrap-vue/es/components/modal';
-import Nav from 'bootstrap-vue/es/components/nav';
-import NavBar from 'bootstrap-vue/es/components/navbar';
-import Pagination from 'bootstrap-vue/es/components/pagination';
-import Tabs from 'bootstrap-vue/es/components/tabs';
-import Toast from 'bootstrap-vue/es/components/toast';
-// import Button from 'bootstrap-vue/es/components/button';
-// import ButtonGroup from 'bootstrap-vue/es/components/button-group';
-// import Form from 'bootstrap-vue/es/components/form';
-// import FormTextarea from 'bootstrap-vue/es/components/form-textarea';
-// import FormCheckbox from 'bootstrap-vue/es/components/form-checkbox';
-// import FormGroup from 'bootstrap-vue/es/components/form-group';
-// import FormInput from 'bootstrap-vue/es/components/form-input';
-// import FormRadio from 'bootstrap-vue/es/components/form-radio';
-// import FormSelect from 'bootstrap-vue/es/components/form-select';
-// import Image from 'bootstrap-vue/es/components/image';
-// import InputGroup from 'bootstrap-vue/es/components/input-group';
-// import Link from 'bootstrap-vue/es/components/link';
-
+// import BootstrapVue from 'bootstrap-vue';
+// import { BCarousel, BCollapse, BDropdown, BModal, BNav, BNavbar, BPagination, BTabs, BToast } from 'bootstrap-vue/esm';
+import BCarousel from 'bootstrap-vue/esm/components/carousel';
+import BCollapse from 'bootstrap-vue/esm/components/collapse';
+import BDropdown from 'bootstrap-vue/esm/components/dropdown';
+import BModal from 'bootstrap-vue/esm/components/modal';
+import BNav from 'bootstrap-vue/esm/components/nav';
+import BNavbar from 'bootstrap-vue/esm/components/navbar';
+import BPagination from 'bootstrap-vue/esm/components/pagination';
+import BTabs from 'bootstrap-vue/esm/components/tabs';
+import BToast from 'bootstrap-vue/esm/components/toast';
 
 import App from './App.vue';
 import router from './router';
@@ -53,30 +41,15 @@ Vue.directive('focus', {
 Vue.use(Vuelidate);
 
 // Vue.use(BootstrapVue);
-Vue.use(Carousel);
-Vue.use(Collapse);
-Vue.use(Dropdown);
-Vue.use(Modal);
-Vue.use(Nav);
-Vue.use(NavBar);
-Vue.use(Pagination);
-Vue.use(Tabs);
-Vue.use(Toast);
-// Vue.use(Button);
-// Vue.use(ButtonGroup);
-// Vue.use(Form);
-// Vue.use(FormTextarea);
-// Vue.use(FormCheckbox);
-// Vue.use(FormInput);
-// Vue.use(FormGroup);
-// Vue.use(FormSelect);
-// Vue.use(Image);
-// Vue.use(InputGroup);
-// Vue.use(Link);
-// Vue.use(Pagination);
-// Vue.use(FormRadio);
-// Vue.use(Tabs);
-// Vue.use(Toast);
+Vue.use(BCarousel);
+Vue.use(BCollapse);
+Vue.use(BDropdown);
+Vue.use(BModal);
+Vue.use(BNav);
+Vue.use(BNavbar);
+Vue.use(BPagination);
+Vue.use(BTabs);
+Vue.use(BToast);
 
 Vue.config.productionTip = false;
 // Vue.prototype.$http = axios; // if I ever want to add $http to the Vue instance
