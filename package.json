@@ -32,7 +32,7 @@
     "vue": "^2.6.10",
     "vue-class-component": "^7.1.0",
     "vue-property-decorator": "^8.2.1",
-    "vue-router": "^3.0.6",
+    "vue-router": "^3.0.7",
     "vuelidate": "^0.7.4",
     "webpack-bundle-analyzer": "^3.3.2"
   },
@@ -46,17 +46,17 @@
     "@types/jest": "^24.0.15",
     "@types/vue": "^2.0.0",
     "@types/vuelidate": "^0.7.5",
-    "@vue/cli-plugin-e2e-cypress": "^3.8.0",
-    "@vue/cli-plugin-pwa": "^3.8.0",
-    "@vue/cli-plugin-typescript": "^3.8.1",
-    "@vue/cli-plugin-unit-jest": "^3.8.0",
-    "@vue/cli-service": "^3.8.4",
+    "@vue/cli-plugin-e2e-cypress": "^3.9.0",
+    "@vue/cli-plugin-pwa": "^3.9.0",
+    "@vue/cli-plugin-typescript": "^3.9.0",
+    "@vue/cli-plugin-unit-jest": "^3.9.0",
+    "@vue/cli-service": "^3.9.0",
     "@vue/test-utils": "1.0.0-beta.29",
     "fibers": "^4.0.1",
     "glob-all": "^3.1.0",
     "path": "^0.12.7",
     "purgecss-webpack-plugin": "^1.5.0",
-    "sass": "^1.22.2",
+    "sass": "^1.22.3",
     "sass-loader": "^7.1.0",
     "ts-jest": "^24.0.2",
     "typescript": "^3.5.2",
@@ -65,7 +65,7 @@
   },
   "engines": {
     "node": "~10.16.0",
-    "npm": "~6.9.2"
+    "npm": "~6.10.0"
   },
   "postcss": {
     "plugins": {
