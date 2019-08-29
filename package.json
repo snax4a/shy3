@@ -43,7 +43,6 @@
     "@fortawesome/vue-fontawesome": "^0.1.6",
     "@types/braintree-web": "^3.47.0",
     "@types/jest": "^24.0.18",
-    "@types/vue": "^2.0.0",
     "@types/vuelidate": "^0.7.7",
     "@types/bootstrap": "4.1.0",
     "@types/chart.js": "2.7.15",
