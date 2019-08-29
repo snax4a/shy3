@@ -59,7 +59,7 @@ import { required, email, sameAs } from 'vuelidate/lib/validators';
   }
 })
 export default class Profile extends Vue {
-  submit(): void {
+  private submit(): void {
     alert('submitted');
   }
 }
