@@ -42,7 +42,7 @@ VERSION:2.0
 PRODID:-//Schoolhouse Yoga, Inc.//Website//EN
 BEGIN:VEVENT
 UID:${Math.random().toString(36).substr(2)}
-DTSTAMP:${format(new Date(), 'YYYYMMDDTHHmmss')}
+DTSTAMP:${format(new Date(), "yyyyMMdd'T'HHmmss")}
 DTSTART:${this.iCalUTC(this.starts)}
 DTEND:${this.iCalUTC(this.ends)}${this.weekly ? '\nRRULE:FREQ=WEEKLY;WKST=SU' : ''}
 SUMMARY:${this.iCalText(this.title, 250)}
@@ -59,8 +59,9 @@ END:VCALENDAR`);
     /* tslint:enable */
   }
 
-  private iCalUTC(isoDate: string): string {
-    const formattedUTCDate: string = format(isoDate, 'YYYYMMDDTHHmmss');
+  private iCalUTC(iso8601String: string): string {
+    const isoDate: Date = new Date(iso8601String);
+    const formattedUTCDate: string = format(isoDate, "yyyyMMdd'T'HHmmss");
     return formattedUTCDate;
   }
 
