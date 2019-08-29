@@ -61,7 +61,7 @@ END:VCALENDAR`);
 
   private iCalUTC(iso8601String: string): string {
     const isoDate: Date = new Date(iso8601String);
-    const formattedUTCDate: string = format(isoDate, "yyyyMMdd'T'HHmmss");
+    const formattedUTCDate: string = format(isoDate, `yyyyMMdd'T'HHmmss`);
     return formattedUTCDate;
   }
 
