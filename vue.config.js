@@ -1,4 +1,4 @@
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+// const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const PurgecssPlugin = require('purgecss-webpack-plugin');
 const glob = require('glob-all');
 const path = require('path');
@@ -43,8 +43,8 @@ module.exports = {
 
   css: {
     loaderOptions: {
-      sass: {
-        data: '\n          @import "@/scss/variables.scss";\n        '
+      scss: {
+        data: '@import "@/scss/variables.scss";'
       }
     }
   },
