@@ -9,17 +9,7 @@ import { faTwitter, faFacebookF, faInstagram, faYoutube,
   faGoogle, faApple, faWindows } from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
-// import BootstrapVue from 'bootstrap-vue';
-// import { BCarousel, BCollapse, BDropdown, BModal, BNav, BNavbar, BPagination, BTabs, BToast } from 'bootstrap-vue/esm';
-import BCarousel from 'bootstrap-vue/esm/components/carousel';
-import BCollapse from 'bootstrap-vue/esm/components/collapse';
-import BDropdown from 'bootstrap-vue/esm/components/dropdown';
-import BModal from 'bootstrap-vue/esm/components/modal';
-import BNav from 'bootstrap-vue/esm/components/nav';
-import BNavbar from 'bootstrap-vue/esm/components/navbar';
-import BPagination from 'bootstrap-vue/esm/components/pagination';
-import BTabs from 'bootstrap-vue/esm/components/tabs';
-import BToast from 'bootstrap-vue/esm/components/toast';
+import { NavbarPlugin, ModalPlugin, CarouselPlugin, TabsPlugin, PaginationPlugin, ToastPlugin } from 'bootstrap-vue';
 
 import App from './App.vue';
 import router from './router';
@@ -40,16 +30,12 @@ Vue.directive('focus', {
 
 Vue.use(Vuelidate);
 
-// Vue.use(BootstrapVue);
-Vue.use(BCarousel);
-Vue.use(BCollapse);
-Vue.use(BDropdown);
-Vue.use(BModal);
-Vue.use(BNav);
-Vue.use(BNavbar);
-Vue.use(BPagination);
-Vue.use(BTabs);
-Vue.use(BToast);
+Vue.use(NavbarPlugin); // Includes NavPlugin, DrodownPlugin, CollapsePlugin
+Vue.use(ModalPlugin);
+Vue.use(CarouselPlugin);
+Vue.use(TabsPlugin);
+Vue.use(PaginationPlugin);
+Vue.use(ToastPlugin);
 
 Vue.config.productionTip = false;
 // Vue.prototype.$http = axios; // if I ever want to add $http to the Vue instance
